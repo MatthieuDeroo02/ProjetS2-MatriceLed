@@ -5,6 +5,8 @@
 #define MATRICE_SIZE_X 32
 #define MATRICE_SIZE_Y 8
 
+#define STATE 1
+
 
 class MatriceLed{
 public:
