@@ -8,7 +8,7 @@ void setup() {
 }
 
 void loop() {
-  enfer.SetLed();
+  enfer.SetLed(x, y, state);
   enfer.Show();
 
 }
