@@ -14,5 +14,8 @@ public:
 protected:
 
 private:
+    void SetCLK();
+    void CLKState(bool state);
+    void UploadLigne();
     uint8_t __MatriceLed[MATRICE_SIZE_X] = {0};
 };
