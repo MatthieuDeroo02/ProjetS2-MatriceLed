@@ -14,5 +14,5 @@ public:
 protected:
 
 private:
-    uint8_t __MatriceLed[MATRICE_SIZE_X];
+    uint8_t __MatriceLed[MATRICE_SIZE_X] = {0};
 };
