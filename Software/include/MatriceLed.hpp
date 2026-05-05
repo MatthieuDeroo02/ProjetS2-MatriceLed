@@ -8,9 +8,9 @@
 
 class MatriceLed{
 public:
-    void begin();
+    void begin(); // Initialise les ports
     void SetLed();
-    void Show();
+    void Show(); // Met a jour la matrice
 private:
     uint8_t __MatriceLed[MATRICE_SIZE_X];
 };
