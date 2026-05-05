@@ -8,7 +8,7 @@ void setup() {
 }
 
 void loop() {
-  enfer.SetLed(x, y, state);
+  enfer.SetLed(MATRICE_SIZE_X, MATRICE_SIZE_Y, STATE);
   enfer.Show();
 
 }
