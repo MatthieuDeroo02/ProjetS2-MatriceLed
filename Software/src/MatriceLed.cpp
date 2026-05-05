@@ -1,11 +1,14 @@
 #include "MatriceLed.hpp"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 void begin(){
     
 }
 
 =======
+=======
+>>>>>>> bc872a596428c563df099aef7b17ab572fe72a81
 void MatriceLed::begin(){
     Serial.begin(9600);
     DDRC = 0x0F;
