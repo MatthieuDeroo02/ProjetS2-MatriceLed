@@ -29,6 +29,16 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 #define CLK_DEFAULT_FREQUENCY 200000
 #define CLK_MAX_FREQUENCY 1000000
 #define E9 1000000000 // 10^9
+#define TIMER1_RESOLUTION 0xFFFF // Timer1 -> 16Bits
+#define CPU_CLK 16000000000 // Clock interne a 16 MHz
+
+#define TIMER1_CTC_OCR1A_COMPARE 4
+
+#define TIMER1_PRESCALER_1 1
+#define TIMER1_PRESCALER_8 2
+#define TIMER1_PRESCALER_64 3
+#define TIMER1_PRESCALER_256 4
+#define TIMER1_PRESCALER_1024 5
 
 
 #define STATE 1
@@ -47,7 +57,6 @@ protected:
 
 private:
     void InitCLK();
-    void SetCLK();
     void CLKState(bool state);
     void UploadLigne();
     uint8_t __MatriceLed[MATRICE_SIZE_X] = {0};
