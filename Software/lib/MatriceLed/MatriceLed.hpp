@@ -65,19 +65,3 @@ private:
     uint16_t __MatriceLigneUpdatePeriod_NS = (E9/MATRICE_DEFAULT_FREQUENCY)/8;
     uint16_t __CLKFrequency = MATRICE_DEFAULT_FREQUENCY*8*32;
 };
-
-
-
-
-
-int g_velo;
-bool JeremStar(bool jerem){
-    jerem = jerem || g_velo;
-    return jerem;
-}
-int grenoble = 160;
-void Chambery (int Destination, int distance, int temps){
-    Destination = grenoble;
-    distance = 180;
-    temps = Destination * 2 + distance;
-}
