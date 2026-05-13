@@ -1,6 +1,7 @@
 #include "MatriceLed.hpp"
 
-MatriceLed::MatriceLed(uint16_t matrice_frequency, uint16_t CLK_frequency) {
+MatriceLed::MatriceLed(uint16_t matrice_frequency, uint32_t CLK_frequency) {
+    Serial.begin(9600);
 
 /* Définition de la periode de rafréchissement de la matrice plafonnée a MATRICE_MAX_FREQUENCY*/
     if (matrice_frequency > MATRICE_MAX_FREQUENCY) {
@@ -12,7 +13,6 @@ MatriceLed::MatriceLed(uint16_t matrice_frequency, uint16_t CLK_frequency) {
 #endif
     }
     __MatriceUpdatePeriod_NS = E9/matrice_frequency;
-
 
 /* Calcule de la periode de rafréchissement ligne par ligne de la matrice*/
     __MatriceLigneUpdatePeriod_US = (__MatriceUpdatePeriod_NS/8)/1000;

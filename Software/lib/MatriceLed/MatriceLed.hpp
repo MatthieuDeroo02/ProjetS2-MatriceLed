@@ -24,11 +24,12 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
         250 Hz                              2 KHz                           64 KHz          Excellent camera OK
         500 Hz                              4 KHz                          128 KHz          Limite atteinte, charge CPU elevée
 */
-#define MATRICE_DEFAULT_FREQUENCY 256
+#define MATRICE_DEFAULT_FREQUENCY 250
 #define MATRICE_MAX_FREQUENCY 500
 #define CLK_DEFAULT_FREQUENCY 200000
 #define CLK_MAX_FREQUENCY 1000000
 #define E9 1000000000 // 10^9
+#define E6 1000000 // 10^6
 #define TIMER1_RESOLUTION 0xFFFF // Timer1 -> 16Bits
 #define CPU_CLK 16000000000 // Clock interne a 16 MHz
 
@@ -47,18 +48,17 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 
 class MatriceLed{
 public:
-    MatriceLed(uint16_t matrice_frequency, uint16_t CLK_frequency);
+    MatriceLed(uint16_t matrice_frequency, uint32_t CLK_frequency);
 
     void begin(); // Initialise les ports
     void SetLed(uint8_t x, uint8_t y, bool state);
-    void Show(); // Met a jour la matrice
     
 protected:
 
 private:
     void InitCLK();
     void InitLigneCLK();
-    void UploadLigne();
+
 
     uint8_t __MatriceLed[MATRICE_SIZE_X] = {0};
     uint32_t __MatriceUpdatePeriod_NS = E9/MATRICE_DEFAULT_FREQUENCY; 

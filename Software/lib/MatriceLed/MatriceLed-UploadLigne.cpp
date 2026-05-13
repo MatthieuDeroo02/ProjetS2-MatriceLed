@@ -1,8 +1,4 @@
-#include "MatriceLed.hpp" 
-
-void MatriceLed::UploadLigne() {
-
-}
+#include "MatriceLed.hpp"
 
 void MatriceLed::InitLigneCLK() {
     noInterrupts();
@@ -11,26 +7,31 @@ void MatriceLed::InitLigneCLK() {
     TCCR0A = (TIMER1_CTC_OCR1A_COMPARE & 0b11);
     TCCR0B = ((TIMER1_CTC_OCR1A_COMPARE & 0b1100) << 1);
 
-    uint8_t prescaler;
     if (__MatriceLigneUpdatePeriod_US < 16)  {
         TCCR0B |= TIMER1_PRESCALER_1;
-        OCR0A = __MatriceLigneUpdatePeriod_US/(CPU_CLK / 1);
+        OCR0A = __MatriceLigneUpdatePeriod_US/(1/16.0);
     } else if (__MatriceLigneUpdatePeriod_US < 128) {
         TCCR0B |= TIMER1_PRESCALER_8;
-        OCR0A = __MatriceLigneUpdatePeriod_US/(CPU_CLK / 8);
+        OCR0A = __MatriceLigneUpdatePeriod_US/(8/16.0);
     } else if (__MatriceLigneUpdatePeriod_US < 1024) {
         TCCR0B |= TIMER1_PRESCALER_64;
-        OCR0A = __MatriceLigneUpdatePeriod_US/(CPU_CLK / 64); 
+        OCR0A = __MatriceLigneUpdatePeriod_US/(64/16.0); 
     } else if (__MatriceLigneUpdatePeriod_US < 4095) {
         TCCR0B |= TIMER1_PRESCALER_256;
-        OCR0A = __MatriceLigneUpdatePeriod_US/(CPU_CLK / 256); 
+        OCR0A = __MatriceLigneUpdatePeriod_US/(256/16.0); 
     } else {
         TCCR0B |= TIMER1_PRESCALER_1024;
-        OCR0A = __MatriceLigneUpdatePeriod_US/(CPU_CLK / 1024);
+        OCR0A = __MatriceLigneUpdatePeriod_US/(1024/16.0);
     }
 
 /* Declare l'interuption sur le debordement du timer0 */
     TIMSK0 = (OCIE1A << 1);
 
     interrupts();
+}
+
+
+ISR(TIMER0_COMPA_vect) {
+    PORTD ^= (1<<PD5);
+    //Serial.println(PIND);
 }
