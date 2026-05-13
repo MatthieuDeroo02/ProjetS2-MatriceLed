@@ -1,14 +1,12 @@
 #include <Arduino.h>
 #include "MatriceLed.hpp"
 
-MatriceLed enfer;
+MatriceLed matrice;
 
 void setup() {
-  enfer.begin();
+  DDRD = (1<<PD5) | (1<<PD4);
+  matrice.begin();
 }
 
 void loop() {
-  enfer.SetLed(MATRICE_SIZE_X, MATRICE_SIZE_Y, STATE);
-  enfer.Show();
-
 }
