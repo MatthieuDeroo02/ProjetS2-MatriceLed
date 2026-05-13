@@ -37,3 +37,10 @@ void GenerateBufferLed() {
         data_buffer[i] = (Matrice.__MatriceLed[i] & masque) == masque;
     }
 }
+
+void ShowLigne() {
+    /* Allume la ligne */
+
+    /* Allume les colonne */
+
+}
