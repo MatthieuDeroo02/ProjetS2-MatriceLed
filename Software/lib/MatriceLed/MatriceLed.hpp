@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Arduino.h>
+#include "asciiLed.hpp"
 
 
 /* Matrice LED dimension ( *=LED )
