@@ -50,7 +50,9 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 
 volatile uint8_t data_index = 0;
 volatile bool data_buffer[32] = {0};
+volatile uint8_t ligneInProcesse = 0;
 
+MatriceLed Matrice;
 
 class MatriceLed{
 public:
@@ -63,6 +65,7 @@ private:
     void InitCLK();
     void InitLigneCLK();
 
+    friend void GenerateBufferLed();
 
     uint8_t __MatriceLed[MATRICE_SIZE_X] = {0};
     uint32_t __MatriceUpdatePeriod_US = 4000; // 250Hz -> 4ms periode
