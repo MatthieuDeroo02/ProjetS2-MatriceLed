@@ -4,6 +4,6 @@ void MatriceLed::UploadLigne() {
     
 }
 
-void MatriceLed::Show() {
-
+void MatriceLed::InitLigneCLK() {
+    
 }

@@ -18,4 +18,6 @@ void MatriceLed::InitCLK() {
     Serial.print((62.5*OCR1A));
     Serial.println("µS");
 #endif
+    
+    interrupts();
 }

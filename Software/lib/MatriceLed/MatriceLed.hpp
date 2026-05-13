@@ -57,6 +57,7 @@ protected:
 
 private:
     void InitCLK();
+    void InitLigneCLK();
     void UploadLigne();
 
     uint8_t __MatriceLed[MATRICE_SIZE_X] = {0};
