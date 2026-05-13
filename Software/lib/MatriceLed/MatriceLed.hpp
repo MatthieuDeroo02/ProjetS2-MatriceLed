@@ -46,6 +46,11 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 #define STATE 1
 #define DEBUG 1
 
+#define DATA_PIN PD3
+
+volatile uint8_t data_index = 0;
+volatile bool data_buffer[32] = {0};
+
 
 class MatriceLed{
 public:
