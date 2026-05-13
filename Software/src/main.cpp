@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "MatriceLed.hpp"
 
-MatriceLed matrice(500, 50000);
+MatriceLed matrice;
 
 void setup() {
   DDRD = (1<<5);

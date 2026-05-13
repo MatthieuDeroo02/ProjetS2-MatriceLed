@@ -4,25 +4,11 @@ void MatriceLed::InitLigneCLK() {
     noInterrupts();
 
 /* Initialise le timer0 en mode CTC avec 1 comparateur*/
-    TCCR0A = (TIMER1_CTC_OCR1A_COMPARE & 0b11);
-    TCCR0B = ((TIMER1_CTC_OCR1A_COMPARE & 0b1100) << 1);
+    TCCR0A = (TIMER0_CTC_OCRA_COMPARE & 0b11);
+    TCCR0B = ((TIMER0_CTC_OCRA_COMPARE & 0b1100) << 1) | TIMER1_PRESCALER_64;
 
-    if (__MatriceLigneUpdatePeriod_US < 16)  {
-        TCCR0B |= TIMER1_PRESCALER_1;
-        OCR0A = __MatriceLigneUpdatePeriod_US/(1/16.0);
-    } else if (__MatriceLigneUpdatePeriod_US < 128) {
-        TCCR0B |= TIMER1_PRESCALER_8;
-        OCR0A = __MatriceLigneUpdatePeriod_US/(8/16.0);
-    } else if (__MatriceLigneUpdatePeriod_US < 1024) {
-        TCCR0B |= TIMER1_PRESCALER_64;
-        OCR0A = __MatriceLigneUpdatePeriod_US/(64/16.0); 
-    } else if (__MatriceLigneUpdatePeriod_US < 4095) {
-        TCCR0B |= TIMER1_PRESCALER_256;
-        OCR0A = __MatriceLigneUpdatePeriod_US/(256/16.0); 
-    } else {
-        TCCR0B |= TIMER1_PRESCALER_1024;
-        OCR0A = __MatriceLigneUpdatePeriod_US/(1024/16.0);
-    }
+/* Calcule la valeur de basculement*/
+    OCR0A = 124;
 
 /* Declare l'interuption sur le debordement du timer0 */
     TIMSK0 = (OCIE1A << 1);
