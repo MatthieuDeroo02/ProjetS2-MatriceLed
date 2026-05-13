@@ -62,6 +62,6 @@ private:
 
     uint8_t __MatriceLed[MATRICE_SIZE_X] = {0};
     uint32_t __MatriceUpdatePeriod_NS = E9/MATRICE_DEFAULT_FREQUENCY; 
-    uint16_t __MatriceLigneUpdatePeriod_NS = (E9/MATRICE_DEFAULT_FREQUENCY)/8;
+    uint16_t __MatriceLigneUpdatePeriod_US = (E9/MATRICE_DEFAULT_FREQUENCY)/8;
     uint16_t __CLKFrequency = MATRICE_DEFAULT_FREQUENCY*8*32;
 };

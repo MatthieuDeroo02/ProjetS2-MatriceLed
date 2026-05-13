@@ -15,7 +15,7 @@ MatriceLed::MatriceLed(uint16_t matrice_frequency, uint16_t CLK_frequency) {
 
 
 /* Calcule de la periode de rafréchissement ligne par ligne de la matrice*/
-    __MatriceLigneUpdatePeriod_NS = __MatriceUpdatePeriod_NS/8;
+    __MatriceLigneUpdatePeriod_US = (__MatriceUpdatePeriod_NS/8)/1000;
 
 
 /* Calcule de la frequence de la CLK plafonnée a CLK_MAX_FREQUENCY*/
