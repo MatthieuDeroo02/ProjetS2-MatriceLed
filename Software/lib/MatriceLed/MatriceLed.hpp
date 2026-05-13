@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Arduino.h>
+#include "asciiLed.hpp"
 
 
 /* Matrice LED dimension ( *=LED )
@@ -58,6 +59,8 @@ class MatriceLed{
 public:
     void begin(); // Initialise les ports
     void SetLed(uint8_t x, uint8_t y, bool state);
+
+    void Print(char str[], int8_t x);
     
 protected:
 
