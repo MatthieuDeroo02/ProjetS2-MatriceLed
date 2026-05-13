@@ -8,16 +8,20 @@ void MatriceLed::InitCLK() {
     TCCR1C = 0; // Sert pas ici car force juste la comparaison
 
 /* Calcule la valeur des comparateur*/
-    OCR1A = (CPU_CLK / __CLKFrequency) - 1; // Debordement timer -> clk_Up
-    OCR1B = (OCR1A/2); // Iteruption Intermédiaire -> clk_Down and Update Data
+    OCR1A = 159; // Debordement timer -> clk_Up
+    OCR1B = 79; // Iteruption Intermédiaire -> clk_Down and Update Data
 
-#if DEBUG
-    Serial.print("OCR1A = ");
-    Serial.print(OCR1A);
-    Serial.print("  ->  ");
-    Serial.print((62.5*OCR1A));
-    Serial.println("µS");
-#endif
+/* Delclare les interuption*/
+    TIMSK1 = (1 << OCIE1A) | (1 << OCIE1B);
 
     interrupts();
 }
+
+ISR(TIMER1_COMPA_vect) {
+    PORTD |= (1<<PD5);
+}
+
+ISR(TIMER1_COMPB_vect) {
+    PORTD &= ~(1<<PD5);
+}
+

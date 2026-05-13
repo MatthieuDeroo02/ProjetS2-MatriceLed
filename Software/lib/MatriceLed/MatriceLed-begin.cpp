@@ -7,4 +7,5 @@ void MatriceLed::begin(){
     DDRD = 0x70;*/
 
     InitLigneCLK();
+    InitCLK();
 }

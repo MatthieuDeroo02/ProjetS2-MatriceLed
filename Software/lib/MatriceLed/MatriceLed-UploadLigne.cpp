@@ -11,13 +11,13 @@ void MatriceLed::InitLigneCLK() {
     OCR0A = 124;
 
 /* Declare l'interuption sur le debordement du timer0 */
-    TIMSK0 = (OCIE1A << 1);
+    TIMSK0 = (1 << OCIE0A);
 
     interrupts();
 }
 
 
 ISR(TIMER0_COMPA_vect) {
-    PORTD ^= (1<<PD5);
+    PORTD ^= (1 << PD4);
     //Serial.println(PIND);
 }
