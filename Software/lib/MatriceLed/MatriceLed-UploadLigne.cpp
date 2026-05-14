@@ -19,6 +19,7 @@ void MatriceLed::InitLigneCLK() {
 
 ISR(TIMER0_COMPA_vect) {
     /* Push les donnée sur les leds et affiche*/
+    ShowLigne();
 
     /* Debut du travail sur la ligne suivante */
     ligneInProcesse = (ligneInProcesse+1)%8;
@@ -31,10 +32,11 @@ ISR(TIMER0_COMPA_vect) {
     TIMSK1 = (1 << OCIE1A) | (1 << OCIE1B);
 }
 
+
 void GenerateBufferLed() {
     uint8_t masque = (1 << ligneInProcesse);
     for (uint8_t i=0; i<32; i++) {
-        data_buffer[i] = (Matrice.__MatriceLed[i] & masque) == masque;
+        data_buffer[i] = (Matrice.__MatriceLed[i] & masque) != masque; // Recupere le bit et l'inverse
     }
 }
 

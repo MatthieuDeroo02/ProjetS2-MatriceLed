@@ -1,11 +1,15 @@
 #include "MatriceLed.hpp"
 
 void MatriceLed::begin(){
-    /*
-    Serial.begin(9600);
-    DDRC = 0x0F;
-    DDRD = 0x70;*/
 
+#if DEBUG
+    Serial.begin(9600);
+#endif
+
+    /* Initilaise les Pin GPIO */
+    PinConfig();
+
+    /* Initilaise les differentes clock */
     InitLigneCLK();
     InitCLK();
 }
