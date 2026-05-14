@@ -62,7 +62,13 @@ typedef struct{
 THeures g_heures;
 TDates g_dates;
 
-#define DATA_PIN PD3
+#define DATA_PIN PD5
+#define CLK_PIN PD6
+#define STR_PIN PD4
+#define ALO PC0
+#define AL1 PC1
+#define AL2 PC2
+#define CS1 PC3
 
 volatile uint8_t data_index = 0;
 volatile bool data_buffer[32] = {0};
@@ -83,6 +89,7 @@ private:
     void InitCLK();
     void InitRTC();
     void InitLigneCLK();
+    void PinConfig();
 
     friend void GenerateBufferLed();
     friend void ShowLigne();
