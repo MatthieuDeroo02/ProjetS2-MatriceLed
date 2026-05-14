@@ -47,7 +47,13 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 #define STATE 1
 #define DEBUG 1
 
-#define DATA_PIN PD3
+#define DATA_PIN PD5
+#define CLK_PIN PD6
+#define STR_PIN PD4
+#define ALO PC0
+#define AL1 PC1
+#define AL2 PC2
+#define CS1 PC3
 
 volatile uint8_t data_index = 0;
 volatile bool data_buffer[32] = {0};
@@ -67,6 +73,7 @@ protected:
 private:
     void InitCLK();
     void InitLigneCLK();
+    void PinConfig();
 
     friend void GenerateBufferLed();
     friend void ShowLigne();
