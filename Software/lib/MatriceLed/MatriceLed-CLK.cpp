@@ -19,21 +19,21 @@ void MatriceLed::InitCLK() {
 
 ISR(TIMER1_COMPA_vect) {
     /*Down la Clock*/
-    PORTD |= (1<<PD5);
+    PORTD &= ~(1<<CLK_PIN);
 
     /*Upload data*/
     PORTD |= (PORTD &~(1<<DATA_PIN)) | (data_buffer[data_index] << DATA_PIN);
 
     /*Incremente data_index*/
-    data_index++;
+    data_index--;
 }
 
 ISR(TIMER1_COMPB_vect) {
     /*Up la clock*/
-    PORTD &= ~(1<<DATA_PIN);
+    PORTD |= (1<<CLK_PIN);
 
     /* Si on a finit les 32 bits on arrete l'a clk et data*/
-    if (data_index >= 32) {
+    if (data_index <= 0) {
         TIMSK1 = 0; // Arrete les interuption sur TIMER1
     }
 }
