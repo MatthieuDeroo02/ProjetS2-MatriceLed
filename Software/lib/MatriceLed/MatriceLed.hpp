@@ -54,20 +54,6 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 #define AL1 PC1
 #define AL2 PC2
 #define CS1 PC3
-typedef struct{
-    int hour;
-    int minute;
-    int second;
-}THeures;
-
-typedef struct{
-    int day;
-    int month;
-    int year;
-}TDates;
-
-THeures g_heures;
-TDates g_dates;
 
 #define DATA_PIN PD5
 #define CLK_PIN PD6
