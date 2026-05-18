@@ -23,14 +23,14 @@ void MatriceLed::UpdateRTC(){
 }
 
 /*------Set Heures---------*/
-THeures SetHeures(){
+void SetHeures(){
     g_heures.hour = Time.hour();
     g_heures.minute = Time.minute();
     g_heures.second = Time.second();
 }
 
 /*------Set Dates---------*/
-TDates SetDates(){
+void SetDates(){
     g_dates.day = Time.day();
     g_dates.month = Time.month();
     g_dates.year = Time.year();

@@ -88,8 +88,8 @@ private:
     friend void ShowLigne();
 
     void UpdateRTC();
-    THeures SetHeures();
-    TDates SetDates();
+    void SetHeures();
+    void SetDates();
 
     uint8_t __MatriceLed[MATRICE_SIZE_X] = {0};
     uint32_t __MatriceUpdatePeriod_US = 4000; // 250Hz -> 4ms periode
