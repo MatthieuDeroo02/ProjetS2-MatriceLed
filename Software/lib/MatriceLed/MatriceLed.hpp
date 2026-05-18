@@ -53,7 +53,7 @@ volatile uint8_t data_index = 0;
 volatile bool data_buffer[32] = {0};
 volatile uint8_t ligneInProcesse = 0;
 
-MatriceLed Matrice;
+MatriceLed Matrice;v 
 
 class MatriceLed{
 public:
