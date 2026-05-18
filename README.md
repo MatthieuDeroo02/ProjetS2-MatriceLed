@@ -1,7 +1,9 @@
 # ProjetGEII
 **Materiels**
-Matrice led 8 x 32\n
-Arduino uno\n
-Tiny RTC I2C
+->Matrice led 8 x 32
+
+->Arduino uno
+
+->Tiny RTC I2C
 
 **Goals**
