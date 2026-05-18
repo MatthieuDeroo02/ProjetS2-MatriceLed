@@ -28,6 +28,7 @@ ISR(TIMER0_COMPA_vect) {
     GenerateBufferLed();
 
     /* Rallume les interuption Timer 1 */
+    data_index = MATRICE_SIZE_X-1; // Remet data index a la valeur max
     TCNT1 = 0; // Remet a 0 le timer1 vant de le rallumer
     TIMSK1 = (1 << OCIE1A) | (1 << OCIE1B);
 }
