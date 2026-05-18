@@ -47,17 +47,32 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 #define STATE 1
 #define DEBUG 1
 
+typedef struct{
+    int hour;
+    int minute;
+    int second;
+}THeures;
+
+typedef struct{
+    int day;
+    int month;
+    int year;
+}TDates;
+
+THeures g_heures;
+TDates g_dates;
+
 #define DATA_PIN PD3
 
 volatile uint8_t data_index = 0;
 volatile bool data_buffer[32] = {0};
 volatile uint8_t ligneInProcesse = 0;
 
-MatriceLed Matrice;v 
+MatriceLed Matrice;
 
 class MatriceLed{
 public:
-    void begin(); // Initialise les ports
+    void begin(); // Initialise les port
     void SetLed(uint8_t x, uint8_t y, bool state);
 
     void Print(char str[], int8_t x);
@@ -66,10 +81,15 @@ protected:
 
 private:
     void InitCLK();
+    void InitRTC();
     void InitLigneCLK();
 
     friend void GenerateBufferLed();
     friend void ShowLigne();
+
+    void UpdateRTC();
+    void SetHeures();
+    void SetDates();
 
     uint8_t __MatriceLed[MATRICE_SIZE_X] = {0};
     uint32_t __MatriceUpdatePeriod_US = 4000; // 250Hz -> 4ms periode
