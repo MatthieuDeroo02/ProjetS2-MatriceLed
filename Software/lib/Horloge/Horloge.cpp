@@ -1,5 +1,4 @@
 #include "Horloge.hpp"
-
 #include<MatriceLed.hpp>
 #include<Wire.h>
 #include"RTClib.h"
@@ -18,8 +17,18 @@ void clock::InitRTC(){
     TinyRtc.begin();
     InitPort();
 }
+
 void clock::InitPort(){
     DDRD |= Masque_PD3 |Masque_PD2;
+    PORTD |= Masque_PD2 | Masque_PD3;
+}
+
+
+
+
+void clock::Begin(){
+    Serial.begin(9600);
+    InitRTC();
 }
 
 
@@ -28,19 +37,18 @@ void clock::UpdateRTC(){
     TinyRtc.now();
 }
 
-/*------Set Heures---------*/
 void clock::SetHeures(){
     times.hour = Times.hour();
     times.minute = Times.minute();
     times.second = Times.second();
 }
 
-/*------Set Dates---------*/
 void clock::SetDates(){
     dates.day = Times.day();
     dates.month = Times.month();
     dates.year = Times.year();
 }
+
 
 
 void clock::Afficher_Heures(){
@@ -53,6 +61,9 @@ void clock::Afficher_Heures(){
     }
 }
 
+
+
+
 /*------BP---------*/
 bool clock::BP1_Appuyer(){
     if((PIND & Masque_PD2) == 1){
@@ -62,17 +73,12 @@ bool clock::BP1_Appuyer(){
         return false;
     }
 }
+
 bool clock::BP2_Appuyer(){
-        if((PIND & Masque_PD3) == 0){
-            Serial.println("BP2");
-            return true;
+    if((PIND & Masque_PD3) == 1){
+        return true;
     }
     else{
         return false;
     }
-}
-
-void clock::Begin(){
-    Serial.begin(9600);
-    InitRTC();
 }

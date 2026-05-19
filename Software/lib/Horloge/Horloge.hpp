@@ -1,13 +1,15 @@
-#pragma once
+#ifndef _HORLOGE_LED_
+#define _HORLOGE_LED_
+
 #include <Arduino.h>
 #include <Wire.h>
 #include "RTClib.h"
 
+#define BP1 PD2 
+#define BP2 PD3
+
 #define Masque_PD2 1<<3
 #define Masque_PD3 1<<4
-
-
-
 
 class clock {
 public:
@@ -46,3 +48,5 @@ private:
 };
 
 extern clock myClock;
+
+#endif
