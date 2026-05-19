@@ -12,7 +12,7 @@
 
 #define SERIAL_MONITOR_BAUD 9600
 
-#define DEBUG 0
+#define DEBUG 1
 
 #define Masque_PD2 1<<3
 #define Masque_PD3 1<<4
@@ -20,10 +20,11 @@
 class clock {
 public:
     void Begin();
-    void Afficher_Heures();
+
+    void Updates_Heures();
+    void Updates_Dates();
 
 private:
-    void InitRTC();
     void InitPort();
 
     void UpdateRTC();

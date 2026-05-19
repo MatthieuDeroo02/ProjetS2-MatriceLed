@@ -1,10 +1,9 @@
 #include "Horloge.hpp"
-#include<MatriceLed.hpp>
-#include<Wire.h>
-#include"RTClib.h"
+#include <MatriceLed.hpp>
+#include <Wire.h>
+#include "RTClib.h"
 
 clock myClock;
-
 
 void clock::Begin(){
     #if DEBUG
@@ -22,12 +21,6 @@ void clock::Begin(){
 
 
 /*-----Initialisation des modules I2C---------*/
-void clock::InitRTC(){
-    Wire.begin();
-    TinyRtc.begin();
-    InitPort();
-}
-
 void clock::InitPort(){
     DDRD |= Masque_PD3 |Masque_PD2;
     PORTD |= Masque_PD2 | Masque_PD3;
@@ -36,13 +29,33 @@ void clock::InitPort(){
 
 
 
-void clock::Afficher_Heures(){
+void clock::Updates_Heures(){
     if(BP1_Appuyer()){
         UpdateRTC();
         SetHeures();
-        Serial.println(times.hour);
+        #if DEBUG
+            Serial.print("Heure:"); 
+            Serial.println(times.hour);
+            Serial.print("Minutes:"); 
+            Serial.println(times.minute);
+            Serial.print("Secondes:"); 
+            Serial.println(times.second);
+        #endif
     }
-    else{
+}
+
+void clock::Updates_Dates(){
+    if(BP2_Appuyer()){
+        UpdateRTC();
+        SetDates();
+        #if DEBUG
+            Serial.print("Day:"); 
+            Serial.println(dates.day);
+            Serial.print("Month:"); 
+            Serial.println(dates.month);
+            Serial.print("Year:"); 
+            Serial.println(dates.year);
+        #endif
     }
 }
 

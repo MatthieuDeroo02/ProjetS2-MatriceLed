@@ -17,5 +17,6 @@ void setup() {
 }
 
 void loop() {
-  myClock.Afficher_Heures();
+  myClock.Updates_Heures();
+  myClock.Updates_Dates();
 }
