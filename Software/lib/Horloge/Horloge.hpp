@@ -1,5 +1,5 @@
-#ifndef _HORLOGE_LED_
-#define _HORLOGE_LED_
+#ifndef _HORLOGE_
+#define _HORLOGE_
 
 #include <Arduino.h>
 #include <Wire.h>
