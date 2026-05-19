@@ -74,7 +74,7 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 #define BIT7 7
 
 
-extern volatile uint8_t data_index ;
+extern volatile int8_t data_index ;
 extern volatile bool data_buffer[32];
 extern volatile uint8_t ligneInProcesse;
 
@@ -87,6 +87,9 @@ public:
     void SetLed(uint8_t x, uint8_t y, bool state);
 
     void Print(char str[], int8_t x);
+    void Print(char charactere, int8_t x);
+    void Clear();
+    void AllOn();
     
 protected:
 
