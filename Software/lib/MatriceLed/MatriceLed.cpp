@@ -22,7 +22,7 @@ void MatriceLed::begin(){
     InitCLK();
 
     /* Allume la matrice */
-    PORTC &= ~(1<<CS1_PIN);
+    PORTC |= (1<<CS1_PIN);
 
     /* Met toute les led allumer 1 */
     for (int i=0; i<32; i++) {
@@ -90,7 +90,9 @@ void ShowLigne() {
 
 #if DEBUG
     Serial.print("lp: ");
-    Serial.println(ligneInProcesse);
+    Serial.print(ligneInProcesse);
+    Serial.print("  |   AL: ");
+    Serial.println(PORTC & ((1<<ALO_PIN) | (1<<AL1_PIN) | (1<<AL2_PIN)));
 #endif
 
     /* Envoi les colonne */

@@ -46,7 +46,7 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 
 
 #define STATE 1
-#define DEBUG 1
+#define DEBUG 0
 
 #define DATA_PIN PD5
 #define CLK_PIN PD6
