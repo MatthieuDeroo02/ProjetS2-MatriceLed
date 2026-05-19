@@ -50,14 +50,12 @@ void clock::Afficher_Heures(){
         Serial.println(times.hour);
     }
     else{
-        Serial.println("BP1 non appuyé");
     }
 }
 
 /*------BP---------*/
 bool clock::BP1_Appuyer(){
-    if((PIND & Masque_PD2) == 0){
-        Serial.println("BP1");
+    if((PIND & Masque_PD2) == 1){
         return true;
     }
     else{
@@ -75,5 +73,6 @@ bool clock::BP2_Appuyer(){
 }
 
 void clock::Begin(){
-    InitRTC();  
+    Serial.begin(9600);
+    InitRTC();
 }
