@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _MATRICE_LED_
+#define _MATRICE_LED_
 
 #include <Arduino.h>
 #include "asciiLed.hpp"
@@ -63,11 +64,12 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 #define AL2 PC2
 #define CS1 PC3
 
-volatile uint8_t data_index = 0;
-volatile bool data_buffer[32] = {0};
-volatile uint8_t ligneInProcesse = 0;
+extern volatile uint8_t data_index ;
+extern volatile bool data_buffer[32];
+extern volatile uint8_t ligneInProcesse;
 
-MatriceLed Matrice;
+void GenerateBufferLed();
+void ShowLigne();
 
 class MatriceLed{
 public:
@@ -91,3 +93,7 @@ private:
     uint16_t __MatriceLigneUpdatePeriod_US = 500; // 4000µs / 8lignes -> 500µs par ligne
     uint32_t __CLKFrequency = 100000; // 100KHz horloge data
 };
+
+extern MatriceLed myMatrice;
+
+#endif
