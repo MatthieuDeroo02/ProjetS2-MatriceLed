@@ -3,6 +3,8 @@
 
 void setup() {
   myMatrice.begin();
+
+  
 }
 
 void loop() {

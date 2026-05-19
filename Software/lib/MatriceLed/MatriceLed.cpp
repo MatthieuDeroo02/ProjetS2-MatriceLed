@@ -1,7 +1,7 @@
 #include "MatriceLed.hpp"
 
 volatile uint8_t data_index = 0;
-volatile bool data_buffer[32] = {0};
+volatile bool data_buffer[32] = {1};
 volatile uint8_t ligneInProcesse = 0;
 
 MatriceLed myMatrice;
@@ -20,11 +20,19 @@ void MatriceLed::begin(){
     /* Initilaise les differentes clock */
     InitLigneCLK();
     InitCLK();
+
+    /* Allume la matrice */
+    PORTC |= (1<<CS1_PIN);
+
+    /* Met toute les led allumer 1 */
+    for (int i=0; i<32; i++) {
+        __MatriceLed[i] = 0b11111111; 
+    }
 }
 
 void MatriceLed::PinConfig() {
     DDRD |= (1<<DATA_PIN) | (1<<CLK_PIN) | (1<<STR_PIN);
-    DDRC |= (1<<ALO) | (1<<AL1) | (1<<AL2) | (1<<CS1);
+    DDRC |= (1<<ALO_PIN) | (1<<AL1_PIN) | (1<<AL2_PIN) | (1<<CS1_PIN);
 }
 
 void MatriceLed::InitCLK() {
@@ -39,7 +47,7 @@ void MatriceLed::InitCLK() {
     OCR1B = 70; // Interuption Intermédiaire -> clk_Down and Update Data
 
 /* Delclare les interuption*/
-    TIMSK1 = (1 << OCIE1A) | (1 << OCIE1B);
+    //TIMSK1 = (1 << OCIE1A) | (1 << OCIE1B);
 
     interrupts();
 }
@@ -65,13 +73,30 @@ void GenerateBufferLed() {
     for (uint8_t i=0; i<32; i++) {
         data_buffer[i] = (myMatrice.__MatriceLed[i] & masque) != masque; // Recupere le bit et l'inverse
     }
+#if DEBUG
+    for (int i = 0; i<32; i++) {
+        Serial.print(data_buffer[i]);
+    }
+    Serial.println();
+#endif
+
 }
 
 void ShowLigne() {
-    /* Allume la ligne */
+    /* Envoie la ligne */
+    PORTC = (PORTC &~(1<<ALO_PIN)) | (((ligneInProcesse >> BIT0) & 1) << ALO_PIN);
+    PORTC = (PORTC &~(1<<AL1_PIN)) | (((ligneInProcesse >> BIT1) & 1) << AL1_PIN);
+    PORTC = (PORTC &~(1<<AL2_PIN)) | (((ligneInProcesse >> BIT2) & 1) << AL2_PIN);
 
-    /* Allume les colonne */
+#if DEBUG
+    Serial.print("lp: ");
+    Serial.print(ligneInProcesse);
+    Serial.print("  |   AL: ");
+    Serial.println(PORTC & ((1<<ALO_PIN) | (1<<AL1_PIN) | (1<<AL2_PIN)));
+#endif
 
+    /* Envoi les colonne */
+    PORTD |= (1<<STR_PIN);
 }
 
 void MatriceLed::SetLed(uint8_t x, uint8_t y, bool state) {
@@ -114,6 +139,10 @@ ISR(TIMER1_COMPB_vect) {
     /* Si on a finit les 32 bits on arrete l'a clk et data*/
     if (data_index <= 0) {
         TIMSK1 = 0; // Arrete les interuption sur TIMER1
+        //PORTD &= ~(1<<DATA_PIN);
+#ifdef DEBUG
+        Serial.println("Fin de transmition");
+#endif
     }
 }
 
@@ -127,9 +156,13 @@ ISR(TIMER0_COMPA_vect) {
     /* Genere le buffer pour preparer le prochain affichage */
     GenerateBufferLed();
 
+    /* Remmet a Zero STR pour pas que les valeur nouvelle partubent */
+    PORTD &= ~(1<<STR_PIN);
+
     /* Rallume les interuption Timer 1 */
     data_index = MATRICE_SIZE_X-1; // Remet data index a la valeur max
     TCNT1 = 0; // Remet a 0 le timer1 vant de le rallumer
     TIMSK1 = (1 << OCIE1A) | (1 << OCIE1B);
+    //PORTD |= (1<<DATA_PIN);
 }
 
