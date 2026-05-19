@@ -51,18 +51,28 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 #define DATA_PIN PD5
 #define CLK_PIN PD6
 #define STR_PIN PD4
-#define ALO PC0
-#define AL1 PC1
-#define AL2 PC2
-#define CS1 PC3
+#define ALO_PIN PC0
+#define AL1_PIN PC1
+#define AL2_PIN PC2
+#define CS1_PIN PC3
 
 #define DATA_PIN PD5
 #define CLK_PIN PD6
 #define STR_PIN PD4
-#define ALO PC0
-#define AL1 PC1
-#define AL2 PC2
-#define CS1 PC3
+#define ALO_PIN PC0
+#define AL1_PIN PC1
+#define AL2_PIN PC2
+#define CS1_PIN PC3
+
+#define BIT0 0
+#define BIT1 1
+#define BIT2 2
+#define BIT3 3
+#define BIT4 4
+#define BIT5 5
+#define BIT6 6
+#define BIT7 7
+
 
 extern volatile uint8_t data_index ;
 extern volatile bool data_buffer[32];
@@ -88,7 +98,7 @@ private:
     friend void GenerateBufferLed();
     friend void ShowLigne();
 
-    uint8_t __MatriceLed[MATRICE_SIZE_X] = {0};
+    uint8_t __MatriceLed[MATRICE_SIZE_X] = {0xFF}; //FF for debug
     uint32_t __MatriceUpdatePeriod_US = 4000; // 250Hz -> 4ms periode
     uint16_t __MatriceLigneUpdatePeriod_US = 500; // 4000µs / 8lignes -> 500µs par ligne
     uint32_t __CLKFrequency = 100000; // 100KHz horloge data
