@@ -1,6 +1,6 @@
 #include "MatriceLed.hpp"
 
-volatile uint8_t data_index = 0;
+volatile int8_t data_index = 0;
 volatile bool data_buffer[32] = {1};
 volatile uint8_t ligneInProcesse = 0;
 
@@ -11,7 +11,7 @@ MatriceLed myMatrice;
 void MatriceLed::begin(){
 
 #if DEBUG
-    Serial.begin(9600);
+    Serial.begin(115200);
 #endif
 
     /* Initilaise les Pin GPIO */
@@ -24,10 +24,8 @@ void MatriceLed::begin(){
     /* Allume la matrice */
     PORTC |= (1<<CS1_PIN);
 
-    /* Met toute les led allumer 1 */
-    for (int i=0; i<32; i++) {
-        __MatriceLed[i] = 0b11111111; 
-    }
+    /* Met toute les led allumer 0 */
+    Clear();
 }
 
 void MatriceLed::PinConfig() {
@@ -69,9 +67,9 @@ void MatriceLed::InitLigneCLK() {
 }
 
 void GenerateBufferLed() {
-    uint8_t masque = (1 << ligneInProcesse);
+    //uint8_t masque = (1 << ligneInProcesse);
     for (uint8_t i=0; i<32; i++) {
-        data_buffer[i] = (myMatrice.__MatriceLed[i] & masque) != masque; // Recupere le bit et l'inverse
+        data_buffer[i] = (myMatrice.__MatriceLed[i] >> ligneInProcesse) & 1; // Recupere le bit et l'inverse
     }
 #if DEBUG
     for (int i = 0; i<32; i++) {
@@ -103,6 +101,14 @@ void MatriceLed::SetLed(uint8_t x, uint8_t y, bool state) {
     
 }
 
+void MatriceLed::Print(char charactere, int8_t x) {
+    for (uint8_t i=0; i<5; i++) {
+        if (x>=0) {
+            __MatriceLed[x] = font5x8[charactere - 32][i];
+        }
+        x++;
+    }
+}
 
 void MatriceLed::Print(char str[], int8_t x) {
     /* Calcule la taille du tableau */
@@ -121,12 +127,27 @@ void MatriceLed::Print(char str[], int8_t x) {
 
 }
 
+void MatriceLed::Clear() {
+    for (int i=0; i<32; i++) {
+        __MatriceLed[i] = 0; 
+    }
+}
+
+void MatriceLed::AllOn() {
+    for (int i=0; i<32; i++) {
+        __MatriceLed[i] = 0xFF; 
+    }
+}
+
 ISR(TIMER1_COMPA_vect) {
     /*Down la Clock*/
     PORTD &= ~(1<<CLK_PIN);
 
     /*Upload data*/
-    PORTD |= (PORTD &~(1<<DATA_PIN)) | (data_buffer[data_index] << DATA_PIN);
+    PORTD |= (PORTD & ~(1<<DATA_PIN)) | (data_buffer[data_index] << DATA_PIN);
+#ifdef DEBUG
+    Serial.println(((PIND)>>DATA_PIN) & 1);
+#endif
 
     /*Incremente data_index*/
     data_index--;
