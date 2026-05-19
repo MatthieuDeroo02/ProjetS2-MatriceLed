@@ -15,6 +15,10 @@ void clock::InitRTC(){
     Wire.begin();
     TinyRtc.begin();
 }
+void clock::InitPort(){
+    DDRD |= Masque_PD3 |Masque_PD2;
+}
+
 
 /*------Update Heure---------*/
 void clock::UpdateRTC(){
@@ -23,14 +27,37 @@ void clock::UpdateRTC(){
 
 /*------Set Heures---------*/
 void clock::SetHeures(){
-    time.hour = Time.hour();
-    time.minute = Time.minute();
-    time.second = Time.second();
+    times.hour = Times.hour();
+    times.minute = Times.minute();
+    times.second = Times.second();
 }
 
 /*------Set Dates---------*/
 void clock::SetDates(){
-    date.day = Time.day();
-    date.month = Time.month();
-    date.year = Time.year();
+    dates.day = Times.day();
+    dates.month = Times.month();
+    dates.year = Times.year();
+}
+
+
+void clock::Afficher_Heures(){
+    if(BP1_Appuyer()){
+        UpdateRTC();
+        SetHeures();
+
+    }
+}
+
+/*------BP---------*/
+bool clock::BP1_Appuyer(){
+    if(PORTD &= Masque_PD2){
+        return true;
+    }
+    return false;
+}
+bool clock::BP2_Appuyer(){
+        if(PORTD &= Masque_PD3){
+        return true;
+    }
+    return false;
 }
