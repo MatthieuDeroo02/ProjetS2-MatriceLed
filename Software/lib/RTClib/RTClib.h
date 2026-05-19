@@ -1,3 +1,4 @@
+#pragma once
 // Code by JeeLabs http://news.jeelabs.org/code/
 // Released to the public domain! Enjoy!
 

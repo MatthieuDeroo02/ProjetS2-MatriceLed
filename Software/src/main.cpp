@@ -12,8 +12,11 @@ void setup() {
   myMatrice.Print('L', 12);
   myMatrice.Print('L', 18);
   myMatrice.Print('O', 24);
+
+  myClock.Begin();
 }
 
 void loop() {
-  
+  myClock.Updates_Heures();
+  myClock.Updates_Dates();
 }
