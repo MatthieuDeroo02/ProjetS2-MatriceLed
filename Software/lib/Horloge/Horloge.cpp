@@ -14,25 +14,25 @@ RTC_DS1307 TinyRtc;
 DateTime Time;
 
 /*-----Initialisation des modules I2C---------*/
-void MatriceLed::InitRTC(){
+void clock::InitRTC(){
     Wire.begin();
     TinyRtc.begin();
 }
 
 /*------Update Heure---------*/
-void MatriceLed::UpdateRTC(){
+void clock::UpdateRTC(){
     TinyRtc.now();
 }
 
 /*------Set Heures---------*/
-void SetHeures(){
+void clock::SetHeures(){
     g_heures.hour = Time.hour();
     g_heures.minute = Time.minute();
     g_heures.second = Time.second();
 }
 
 /*------Set Dates---------*/
-void SetDates(){
+void clock::SetDates(){
     g_dates.day = Time.day();
     g_dates.month = Time.month();
     g_dates.year = Time.year();

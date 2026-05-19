@@ -24,6 +24,9 @@ public:
     
 
 private:
-
-}
+    void InitRTC();
+    void UpdateRTC();
+    void SetHeures();
+    void SetDates();
+};
 
