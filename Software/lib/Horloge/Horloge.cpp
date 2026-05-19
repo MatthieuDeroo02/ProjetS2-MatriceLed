@@ -31,8 +31,12 @@ void clock::InitPort(){
 
 void clock::Updates_Heures(){
     if(BP1_Appuyer()){
+        /*---Updates heures+dates---*/
         UpdateRTC();
+
+        /*---Enregistrement Heures---*/
         SetHeures();
+
         #if DEBUG
             Serial.print("Heure:"); 
             Serial.println(times.hour);
@@ -46,8 +50,12 @@ void clock::Updates_Heures(){
 
 void clock::Updates_Dates(){
     if(BP2_Appuyer()){
+        /*---Updates heures+dates---*/
         UpdateRTC();
+
+        /*---Enregistrement Dates---*/
         SetDates();
+        
         #if DEBUG
             Serial.print("Day:"); 
             Serial.println(dates.day);
@@ -87,6 +95,9 @@ void clock::SetDates(){
 /*------BP---------*/
 bool clock::BP1_Appuyer(){
     if((PIND & Masque_PD2) == 1){
+        #if DEBUG
+            Serial.println("BP1 Appuyer");
+        #endif
         return true;
     }
     else{
@@ -96,6 +107,9 @@ bool clock::BP1_Appuyer(){
 
 bool clock::BP2_Appuyer(){
     if((PIND & Masque_PD3) == 1){
+        #if DEBUG
+            Serial.println("BP2 Appuyer");
+        #endif
         return true;
     }
     else{
