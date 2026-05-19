@@ -7,13 +7,12 @@
 #define Masque_PD3 1<<4
 
 
+
+
 class clock {
 public:
     void Begin();
     void Afficher_Heures();
-
-    
-    
 
 private:
     void InitRTC();
@@ -46,3 +45,4 @@ private:
     T_Dates dates;
 };
 
+extern clock myClock;

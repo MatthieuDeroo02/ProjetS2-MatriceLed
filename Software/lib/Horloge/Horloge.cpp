@@ -4,6 +4,8 @@
 #include<Wire.h>
 #include"RTClib.h"
 
+clock myClock;
+
 //SDA -> PC4
 //SCL -> PC5
 //BP1 -> PD2
@@ -42,11 +44,13 @@ void clock::SetDates(){
 
 
 void clock::Afficher_Heures(){
-    InitRTC();
     if(BP1_Appuyer()){
         UpdateRTC();
         SetHeures();
         Serial.println(times.hour);
+    }
+    else{
+        Serial.println("BP1 non appuyé");
     }
 }
 
@@ -68,4 +72,8 @@ bool clock::BP2_Appuyer(){
     else{
         return false;
     }
+}
+
+void clock::Begin(){
+    InitRTC();  
 }
