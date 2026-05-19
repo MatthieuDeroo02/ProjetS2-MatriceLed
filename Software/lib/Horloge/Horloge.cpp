@@ -5,10 +5,20 @@
 
 clock myClock;
 
-//SDA -> PC4
-//SCL -> PC5
-//BP1 -> PD2
-//BP2 -> PD3
+
+void clock::Begin(){
+    #if DEBUG
+        Serial.begin(SERIAL_MONITOR_BAUD);
+    #endif
+        /*---Initialisation liaison I2C---*/
+        Wire.begin();
+
+        /*---Initialisation module Tiny RTC---*/
+        TinyRtc.begin();
+
+        /*---Initialisation Port BP---*/
+        InitPort();
+}
 
 
 /*-----Initialisation des modules I2C---------*/
@@ -26,9 +36,14 @@ void clock::InitPort(){
 
 
 
-void clock::Begin(){
-    Serial.begin(9600);
-    InitRTC();
+void clock::Afficher_Heures(){
+    if(BP1_Appuyer()){
+        UpdateRTC();
+        SetHeures();
+        Serial.println(times.hour);
+    }
+    else{
+    }
 }
 
 
@@ -51,15 +66,7 @@ void clock::SetDates(){
 
 
 
-void clock::Afficher_Heures(){
-    if(BP1_Appuyer()){
-        UpdateRTC();
-        SetHeures();
-        Serial.println(times.hour);
-    }
-    else{
-    }
-}
+
 
 
 

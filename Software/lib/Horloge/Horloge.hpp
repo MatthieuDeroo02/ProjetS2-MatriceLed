@@ -7,6 +7,12 @@
 
 #define BP1 PD2 
 #define BP2 PD3
+#define SDA PC4
+#define SCL PC5
+
+#define SERIAL_MONITOR_BAUD 9600
+
+#define DEBUG 0
 
 #define Masque_PD2 1<<3
 #define Masque_PD3 1<<4
