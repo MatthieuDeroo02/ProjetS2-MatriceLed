@@ -8,13 +8,13 @@ volatile uint32_t nbr_debordement = 0;
 
 MatriceLed myMatrice;
 
-#if DEBUG
+#if DEBUG_LED
     volatile bool debug_data_buffer[32];
 #endif
 
 void MatriceLed::begin(){
 
-#if DEBUG
+#if DEBUG_LED
     Serial.begin(9600);
 #endif
 
@@ -75,7 +75,7 @@ void GenerateBufferLed() {
     for (uint8_t i=0; i<32; i++) {
         data_buffer[i] = ((myMatrice.__MatriceLed[i] >> ligneInProcesse) & 1) ^ 1; // Recupere le bit et l'inverse
     }
-#if DEBUG
+#if DEBUG_LED
     for (int i = 0; i<32; i++) {
         Serial.print(data_buffer[i]);
     }
@@ -90,7 +90,7 @@ void ShowLigne() {
     PORTC = (PORTC &~(1<<AL1_PIN)) | (((ligneInProcesse >> BIT1) & 1) << AL1_PIN);
     PORTC = (PORTC &~(1<<AL2_PIN)) | (((ligneInProcesse >> BIT2) & 1) << AL2_PIN);
 
-#if DEBUG
+#if DEBUG_LED
     Serial.print("lp: ");
     Serial.print(ligneInProcesse);
     Serial.print("  |   AL: ");
@@ -156,7 +156,7 @@ ISR(TIMER1_COMPA_vect) {
     /*Upload data*/
     PORTD = (PORTD & ~(1<<DATA_PIN)) | (data_buffer[data_index] << DATA_PIN);
 
-#if DEBUG
+#if DEBUG_LED
     debug_data_buffer[data_index] = (((PIND)>>DATA_PIN) & 1);
 #endif
 
@@ -172,7 +172,7 @@ ISR(TIMER1_COMPB_vect) {
     if (data_index < 0) {
         TIMSK1 = 0; // Arrete les interuption sur TIMER1
         //PORTD &= ~(1<<DATA_PIN);
-#if DEBUG
+#if DEBUG_LED
         Serial.print("Fin de transmition: ");
         for (int i=0; i<32; i++) {
             Serial.print(debug_data_buffer[i]);
