@@ -119,6 +119,11 @@ bool clock::BP2_Appuyer(){
 
 
 void clock::Init_Heures(){
+    #if DEBUG_LED
+        Serial.println("Init heure");
+        TinyRtc.adjust(DateTime(0, 0, 0, 0, 0, 0));
+    #endif
+
     TinyRtc.adjust(DateTime(
         adjust.year,
         adjust.month,
@@ -126,5 +131,6 @@ void clock::Init_Heures(){
         adjust.hour,
         adjust.minute,
         adjust.second
+        //adjust.dayOfWeek
     ));
 }

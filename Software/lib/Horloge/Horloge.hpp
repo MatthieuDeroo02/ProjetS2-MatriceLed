@@ -13,8 +13,8 @@
 #define YEAR 2026
 #define MONTH 5
 #define DAY 20
-#define HOUR 18
-#define MINUTE 14
+#define HOUR 6
+#define MINUTE 30
 #define SECOND 30
 #define DAY_OF_WEEK 3
 
