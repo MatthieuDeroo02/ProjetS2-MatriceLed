@@ -6,7 +6,7 @@
 clock myClock;
 
 void clock::Begin(){
-    #if DEBUG
+    #if DEBUG_LED
         Serial.begin(SERIAL_MONITOR_BAUD);
     #endif
         /*---Initialisation liaison I2C---*/
@@ -30,22 +30,20 @@ void clock::InitPort(){
 
 
 void clock::Updates_Heures(){
-    if(BP1_Appuyer()){
-        /*---Updates heures+dates---*/
-        UpdateRTC();
+    /*---Updates heures+dates---*/
+    UpdateRTC();
 
-        /*---Enregistrement Heures---*/
-        SetHeures();
+    /*---Enregistrement Heures---*/
+    SetHeures();
 
-        #if DEBUG
-            Serial.print("Heure:"); 
-            Serial.println(times.hour);
-            Serial.print("Minutes:"); 
-            Serial.println(times.minute);
-            Serial.print("Secondes:"); 
-            Serial.println(times.second);
-        #endif
-    }
+    #if DEBUG_LED
+        Serial.print("Heure:"); 
+        Serial.println(times.hour);
+        Serial.print("Minutes:"); 
+        Serial.println(times.minute);
+        Serial.print("Secondes:"); 
+        Serial.println(times.second);
+    #endif
 }
 
 void clock::Updates_Dates(){

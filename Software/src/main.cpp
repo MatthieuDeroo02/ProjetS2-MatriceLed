@@ -4,19 +4,14 @@
 
 void setup() {
   myMatrice.begin();
-  myMatrice.AllOn();
+  //myMatrice.AllOn();
   myMatrice.Clear();
 
-  myMatrice.Print('H', 0);
-  myMatrice.Print('E', 6);
-  myMatrice.Print('L', 12);
-  myMatrice.Print('L', 18);
-  myMatrice.Print('O', 24);
+  //myMatrice.Print("hello\0", 2);
 
   myClock.Begin();
 }
 
 void loop() {
   myClock.Updates_Heures();
-  myClock.Updates_Dates();
 }

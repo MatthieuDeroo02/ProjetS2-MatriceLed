@@ -4,14 +4,18 @@ volatile int8_t data_index = 0;
 volatile bool data_buffer[32] = {1};
 volatile uint8_t ligneInProcesse = 0;
 
+volatile uint32_t nbr_debordement = 0;
+
 MatriceLed myMatrice;
 
-
+#if DEBUG
+    volatile bool debug_data_buffer[32];
+#endif
 
 void MatriceLed::begin(){
 
 #if DEBUG
-    Serial.begin(115200);
+    Serial.begin(9600);
 #endif
 
     /* Initilaise les Pin GPIO */
@@ -69,7 +73,7 @@ void MatriceLed::InitLigneCLK() {
 void GenerateBufferLed() {
     //uint8_t masque = (1 << ligneInProcesse);
     for (uint8_t i=0; i<32; i++) {
-        data_buffer[i] = (myMatrice.__MatriceLed[i] >> ligneInProcesse) & 1; // Recupere le bit et l'inverse
+        data_buffer[i] = ((myMatrice.__MatriceLed[i] >> ligneInProcesse) & 1) ^ 1; // Recupere le bit et l'inverse
     }
 #if DEBUG
     for (int i = 0; i<32; i++) {
@@ -111,9 +115,11 @@ void MatriceLed::Print(char charactere, int8_t x) {
 }
 
 void MatriceLed::Print(char str[], int8_t x) {
-    /* Calcule la taille du tableau */
+    /* Tant que c'est pas le caractere null on affiche le prochain caractere */
     uint8_t str_size = 0;
     while (str[str_size]!='\0') {
+        Print(str[str_size], x);
+        x+=6;
         str_size++;
     }
 
@@ -139,14 +145,19 @@ void MatriceLed::AllOn() {
     }
 }
 
+unsigned long MatriceLed::millis() {
+    return ((nbr_debordement*124+TCNT0)*4)/E3;
+}
+
 ISR(TIMER1_COMPA_vect) {
     /*Down la Clock*/
     PORTD &= ~(1<<CLK_PIN);
 
     /*Upload data*/
-    PORTD |= (PORTD & ~(1<<DATA_PIN)) | (data_buffer[data_index] << DATA_PIN);
-#ifdef DEBUG
-    Serial.println(((PIND)>>DATA_PIN) & 1);
+    PORTD = (PORTD & ~(1<<DATA_PIN)) | (data_buffer[data_index] << DATA_PIN);
+
+#if DEBUG
+    debug_data_buffer[data_index] = (((PIND)>>DATA_PIN) & 1);
 #endif
 
     /*Incremente data_index*/
@@ -158,11 +169,14 @@ ISR(TIMER1_COMPB_vect) {
     PORTD |= (1<<CLK_PIN);
 
     /* Si on a finit les 32 bits on arrete l'a clk et data*/
-    if (data_index <= 0) {
+    if (data_index < 0) {
         TIMSK1 = 0; // Arrete les interuption sur TIMER1
         //PORTD &= ~(1<<DATA_PIN);
-#ifdef DEBUG
-        Serial.println("Fin de transmition");
+#if DEBUG
+        Serial.print("Fin de transmition: ");
+        for (int i=0; i<32; i++) {
+            Serial.print(debug_data_buffer[i]);
+        } Serial.println();
 #endif
     }
 }
@@ -185,5 +199,8 @@ ISR(TIMER0_COMPA_vect) {
     TCNT1 = 0; // Remet a 0 le timer1 vant de le rallumer
     TIMSK1 = (1 << OCIE1A) | (1 << OCIE1B);
     //PORTD |= (1<<DATA_PIN);
+
+    /* Rajoute un debordement pour la fonction millis */
+    nbr_debordement++;
 }
 

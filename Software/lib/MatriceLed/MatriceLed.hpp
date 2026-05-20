@@ -30,8 +30,6 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 #define MATRICE_MAX_FREQUENCY 500
 #define CLK_DEFAULT_FREQUENCY 200000
 #define CLK_MAX_FREQUENCY 1000000
-#define E9 1000000000 // 10^9
-#define E6 1000000 // 10^6
 #define TIMER1_RESOLUTION 0xFFFF // Timer1 -> 16Bits
 #define CPU_CLK 16000000000 // Clock interne a 16 MHz
 
@@ -44,6 +42,9 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 #define TIMER1_PRESCALER_256 4
 #define TIMER1_PRESCALER_1024 5
 
+#define E9 1000000000 // 10^9
+#define E6 1000000 // 10^6
+#define E3 1000 // 10^3
 
 #define STATE 1
 #define DEBUG 0
@@ -78,6 +79,8 @@ extern volatile int8_t data_index ;
 extern volatile bool data_buffer[32];
 extern volatile uint8_t ligneInProcesse;
 
+extern volatile uint32_t nbr_debordement;
+
 void GenerateBufferLed();
 void ShowLigne();
 
@@ -90,9 +93,9 @@ public:
     void Print(char charactere, int8_t x);
     void Clear();
     void AllOn();
+    unsigned long millis();
     
-protected:
-
+    
 private:
     void InitCLK();
     void InitLigneCLK();
