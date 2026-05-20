@@ -10,6 +10,7 @@ void setup() {
   myMatrice.Print("hello\0", 2);
 
   myClock.Begin();
+  myClock.Init_Heures();
 }
 
 void loop() {

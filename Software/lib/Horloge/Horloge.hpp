@@ -10,6 +10,14 @@
 #define SDA PC4
 #define SCL PC5
 
+#define YEAR 2026
+#define MONTH 5
+#define DAY 20
+#define HOUR 18
+#define MINUTE 14
+#define SECOND 30
+#define DAY_OF_WEEK 3
+
 #define SERIAL_MONITOR_BAUD 9600
 
 #define DEBUG_LED 1
@@ -41,9 +49,9 @@ private:
     DateTime Times;
 
     typedef struct{
-    uint8_t hour;
-    uint8_t minute;
-    uint8_t second;
+        uint8_t hour;
+        uint8_t minute;
+        uint8_t second;
     }T_Times;
 
     typedef struct{
@@ -55,15 +63,18 @@ private:
     T_Times times;
     T_Dates dates;
 
+
     typedef struct{
-        uint16_t year;
-        uint8_t month;
-        uint8_t day;
-        uint8_t hour;
-        uint8_t minute;
-        uint8_t second;
-        uint8_t dayOfWeek;
+        uint16_t year = YEAR;
+        uint8_t month = MONTH;
+        uint8_t day = DAY;
+        uint8_t hour = HOUR;
+        uint8_t minute = MINUTE;
+        uint8_t second = SECOND;
+        uint8_t dayOfWeek = DAY_OF_WEEK;
     }TAdjust;
+
+    TAdjust adjust;
 };
 
 extern clock myClock;

@@ -118,6 +118,13 @@ bool clock::BP2_Appuyer(){
 }
 
 
-void Init_Heures(){
-    //TinyRtc.adjust(DateTime& dt);
+void clock::Init_Heures(){
+    TinyRtc.adjust(DateTime(
+        adjust.year,
+        adjust.month,
+        adjust.day,
+        adjust.hour,
+        adjust.minute,
+        adjust.second
+    ));
 }
