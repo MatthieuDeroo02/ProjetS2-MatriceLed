@@ -6,7 +6,7 @@
 clock myClock;
 
 void clock::Begin(){
-    #if DEBUG_LED
+    #if DEBUG_HORLOGE
         Serial.begin(SERIAL_MONITOR_BAUD);
     #endif
         /*---Initialisation liaison I2C---*/
@@ -37,7 +37,7 @@ void clock::Updates_Heures(){
     SetHeures();
 
     if(BP1_Appuyer()){
-        #if DEBUG_LED
+        #if DEBUG_HORLOGE
             Serial.print("Heure:"); 
             Serial.println(times.hour);
             Serial.print("Minutes:"); 
@@ -56,7 +56,7 @@ void clock::Updates_Dates(){
     SetDates();
 
     if(BP2_Appuyer()){
-        #if DEBUG_LED
+        #if DEBUG_HORLOGE
             Serial.print("Day:"); 
             Serial.println(dates.day);
             Serial.print("Month:"); 
@@ -95,7 +95,7 @@ void clock::SetDates(){
 /*------BP---------*/
 bool clock::BP1_Appuyer(){
     if((PIND & Masque_PD2) != 0){
-        #if DEBUG_LED
+        #if DEBUG_HORLOGE
             Serial.println("BP1 Appuyer");
         #endif
         return true;
@@ -107,7 +107,7 @@ bool clock::BP1_Appuyer(){
 
 bool clock::BP2_Appuyer(){
     if((PIND & Masque_PD3) != 0){
-        #if DEBUG_LED
+        #if DEBUG_HORLOGE
             Serial.println("BP2 Appuyer");
         #endif
         return true;
@@ -119,7 +119,7 @@ bool clock::BP2_Appuyer(){
 
 
 void clock::Init_Heures(){
-    #if DEBUG_LED
+    #if DEBUG_HORLOGE
         Serial.println("Init heure");
         TinyRtc.adjust(DateTime(0, 0, 0, 0, 0, 0));
     #endif
