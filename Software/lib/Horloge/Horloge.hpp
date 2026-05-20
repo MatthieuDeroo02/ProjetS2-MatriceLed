@@ -7,9 +7,10 @@
 
 #define BP1 PD2 
 #define BP2 PD3
-#define SDA PC4
-#define SCL PC5
+#define SDA PC4 // I2C
+#define SCL PC5 // I2C
 
+/*--A Definir--*/
 #define YEAR 2026
 #define MONTH 5
 #define DAY 20
