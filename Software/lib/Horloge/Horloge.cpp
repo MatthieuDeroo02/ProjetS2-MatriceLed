@@ -19,12 +19,12 @@ void clock::Begin(){
         InitPort();
 }
 
-
 /*-----Initialisation des modules I2C---------*/
 void clock::InitPort(){
     DDRD |= Masque_PD3 |Masque_PD2;
-    //PORTD |= Masque_PD2 | Masque_PD3;
+    //PORTD |= Masque_PD2 | Masque_PD3; -> serve pas ici car on utilise le pull-down
 }
+
 
 
 
@@ -67,30 +67,22 @@ void clock::Updates_Dates(){
     }
 }
 
-
 /*------Update Heure---------*/
 void clock::UpdateRTC(){
-    TinyRtc.now();
+    TinyRtc.now(); // Update les heures et les dates dans le module RTC
 }
 
 void clock::SetHeures(){
-    times.hour = Times.hour();
-    times.minute = Times.minute();
-    times.second = Times.second();
+    times.hour = Times.hour(); // Update les heures
+    times.minute = Times.minute(); // Update les minutes
+    times.second = Times.second(); // Update les secondes
 }
 
 void clock::SetDates(){
-    dates.day = Times.day();
-    dates.month = Times.month();
-    dates.year = Times.year();
+    dates.day = Times.day(); // Uopdate les jours
+    dates.month = Times.month(); // Update les mois
+    dates.year = Times.year(); // Update les années
 }
-
-
-
-
-
-
-
 
 /*------BP---------*/
 bool clock::BP1_Appuyer(){
@@ -98,10 +90,10 @@ bool clock::BP1_Appuyer(){
         #if DEBUG_HORLOGE
             Serial.println("BP1 Appuyer");
         #endif
-        return true;
+        return true; // BP1 Appuyer
     }
     else{
-        return false;
+        return false; // BP1 Non Appuyer
     }
 }
 
@@ -110,12 +102,15 @@ bool clock::BP2_Appuyer(){
         #if DEBUG_HORLOGE
             Serial.println("BP2 Appuyer");
         #endif
-        return true;
+        return true; // BP2 Appuyer
     }
     else{
-        return false;
+        return false; // BP2 Non Appuyer
     }
 }
+
+
+
 
 
 void clock::Init_Heures(){
@@ -124,13 +119,14 @@ void clock::Init_Heures(){
         TinyRtc.adjust(DateTime(0, 0, 0, 0, 0, 0));
     #endif
 
+    /*---Ecrit l'heure dans le module RTC---*/
     TinyRtc.adjust(DateTime(
-        adjust.year,
-        adjust.month,
-        adjust.day,
-        adjust.hour,
-        adjust.minute,
-        adjust.second
+        adjust.year, // Envoye l'année
+        adjust.month, // Envoye le mois
+        adjust.day, // Envoye le jour
+        adjust.hour, // Envoye l'heure
+        adjust.minute, // Envoye les minutes
+        adjust.second // Envoye les secondes
         //adjust.dayOfWeek
     ));
 }
