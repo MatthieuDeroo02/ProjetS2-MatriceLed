@@ -60,10 +60,6 @@ private:
         uint16_t year;
     }T_Dates;
 
-    T_Times times;
-    T_Dates dates;
-
-
     typedef struct{
         uint16_t year = YEAR;
         uint8_t month = MONTH;
@@ -74,6 +70,8 @@ private:
         uint8_t dayOfWeek = DAY_OF_WEEK;
     }TAdjust;
 
+    T_Times times;
+    T_Dates dates;
     TAdjust adjust;
 };
 

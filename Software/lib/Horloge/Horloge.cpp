@@ -19,12 +19,12 @@ void clock::Begin(){
         InitPort();
 }
 
-
 /*-----Initialisation des modules I2C---------*/
 void clock::InitPort(){
     DDRD |= Masque_PD3 |Masque_PD2;
     //PORTD |= Masque_PD2 | Masque_PD3;
 }
+
 
 
 
@@ -67,7 +67,6 @@ void clock::Updates_Dates(){
     }
 }
 
-
 /*------Update Heure---------*/
 void clock::UpdateRTC(){
     TinyRtc.now();
@@ -84,13 +83,6 @@ void clock::SetDates(){
     dates.month = Times.month();
     dates.year = Times.year();
 }
-
-
-
-
-
-
-
 
 /*------BP---------*/
 bool clock::BP1_Appuyer(){
@@ -118,12 +110,16 @@ bool clock::BP2_Appuyer(){
 }
 
 
+
+
+
 void clock::Init_Heures(){
     #if DEBUG_HORLOGE
         Serial.println("Init heure");
         TinyRtc.adjust(DateTime(0, 0, 0, 0, 0, 0));
     #endif
 
+    /*---Ecrit l'heure dans le module RTC---*/
     TinyRtc.adjust(DateTime(
         adjust.year,
         adjust.month,
