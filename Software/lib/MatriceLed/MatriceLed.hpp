@@ -95,8 +95,7 @@ public:
     void AllOn();
     unsigned long millis();
     
-protected:
-
+    
 private:
     void InitCLK();
     void InitLigneCLK();
