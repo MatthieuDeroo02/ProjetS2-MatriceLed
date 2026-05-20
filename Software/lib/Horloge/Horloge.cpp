@@ -6,7 +6,7 @@
 clock myClock;
 
 void clock::Begin(){
-    #if DEBUG
+    #if DEBUG_LED
         Serial.begin(SERIAL_MONITOR_BAUD);
     #endif
         /*---Initialisation liaison I2C---*/

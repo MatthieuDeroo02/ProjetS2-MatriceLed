@@ -12,7 +12,7 @@
 
 #define SERIAL_MONITOR_BAUD 9600
 
-#define DEBUG 1
+#define DEBUG_LED 1
 
 #define Masque_PD2 1<<3
 #define Masque_PD3 1<<4
