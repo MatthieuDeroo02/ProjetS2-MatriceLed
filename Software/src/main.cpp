@@ -7,11 +7,12 @@ void setup() {
   //myMatrice.AllOn();
   myMatrice.Clear();
 
-  //myMatrice.Print("hello\0", 2);
+  myMatrice.Print("hello\0", 2);
 
   myClock.Begin();
 }
 
 void loop() {
   myClock.Updates_Heures();
+  myClock.Updates_Dates();
 }

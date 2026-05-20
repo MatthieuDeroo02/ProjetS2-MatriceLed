@@ -14,8 +14,8 @@
 
 #define DEBUG_LED 1
 
-#define Masque_PD2 1<<3
-#define Masque_PD3 1<<4
+#define Masque_PD2 1<<2
+#define Masque_PD3 1<<3
 
 class clock {
 public:
