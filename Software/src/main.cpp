@@ -8,7 +8,6 @@ void setup() {
   myMatrice.Clear();
 
   myMatrice.Print("ARRET\0", 0);
-
   //myClock.Begin();
 }
 

@@ -4,6 +4,8 @@ volatile int8_t data_index = 0;
 volatile bool data_buffer[32] = {1};
 volatile uint8_t ligneInProcesse = 0;
 
+volatile uint32_t nbr_debordement = 0;
+
 MatriceLed myMatrice;
 
 #if DEBUG
@@ -143,6 +145,10 @@ void MatriceLed::AllOn() {
     }
 }
 
+unsigned long MatriceLed::millis() {
+    return ((nbr_debordement*124+TCNT0)*4)/E3;
+}
+
 ISR(TIMER1_COMPA_vect) {
     /*Down la Clock*/
     PORTD &= ~(1<<CLK_PIN);
@@ -193,5 +199,8 @@ ISR(TIMER0_COMPA_vect) {
     TCNT1 = 0; // Remet a 0 le timer1 vant de le rallumer
     TIMSK1 = (1 << OCIE1A) | (1 << OCIE1B);
     //PORTD |= (1<<DATA_PIN);
+
+    /* Rajoute un debordement pour la fonction millis */
+    nbr_debordement++;
 }
 
