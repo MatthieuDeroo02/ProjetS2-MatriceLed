@@ -116,3 +116,8 @@ bool clock::BP2_Appuyer(){
         return false;
     }
 }
+
+
+void Init_Heures(){
+    //TinyRtc.adjust(DateTime& dt);
+}

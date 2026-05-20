@@ -24,6 +24,8 @@ public:
     void Updates_Heures();
     void Updates_Dates();
 
+    void Init_Heures();
+
 private:
     void InitPort();
 
@@ -39,19 +41,29 @@ private:
     DateTime Times;
 
     typedef struct{
-    int hour;
-    int minute;
-    int second;
+    uint8_t hour;
+    uint8_t minute;
+    uint8_t second;
     }T_Times;
 
     typedef struct{
-        int day;
-        int month;
-        int year;
+        uint8_t day;
+        uint8_t month;
+        uint16_t year;
     }T_Dates;
 
     T_Times times;
     T_Dates dates;
+
+    typedef struct{
+        uint16_t year;
+        uint8_t month;
+        uint8_t day;
+        uint8_t hour;
+        uint8_t minute;
+        uint8_t second;
+        uint8_t dayOfWeek;
+    }TAdjust;
 };
 
 extern clock myClock;
