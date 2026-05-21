@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include "asciiLed.hpp"
-#include "Horloge.hpp"
+//#include "Horloge.hpp"
 
 /* Matrice LED dimension ( *=LED )
 
@@ -90,7 +90,9 @@ public:
     void SetLed(uint8_t x, uint8_t y, bool state);
 
     void Print(char str[], int8_t x);
+    void Print(const char str[], int8_t x);
     void Print(char charactere, int8_t x);
+    
     void Clear();
     void AllOn();
     unsigned long millis();

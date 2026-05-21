@@ -2,24 +2,26 @@
 #include "MatriceLed.hpp"
 #include "Horloge.hpp"
 
-int8_t x = 32; // Commence hors écran à droite
-
 void setup() {
-    myMatrice.begin();
-    myMatrice.Clear();
+  myMatrice.begin();
+  //myMatrice.AllOn();
+  myMatrice.Clear();
+
+  Serial.begin(9600);
+
+  //myClock.Begin();
+  //myClock.Init_Heures();
 }
 
 void loop() {
-    myMatrice.Clear();
-    myMatrice.Print("HELLO", x);
-    
-    x--;
-    
-    // Remet à droite quand le texte est complètement sorti à gauche
-    // 5 lettres * 6 pixels = 30 pixels de large
-    if (x < -30) {
-        x = 32;
+    static int8_t index = 32;
+    static unsigned long timer = 0;
+
+    if ((myMatrice.millis() - timer) >= 80) { // >= au lieu de 
+        myMatrice.Clear();
+        myMatrice.Print("Seynod Neigeos\0", index);
+        index--;
+        timer = myMatrice.millis();
+        if (index < -89) index = 32;
     }
-    
-    delay(50); // Vitesse du défilement
 }

@@ -116,7 +116,7 @@ void MatriceLed::SetLed(uint8_t x, uint8_t y, bool state) {
 
 void MatriceLed::Print(char charactere, int8_t x) {
     for (uint8_t i=0; i<5; i++) {
-        if (x>=0) {
+        if (x >= 0 && x < 32) {
             __MatriceLed[x] = font5x8[charactere - 32][i];
         }
         x++;
@@ -124,6 +124,16 @@ void MatriceLed::Print(char charactere, int8_t x) {
 }
 
 void MatriceLed::Print(char str[], int8_t x) {
+    /* Tant que c'est pas le caractere null on affiche le prochain caractere */
+    uint8_t str_size = 0;
+    while (str[str_size]!='\0') {
+        Print(str[str_size], x);
+        x+=6;
+        str_size++;
+    }
+}
+
+void MatriceLed::Print(const char str[], int8_t x) {
     /* Tant que c'est pas le caractere null on affiche le prochain caractere */
     uint8_t str_size = 0;
     while (str[str_size]!='\0') {
