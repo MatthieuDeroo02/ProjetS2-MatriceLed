@@ -149,6 +149,12 @@ unsigned long MatriceLed::millis() {
     return (nbr_debordement * 124UL + TCNT0) * 4UL / 1000UL;
 }
 
+
+void PrintTime(const clock& myClock) {
+    myClock.
+}
+
+
 ISR(TIMER1_COMPA_vect) {
     /*Down la Clock*/
     PORTD &= ~(1<<CLK_PIN);
@@ -182,6 +188,8 @@ ISR(TIMER1_COMPB_vect) {
 }
 
 ISR(TIMER0_COMPA_vect) {
+    if (TIMSK1 != 0) return; // Pas encore fini → on skip ce cycle
+
     /* Push les donnée sur les leds et affiche*/
     ShowLigne();
 
