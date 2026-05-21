@@ -137,7 +137,7 @@ void MatriceLed::AllOn() {
 }
 
 unsigned long MatriceLed::millis() {
-    return ((nbr_debordement*124+TCNT0)*4)/E3;
+    return (nbr_debordement * 124UL + TCNT0) * 4UL / 1000UL;
 }
 
 ISR(TIMER1_COMPA_vect) {
