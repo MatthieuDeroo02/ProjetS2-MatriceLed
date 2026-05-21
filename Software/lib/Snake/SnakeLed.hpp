@@ -8,12 +8,10 @@
 
 class snake {
     public:
-
+        void InitSnake();
 
     private:
         
-
-
 };
 
 snake mySnake;
