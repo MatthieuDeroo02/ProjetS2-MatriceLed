@@ -46,6 +46,8 @@ private:
     bool BP1_Appuyer();
     bool BP2_Appuyer();
 
+    uint8_t ConvNumAscii(uint8_t num);
+
     RTC_DS1307 TinyRtc;
     DateTime Times;
 
