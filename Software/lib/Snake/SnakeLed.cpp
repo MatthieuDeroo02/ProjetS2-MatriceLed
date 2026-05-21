@@ -6,9 +6,12 @@ void snake::InitSnake(){
             __MatriceLed[i][j] = 0; //Initialise la matrice en x/y a 0
         }
     }
+
     for(int i = START_X; i<START_LENGTH; i++) {
         __MatriceLed[START_X][START_Y - i] = 1; //Initialise le serpent a la position de départ
     }
+
+    srand(time(NULL));
 }
 
 void snake::MoveSnake(){
@@ -17,4 +20,8 @@ void snake::MoveSnake(){
 
 void snake::PrintSnake(){
 
+}
+
+void snake::GenerateFood(){
+    srand(time(NULL));
 }

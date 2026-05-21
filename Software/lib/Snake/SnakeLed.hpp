@@ -12,6 +12,9 @@
 #define START_Y 4
 #define START_LENGTH 3
 
+#define FOOD_NUMBER 1
+
+
 class snake {
     public:
         void InitSnake();
@@ -22,6 +25,11 @@ class snake {
 
     private:
         uint8_t __MatriceLed[MATRICE_SIZE_X][MATRICE_SIZE_Y];
+
+        uint8_t RandomFoodX();
+        uint8_t RandomFoodY();
+
+        void GenerateFood();
         
 };
 
