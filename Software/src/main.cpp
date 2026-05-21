@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "MatriceLed.hpp"
 #include "Horloge.hpp"
+#include "SnakeLed.hpp"
 
 void setup() {
   myMatrice.begin();
