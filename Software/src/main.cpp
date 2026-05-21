@@ -9,11 +9,11 @@ void setup() {
 
   myMatrice.Print("hello\0", 2);
 
-  myClock.Begin();
-  myClock.Init_Heures();
+  //myClock.Begin();
+  //myClock.Init_Heures();
 }
 
 void loop() {
-  myClock.Updates_Heures();
-  myClock.Updates_Dates();
+  //myClock.Updates_Heures();
+  //myClock.Updates_Dates();
 }

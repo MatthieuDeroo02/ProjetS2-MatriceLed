@@ -85,6 +85,9 @@ void GenerateBufferLed() {
 }
 
 void ShowLigne() {
+    /* Etteint la matrice */
+    PORTC &= ~(1<<CS1_PIN);
+
     /* Envoie la ligne */
     PORTC = (PORTC &~(1<<ALO_PIN)) | (((ligneInProcesse >> BIT0) & 1) << ALO_PIN);
     PORTC = (PORTC &~(1<<AL1_PIN)) | (((ligneInProcesse >> BIT1) & 1) << AL1_PIN);
@@ -99,6 +102,12 @@ void ShowLigne() {
 
     /* Envoi les colonne */
     PORTD |= (1<<STR_PIN);
+
+    /* Remmet a Zero STR pour pas que les valeur nouvelle partubent */
+    PORTD &= ~(1<<STR_PIN);
+
+    /* Rallume la matrice */
+    PORTC |= (1<<CS1_PIN);
 }
 
 void MatriceLed::SetLed(uint8_t x, uint8_t y, bool state) {
@@ -181,9 +190,6 @@ ISR(TIMER0_COMPA_vect) {
 
     /* Genere le buffer pour preparer le prochain affichage */
     GenerateBufferLed();
-
-    /* Remmet a Zero STR pour pas que les valeur nouvelle partubent */
-    PORTD &= ~(1<<STR_PIN);
 
     /* Rallume les interuption Timer 1 */
     data_index = MATRICE_SIZE_X-1; // Remet data index a la valeur max
