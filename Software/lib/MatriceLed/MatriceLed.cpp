@@ -85,6 +85,9 @@ void GenerateBufferLed() {
 }
 
 void ShowLigne() {
+    /* Etteint la matrice */
+    PORTC &= ~(1<<CS1_PIN);
+
     /* Envoie la ligne */
     PORTC = (PORTC &~(1<<ALO_PIN)) | (((ligneInProcesse >> BIT0) & 1) << ALO_PIN);
     PORTC = (PORTC &~(1<<AL1_PIN)) | (((ligneInProcesse >> BIT1) & 1) << AL1_PIN);
@@ -99,6 +102,12 @@ void ShowLigne() {
 
     /* Envoi les colonne */
     PORTD |= (1<<STR_PIN);
+
+    /* Remmet a Zero STR pour pas que les valeur nouvelle partubent */
+    PORTD &= ~(1<<STR_PIN);
+
+    /* Rallume la matrice */
+    PORTC |= (1<<CS1_PIN);
 }
 
 void MatriceLed::SetLed(uint8_t x, uint8_t y, bool state) {
@@ -107,7 +116,7 @@ void MatriceLed::SetLed(uint8_t x, uint8_t y, bool state) {
 
 void MatriceLed::Print(char charactere, int8_t x) {
     for (uint8_t i=0; i<5; i++) {
-        if (x>=0) {
+        if (x >= 0 && x < 32) {
             __MatriceLed[x] = font5x8[charactere - 32][i];
         }
         x++;
@@ -115,6 +124,16 @@ void MatriceLed::Print(char charactere, int8_t x) {
 }
 
 void MatriceLed::Print(char str[], int8_t x) {
+    /* Tant que c'est pas le caractere null on affiche le prochain caractere */
+    uint8_t str_size = 0;
+    while (str[str_size]!='\0') {
+        Print(str[str_size], x);
+        x+=6;
+        str_size++;
+    }
+}
+
+void MatriceLed::Print(const char str[], int8_t x) {
     /* Tant que c'est pas le caractere null on affiche le prochain caractere */
     uint8_t str_size = 0;
     while (str[str_size]!='\0') {
@@ -137,8 +156,16 @@ void MatriceLed::AllOn() {
 }
 
 unsigned long MatriceLed::millis() {
-    return ((nbr_debordement*124+TCNT0)*4)/E3;
+    return (nbr_debordement * 124UL + TCNT0) * 4UL / 1000UL;
 }
+
+#ifdef _HORLOGE_
+void MatriceLed::PrintTime(clock& myClock) {
+    T_Times time = myClock.GetTime();
+    
+} 
+#endif
+
 
 ISR(TIMER1_COMPA_vect) {
     /*Down la Clock*/
@@ -173,6 +200,8 @@ ISR(TIMER1_COMPB_vect) {
 }
 
 ISR(TIMER0_COMPA_vect) {
+    if (TIMSK1 != 0) return; // Pas encore fini → on skip ce cycle
+
     /* Push les donnée sur les leds et affiche*/
     ShowLigne();
 
@@ -181,9 +210,6 @@ ISR(TIMER0_COMPA_vect) {
 
     /* Genere le buffer pour preparer le prochain affichage */
     GenerateBufferLed();
-
-    /* Remmet a Zero STR pour pas que les valeur nouvelle partubent */
-    PORTD &= ~(1<<STR_PIN);
 
     /* Rallume les interuption Timer 1 */
     data_index = MATRICE_SIZE_X-1; // Remet data index a la valeur max

@@ -7,13 +7,21 @@ void setup() {
   //myMatrice.AllOn();
   myMatrice.Clear();
 
-  //myMatrice.Print("hello\0", 2);
+  Serial.begin(9600);
 
-  myClock.Begin();
-  myClock.Init_Heures();
+  //myClock.Begin();
+  //myClock.Init_Heures();
 }
 
 void loop() {
-  myClock.Updates_Heures();
-  myClock.Updates_Dates();
+    static int8_t index = 32;
+    static unsigned long timer = 0;
+
+    if ((myMatrice.millis() - timer) >= 80) { // >= au lieu de 
+        myMatrice.Clear();
+        myMatrice.Print("Seynod Neigeos\0", index);
+        index--;
+        timer = myMatrice.millis();
+        if (index < -89) index = 32;
+    }
 }
