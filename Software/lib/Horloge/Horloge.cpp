@@ -145,3 +145,7 @@ uint8_t clock::ConvNumAscii(uint8_t num){
     #endif
     return num +48;
 }
+
+T_Times clock::GetTime() {
+    return times;
+}

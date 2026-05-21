@@ -149,10 +149,12 @@ unsigned long MatriceLed::millis() {
     return (nbr_debordement * 124UL + TCNT0) * 4UL / 1000UL;
 }
 
-
-void PrintTime(const clock& myClock) {
-    myClock.
-}
+#ifdef _HORLOGE_
+void MatriceLed::PrintTime(clock& myClock) {
+    T_Times time = myClock.GetTime();
+    
+} 
+#endif
 
 
 ISR(TIMER1_COMPA_vect) {

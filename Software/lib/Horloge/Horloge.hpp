@@ -26,14 +26,28 @@
 #define Masque_PD2 1<<2
 #define Masque_PD3 1<<3
 
+typedef struct{
+    uint8_t hour;
+    uint8_t minute;
+    uint8_t second;
+}T_Times;
+
+typedef struct{
+    uint8_t day;
+    uint8_t month;
+    uint16_t year;
+}T_Dates;
+
 class clock {
 public:
+
     void Begin();
 
     void Updates_Heures();
     void Updates_Dates();
 
     void Init_Heures();
+    T_Times GetTime();
 
 private:
     void InitPort();
@@ -50,18 +64,6 @@ private:
 
     RTC_DS1307 TinyRtc;
     DateTime Times;
-
-    typedef struct{
-        uint8_t hour;
-        uint8_t minute;
-        uint8_t second;
-    }T_Times;
-
-    typedef struct{
-        uint8_t day;
-        uint8_t month;
-        uint16_t year;
-    }T_Dates;
 
     typedef struct{
         uint16_t year = YEAR;

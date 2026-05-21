@@ -96,7 +96,7 @@ public:
     unsigned long millis();
 
 #ifdef _HORLOGE_
-    void PrintTime(const clock& myClock);
+    void PrintTime(clock& myClock);
 #endif
     
     

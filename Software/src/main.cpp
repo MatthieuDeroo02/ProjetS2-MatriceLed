@@ -2,17 +2,24 @@
 #include "MatriceLed.hpp"
 #include "Horloge.hpp"
 
-void setup() {
-  myMatrice.begin();
-  //myMatrice.AllOn();
-  myMatrice.Clear();
-  myMatrice.Print("hello\0", 2);
+int8_t x = 32; // Commence hors écran à droite
 
-  //myClock.Begin();
-  //myClock.Init_Heures();
+void setup() {
+    myMatrice.begin();
+    myMatrice.Clear();
 }
 
 void loop() {
-  //myClock.Updates_Heures();
-  //myClock.Updates_Dates();
+    myMatrice.Clear();
+    myMatrice.Print("HELLO", x);
+    
+    x--;
+    
+    // Remet à droite quand le texte est complètement sorti à gauche
+    // 5 lettres * 6 pixels = 30 pixels de large
+    if (x < -30) {
+        x = 32;
+    }
+    
+    delay(50); // Vitesse du défilement
 }
