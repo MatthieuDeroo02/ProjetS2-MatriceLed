@@ -1,6 +1,7 @@
 #ifndef _SNAKE_
 #define _SNAKE_
 
+#include "Horloge.hpp"
 #include <Arduino.h>
 #include <stdlib.h>
 #include <time.h>
@@ -14,6 +15,8 @@
 
 #define FOOD_NUMBER 1
 
+#define DEBUG_SNAKE 1
+
 
 class snake {
     public:
@@ -26,13 +29,13 @@ class snake {
     private:
         uint8_t __MatriceLed[MATRICE_SIZE_X][MATRICE_SIZE_Y];
 
-        uint8_t RandomFoodX();
-        uint8_t RandomFoodY();
+        uint8_t __RandomFoodX;
+        uint8_t __RandomFoodY;
 
         void GenerateFood();
         
 };
 
-snake mySnake;
+extern snake mySnake;
 
 #endif
