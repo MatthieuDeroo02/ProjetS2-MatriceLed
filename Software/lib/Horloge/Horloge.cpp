@@ -46,6 +46,11 @@ void clock::Updates_Heures(){
             Serial.println(times.second);
         #endif
     }
+
+    times.hour = ConvNumAscii(times.hour);
+    myMatrice.Print(times.hour, 2);
+    //myMatrice.Print(" : \0", 2);
+    //myMatrice.Print(times.minute, 2);
 }
 
 void clock::Updates_Dates(){
@@ -116,7 +121,7 @@ bool clock::BP2_Appuyer(){
 void clock::Init_Heures(){
     #if DEBUG_HORLOGE
         Serial.println("Init heure");
-        TinyRtc.adjust(DateTime(0, 0, 0, 0, 0, 0));
+        TinyRtc.adjust(DateTime(2000, 1, 1, 0, 0, 0));
     #endif
 
     /*---Ecrit l'heure dans le module RTC---*/
@@ -129,4 +134,14 @@ void clock::Init_Heures(){
         adjust.second // Envoye les secondes
         //adjust.dayOfWeek
     ));
+}
+
+
+uint8_t clock::ConvNumAscii(uint8_t num){
+    #if DEBUG_HORLOGE
+        if(num > 9){
+            Serial.println("ERREUR Conversion\n");
+        }
+    #endif
+    return num +48;
 }

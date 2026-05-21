@@ -7,7 +7,7 @@ void setup() {
   //myMatrice.AllOn();
   myMatrice.Clear();
 
-  myMatrice.Print("hello\0", 2);
+  //myMatrice.Print("hello\0", 2);
 
   myClock.Begin();
   myClock.Init_Heures();
