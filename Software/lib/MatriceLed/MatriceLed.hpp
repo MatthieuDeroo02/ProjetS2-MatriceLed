@@ -49,6 +49,9 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 #define STATE 1
 #define DEBUG_LED 0
 
+#define OFF 0
+#define ON 1
+
 #define DATA_PIN PD5
 #define CLK_PIN PD6
 #define STR_PIN PD4
@@ -89,10 +92,10 @@ public:
     void begin(); // Initialise les port
     void SetLed(uint8_t x, uint8_t y, bool state);
 
-    void Print(char str[], int8_t x);
-    void Print(const char str[], int8_t x);
-    void Print(char charactere, int8_t x);
-    
+    void Print(char str[], int8_t x, uint8_t x_min = 0, uint8_t x_max = MATRICE_SIZE_X-1);
+    void Print(const char str[], int8_t x, uint8_t x_min = 0, uint8_t x_max = MATRICE_SIZE_X-1);
+    void Print(char charactere, int8_t x, uint8_t x_min = 0, uint8_t x_max = MATRICE_SIZE_X-1);
+
     void Clear();
     void ClearZone(uint8_t x_min, uint8_t x_max);
     void AllOn();
