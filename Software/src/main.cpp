@@ -8,9 +8,9 @@ void setup() {
   //myMatrice.AllOn();
   myMatrice.Clear();
 
-  myMatrice.Print('4', 0);
+  myMatrice.Print('4', 1);
   for (int i=0; i<8; i++) {
-    myMatrice.SetLed(6, i, ON);
+    myMatrice.SetLed(7, i, ON);
   }
 
   //Serial.begin(9600);
@@ -23,11 +23,11 @@ void loop() {
     static int8_t index = 32;
     static unsigned long timer = 0;
 
-    if ((myMatrice.millis() - timer) >= 80) { // >= au lieu de 
-        myMatrice.ClearZone(7, MATRICE_SIZE_X-1);
-        myMatrice.Print("Seynod Neigeos\0", index, 7, MATRICE_SIZE_X-1);
+    if ((myMatrice.millis() - timer) >= 100) { // >= au lieu de 
+        myMatrice.ClearZone(8, MATRICE_SIZE_X-1);
+        myMatrice.Print("Seynod Neigeos\0", index, 8, MATRICE_SIZE_X-1);
         index--;
         timer = myMatrice.millis();
-        if (index < -83) index = 32;
+        if (index < -79) index = 32;
     }
 }
