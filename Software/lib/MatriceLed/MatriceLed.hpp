@@ -94,6 +94,7 @@ public:
     void Print(char charactere, int8_t x);
     
     void Clear();
+    void ClearZone(uint8_t x_min, uint8_t x_max);
     void AllOn();
     unsigned long millis();
 

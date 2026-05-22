@@ -149,6 +149,12 @@ void MatriceLed::Clear() {
     }
 }
 
+void MatriceLed::ClearZone(uint8_t x_min, uint8_t x_max) {
+    for (int i=x_min; i<= x_max; i++) {
+        __MatriceLed[i] = 0; 
+    }
+}
+
 void MatriceLed::AllOn() {
     for (int i=0; i<32; i++) {
         __MatriceLed[i] = 0xFF; 
