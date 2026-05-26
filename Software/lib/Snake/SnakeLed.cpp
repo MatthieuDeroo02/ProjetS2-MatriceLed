@@ -136,9 +136,9 @@ void snake::GenerateFood(){
 
         #if DEBUG_SNAKE
             Serial.print("Random FOOD X : ");
-            Serial.println(__RandomFoodX);
+            Serial.println(snakefood[i].__RandomFoodX);
             Serial.print("Random FOOD Y : ");
-            Serial.println(__RandomFoodY);
+            Serial.println(snakefood[i].__RandomFoodY);
         #endif
     }
 }
@@ -150,8 +150,10 @@ void snake::GenerateBody(){
 }
 
 void snake::EatFood(){
-    if((__X == __RandomFoodX) && (__Y == __RandomFoodY)){
-        __Body++;
-        GenerateFood();
+    for(int i = 0; i < FOOD_NUMBER; i++){
+        if((__X == snakefood[i].__RandomFoodX) && (__Y == snakefood[i].__RandomFoodY)){
+            __Body++;
+            GenerateFood();
+        }
     }
 }
