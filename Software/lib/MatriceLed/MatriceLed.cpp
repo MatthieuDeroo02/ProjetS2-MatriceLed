@@ -7,7 +7,6 @@ volatile uint8_t ligneInProcesse = 0;
 volatile uint32_t nbr_debordement = 0;
 
 MatriceLed myMatrice;
-snake mySnake;
 
 #if DEBUG_LED
     volatile bool debug_data_buffer[32];

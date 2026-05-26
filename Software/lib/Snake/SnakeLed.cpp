@@ -31,6 +31,22 @@ void snake::InitSnake(){
     #endif
 }
 
+
+
+void snake::PlaySnake(){
+    MoveSnake();
+
+    GenerateFood();
+    GenerateBody();
+
+    PrintHead();
+    PrintBody();
+
+    EatFood();
+}
+
+
+
 void snake::MoveSnake(){
     switch(snakesens){
         case HAUT:
@@ -103,7 +119,7 @@ void snake::MoveSnake(){
     }
 }
 
-void snake::PrintSnake(){
+void snake::PrintHead(){
     switch(snakesens){
         case HAUT:
             __Y++;
@@ -147,7 +163,7 @@ void snake::PrintBody(){
 void snake::GenerateFood(){
     randomSeed(analogRead(A0));
 
-    for(int i = 0; i < FOOD_NUMBER; i++){ // Fonctionne pour le moment pour un fruit
+    for(int i = 0; i < FOOD_NUMBER; i++){ 
         snakefood[i].__RandomFoodX = rand() % MATRICE_SIZE_X;
         snakefood[i].__RandomFoodY = rand() % MATRICE_SIZE_Y;
 
@@ -200,7 +216,7 @@ void snake::ClearFood(){
 /*------BP---------*/
 bool BP1_Appuyer(){
     if((PIND & Masque_PD2) != 0){
-        #if DEBUG_HORLOGE
+        #if DEBUG_SNAKE
             Serial.println("BP1 Appuyer");
         #endif
         return true; // BP1 Appuyer
@@ -212,7 +228,7 @@ bool BP1_Appuyer(){
 
 bool BP2_Appuyer(){
     if((PIND & Masque_PD3) != 0){
-        #if DEBUG_HORLOGE
+        #if DEBUG_SNAKE
             Serial.println("BP2 Appuyer");
         #endif
         return true; // BP2 Appuyer
