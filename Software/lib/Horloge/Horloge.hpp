@@ -48,6 +48,9 @@ public:
 
     void Init_Heures();
     T_Times GetTime();
+    
+    bool BP1_Appuyer();
+    bool BP2_Appuyer();
 
 private:
     void InitPort();
@@ -56,9 +59,6 @@ private:
 
     void SetHeures();
     void SetDates();
-
-    bool BP1_Appuyer();
-    bool BP2_Appuyer();
 
     uint8_t ConvNumAscii(uint8_t num);
 
