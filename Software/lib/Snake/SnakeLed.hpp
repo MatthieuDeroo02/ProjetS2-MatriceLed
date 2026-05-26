@@ -36,11 +36,15 @@ class snake {
 
         bool __SnakeBuffer;
 
-        uint8_t __RandomFoodX;
-        uint8_t __RandomFoodY;
+        typedef struct{
+            uint8_t __RandomFoodX;
+            uint8_t __RandomFoodY;
+        }TFood;
+        
 
         uint8_t __X;
         uint8_t __Y;
+        uint8_t __Body;
 
         typedef enum{
             PAUSE,
@@ -56,8 +60,12 @@ class snake {
 
         TSnakeEtat snakeetat;
         TSnakeSens snakesens;
+        TFood snakefood[START_LENGTH];
 
         void GenerateFood();
+        void GenerateBody();
+
+        void EatFood();
         
 };
 
