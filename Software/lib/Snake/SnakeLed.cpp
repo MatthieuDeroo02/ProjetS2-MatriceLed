@@ -18,23 +18,113 @@ void snake::InitSnake(){
     }
 
     srand(time(NULL)); //Initialise le générateur de nombre aléatoire
-
+    __SnakeBuffer = true;
+    __X = START_X;
+    __Y = START_Y;
     #if DEBUG_SNAKE
         Serial.println("Snake Init");
     #endif
 }
 
 void snake::MoveSnake(){
+    switch(snakesens){
+        case HAUT:
+            if(myClock.BP1_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP1 Appuyer = Gauche");
+                #endif
+                snakesens = GAUCHE;
+            }
+            if(myClock.BP2_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP2 Appuyer = Droite");
+                #endif
+                snakesens = DROITE;
+            }
+            break;
+        
+        case GAUCHE:
+            if(myClock.BP1_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP1 Appuyer = Bas");
+                #endif
+                snakesens = BAS;
+            }
+            if(myClock.BP2_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP2 Appuyer = Haut");
+                #endif
+                snakesens = HAUT;
+            }
+            break;
+        
+        case DROITE:
+            if(myClock.BP1_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP1 Appuyer = Haut");
+                #endif
+                snakesens = HAUT;
+            }
+            if(myClock.BP2_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP2 Appuyer = Bas");
+                #endif
+                snakesens = BAS;
+            }
+            break;
 
+        case BAS:
+            if(myClock.BP1_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP1 Appuyer = Droite");
+                #endif
+                snakesens = DROITE;
+            }
+            if(myClock.BP2_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP2 Appuyer = Gauche");
+                #endif
+                snakesens = GAUCHE;
+            }
+            break;
+    }
 }
 
 void snake::PrintSnake(){
-    
+    switch(snakesens){
+        case HAUT:
+            __Y++;
+            if(__Y >= 32){__Y = 0;}
+            break;
 
+        case GAUCHE:
+            __X--;
+            if(__X <= 0){__X = 31;}
+            break;
+
+        case DROITE:
+            __X++;
+            if(__X >= 32){__X = 0;}
+            break;
+
+        case BAS:
+            __Y--;
+            if(__Y <= 0){__Y = 7;}
+            break;
+
+    }
 }
 
 void snake::SnakeBody(){
-
+    // TODO: implement snake body update
 }
 
 void snake::GenerateFood(){

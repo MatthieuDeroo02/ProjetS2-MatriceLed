@@ -5,6 +5,7 @@
 #include <Arduino.h>
 #include <stdlib.h>
 #include <time.h>
+#include "Wire.h"
 
 #define MATRICE_SIZE_X 32
 #define MATRICE_SIZE_Y 8
@@ -35,6 +36,23 @@ class snake {
 
         uint8_t __RandomFoodX;
         uint8_t __RandomFoodY;
+        uint8_t __X;
+        uint8_t __Y;
+
+        typedef enum{
+            PAUSE,
+            START
+        } TSnakeEtat;
+
+        typedef enum{
+            HAUT,
+            GAUCHE, 
+            DROITE, 
+            BAS
+        } TSnakeSens;
+
+        TSnakeEtat snakeetat;
+        TSnakeSens snakesens;
 
         void GenerateFood();
 
