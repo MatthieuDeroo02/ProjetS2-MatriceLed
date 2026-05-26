@@ -32,7 +32,9 @@ class snake {
     private:
         uint8_t __MatriceLed[MATRICE_SIZE_X][MATRICE_SIZE_Y];
         uint8_t __SnakeHead[MATRICE_SIZE_X][MATRICE_SIZE_Y];
+
         bool __SnakeBuffer;
+
         typedef struct{
             uint8_t __RandomFoodX;
             uint8_t __RandomFoodY;
@@ -41,7 +43,6 @@ class snake {
         uint8_t __X;
         uint8_t __Y;
         uint8_t __Body;
-        TFood snakefood[START_LENGTH];
 
         typedef enum{
             PAUSE,

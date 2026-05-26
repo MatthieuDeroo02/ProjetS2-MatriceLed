@@ -18,10 +18,14 @@ void snake::InitSnake(){
     }
 
     randomSeed(analogRead(A0)); //Initialise le générateur de nombre aléatoire
+
     __SnakeBuffer = true;
+
     __Body = START_LENGTH;
+
     __X = START_X;
     __Y = START_Y;
+
     #if DEBUG_SNAKE
         Serial.println("Snake Init");
     #endif
@@ -125,7 +129,7 @@ void snake::PrintSnake(){
 }
 
 void snake::SnakeBody(){
-    // TODO: implement snake body update
+    
 }
 
 void snake::GenerateFood(){
@@ -157,6 +161,9 @@ void snake::EatFood(){
         if((__X == snakefood[i].__RandomFoodX) && (__Y == snakefood[i].__RandomFoodY)){
             __Body++;
             GenerateFood();
+            #if DEBUG_SNAKE
+                Serial.println("Food eaten");
+            #endif
         }
     }
 }
