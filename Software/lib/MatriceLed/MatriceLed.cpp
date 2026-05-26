@@ -114,7 +114,7 @@ void MatriceLed::SetLed(uint8_t x, uint8_t y, bool state) {
     myMatrice.__MatriceLed[x] = (myMatrice.__MatriceLed[x] & ~(1<<y)) | (state << y);
 }
 
-void MatriceLed::Print(char charactere, int8_t x, uint8_t x_min = 0, uint8_t x_max = MATRICE_SIZE_X-1) {
+void MatriceLed::Print(char charactere, int8_t x, uint8_t x_min, uint8_t x_max) {
     for (uint8_t i=0; i<5; i++) {
         if (x >= x_min && x <= x_max) {
             __MatriceLed[x] = font5x8[charactere - 32][i];
@@ -123,7 +123,7 @@ void MatriceLed::Print(char charactere, int8_t x, uint8_t x_min = 0, uint8_t x_m
     }
 }
 
-void MatriceLed::Print(char str[], int8_t x, uint8_t x_min = 0, uint8_t x_max = MATRICE_SIZE_X-1) {
+void MatriceLed::Print(char str[], int8_t x, uint8_t x_min, uint8_t x_max) {
 
     /* Tant que c'est pas le caractere null on affiche le prochain caractere */
     uint8_t str_size = 0;
@@ -134,7 +134,7 @@ void MatriceLed::Print(char str[], int8_t x, uint8_t x_min = 0, uint8_t x_max = 
     }
 }
 
-void MatriceLed::Print(const char str[], int8_t x, uint8_t x_min = 0, uint8_t x_max = MATRICE_SIZE_X-1) {
+void MatriceLed::Print(const char str[], int8_t x, uint8_t x_min, uint8_t x_max) {
     /* Tant que c'est pas le caractere null on affiche le prochain caractere */
     uint8_t str_size = 0;
     while (str[str_size]!='\0') {
