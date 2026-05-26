@@ -34,8 +34,10 @@ class snake {
 
     private:
         friend void GenerateBufferLed();
-        
+
         uint8_t __MatriceLed[MATRICE_SIZE_X][MATRICE_SIZE_Y];
+
+        bool __SnakBuffer;
 
         uint8_t __RandomFoodX;
         uint8_t __RandomFoodY;
