@@ -22,7 +22,7 @@ public:
     void Begin();
     void Begin(uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t minute,  uint8_t second);
     void UpdateRTC();
-    
+
     uint16_t GetYear()  { return time.year();   };
     uint8_t GetMouth()  { return time.month();  };
     uint8_t GetDay()    { return time.day();    };
@@ -36,6 +36,6 @@ private:
     RTC_DS1307 TinyRtc;
 };
 
-uint16_t ConvNumAscii(uint8_t num);
+uint16_t ConvChiffreAscii(uint8_t num);
 
 #endif

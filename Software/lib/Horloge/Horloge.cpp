@@ -25,7 +25,7 @@ void clock::UpdateRTC() {
     time = TinyRtc.now();
 }
 
-uint16_t ConvNumAscii(uint8_t num){
+uint16_t ConvChiffreAscii(uint8_t num){
     #if DEBUG_HORLOGE
         if(num > 9){
             Serial.println("ERREUR Conversion\n");
