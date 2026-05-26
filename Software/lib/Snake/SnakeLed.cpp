@@ -15,7 +15,10 @@ void snake::InitSnake(){
 
     srand(time(NULL)); //Initialise le générateur de nombre aléatoire
 
-    bool __SnakBuffer = true;
+    bool __SnakeBuffer = true;
+
+        __X = START_X;
+        __Y = START_Y;
 
     #if DEBUG_SNAKE
         Serial.println("Snake Initialisee");
@@ -39,6 +42,7 @@ void snake::MoveSnake(){
                 #endif
                 snakesens = DROITE;
             }
+            break;
         
         case GAUCHE:
             if(myClock.BP1_Appuyer()){
@@ -55,6 +59,7 @@ void snake::MoveSnake(){
                 #endif
                 snakesens = HAUT;
             }
+            break;
 
         case DROITE:
             if(myClock.BP1_Appuyer()){
@@ -71,6 +76,7 @@ void snake::MoveSnake(){
                 #endif
                 snakesens = BAS;
             }
+            break;
 
         case BAS:
             if(myClock.BP1_Appuyer()){
@@ -87,13 +93,32 @@ void snake::MoveSnake(){
                 #endif
                 snakesens = GAUCHE;
             }
+            break;
     }
 }
 
 void snake::PrintSnake(){
     switch(snakesens){
-        case HAUT :
-            __MatriceLed[i][j];
+        case HAUT:
+            __Y++;
+            if(__Y >= 32){__Y = 0;}
+            break;
+
+        case GAUCHE:
+            __X--;
+            if(__X <= 0){__X = 31;}
+            break;
+
+        case DROITE:
+            __X++;
+            if(__X >= 32){__X = 0;}
+            break;
+
+        case BAS:
+            __Y--;
+            if(__Y <= 0){__Y = 7;}
+            break;
+
     }
 }
 
