@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include "asciiLed.hpp"
-//#include "Horloge.hpp"
 
 /* Matrice LED dimension ( *=LED )
 

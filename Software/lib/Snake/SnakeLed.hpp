@@ -19,6 +19,8 @@
 
 #define DEBUG_SNAKE 1
 
+bool __SnakBuffer;
+
 
 class snake {
     public:
@@ -29,18 +31,26 @@ class snake {
 
 
     private:
+        friend void GenerateBufferLed();
+        
         uint8_t __MatriceLed[MATRICE_SIZE_X][MATRICE_SIZE_Y];
 
         uint8_t __RandomFoodX;
         uint8_t __RandomFoodY;
 
         typedef enum{
-        HAUT,
-        GAUCHE, 
-        DROITE, 
-        BAS
+            PAUSE,
+            START
+        } TSnakeEtat;
+
+        typedef enum{
+            HAUT,
+            GAUCHE, 
+            DROITE, 
+            BAS
         } TSnakeSens;
 
+        TSnakeEtat snakeetat;
         TSnakeSens snakesens;
 
         void GenerateFood();
