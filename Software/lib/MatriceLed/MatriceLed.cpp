@@ -75,7 +75,8 @@ void GenerateBufferLed() {
     //uint8_t masque = (1 << ligneInProcesse);
     for (uint8_t i=0; i<32; i++) {
         if(mySnake.__SnakeBuffer){
-            //mySnake.__MatriceLed[i] = ((myMatrice.__MatriceLed[i] >> ligneInProcesse) & 1) ^ 1;
+            // TODO: snake mode buffer not implemented yet, fallback to matrix buffer
+            data_buffer[i] = ((myMatrice.__MatriceLed[i] >> ligneInProcesse) & 1) ^ 1;
         }
         else{
             data_buffer[i] = ((myMatrice.__MatriceLed[i] >> ligneInProcesse) & 1) ^ 1; // Recupere le bit et l'inverse
