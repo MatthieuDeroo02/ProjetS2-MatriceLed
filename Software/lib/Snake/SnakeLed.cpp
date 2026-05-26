@@ -89,7 +89,10 @@ void snake::MoveSnake(){
 }
 
 void snake::PrintSnake(){
-
+    switch(snakesens){
+        case HAUT :
+            __MatriceLed[i][j];
+    }
 }
 
 void snake::GenerateFood(){

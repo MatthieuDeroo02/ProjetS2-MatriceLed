@@ -21,6 +21,7 @@
 
 bool BP1_Appuyer();
 bool BP2_Appuyer();
+bool __SnakBuffer;
 
 
 class snake {
@@ -32,18 +33,26 @@ class snake {
 
 
     private:
+        friend void GenerateBufferLed();
+        
         uint8_t __MatriceLed[MATRICE_SIZE_X][MATRICE_SIZE_Y];
 
         uint8_t __RandomFoodX;
         uint8_t __RandomFoodY;
 
         typedef enum{
-        HAUT,
-        GAUCHE, 
-        DROITE, 
-        BAS
+            PAUSE,
+            START
+        } TSnakeEtat;
+
+        typedef enum{
+            HAUT,
+            GAUCHE, 
+            DROITE, 
+            BAS
         } TSnakeSens;
 
+        TSnakeEtat snakeetat;
         TSnakeSens snakesens;
 
         void GenerateFood();
