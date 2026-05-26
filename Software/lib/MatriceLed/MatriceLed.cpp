@@ -166,14 +166,6 @@ unsigned long MatriceLed::millis() {
     return (nbr_debordement * 124UL + TCNT0) * 4UL / 1000UL;
 }
 
-#ifdef _HORLOGE_
-void MatriceLed::PrintTime(clock& myClock) {
-    T_Times time = myClock.GetTime();
-    
-} 
-#endif
-
-
 ISR(TIMER1_COMPA_vect) {
     /*Down la Clock*/
     PORTD &= ~(1<<CLK_PIN);

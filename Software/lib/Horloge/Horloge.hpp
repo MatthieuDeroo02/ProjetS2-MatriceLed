@@ -4,6 +4,8 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include "RTClib.h"
+#include "MatriceLed.hpp"
+
 
 #define BP1 PD2 
 #define BP2 PD3
@@ -12,7 +14,7 @@
 
 #define SERIAL_MONITOR_BAUD 9600
 
-#define DEBUG_HORLOGE 1
+#define DEBUG_HORLOGE 0
 
 #define Masque_PD2 1<<2
 #define Masque_PD3 1<<3
@@ -29,6 +31,10 @@ public:
     uint8_t GetHour()   { return time.hour();   };
     uint8_t GetMinute() { return time.minute(); };
     uint8_t GetSecond() { return time.second(); };
+
+#ifdef _MATRICE_LED_
+    void PrintTimeOnMatrice();
+#endif
     
 private:
 
@@ -37,5 +43,6 @@ private:
 };
 
 char ConvChiffreAscii(uint8_t num);
+
 
 #endif

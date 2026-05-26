@@ -33,3 +33,20 @@ char ConvChiffreAscii(uint8_t num){
     #endif
     return (char)(num +48);
 }
+
+#ifdef _MATRICE_LED_
+    void clock::PrintTimeOnMatrice() {
+        UpdateRTC();
+        myMatrice.Clear();
+
+        char str[6];
+        str[0] = '0' + (GetHour()/10);
+        str[1] = '0' + (GetHour()%10);
+        str[2] = ':';
+        str[3] = '0' + (GetMinute()/10);
+        str[4] = '0' + (GetMinute()%10);
+        str[5] = '\0';
+
+        myMatrice.Print(str, 2);
+    }
+#endif
