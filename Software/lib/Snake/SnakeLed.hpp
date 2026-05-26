@@ -20,6 +20,8 @@
 
 #define SNAKE_SPEED
 
+bool BP1_Appuyer();
+bool BP2_Appuyer();
 
 class snake {
     public:
@@ -30,6 +32,8 @@ class snake {
 
 
     private:
+        friend void GenerateBufferLed();
+        
         uint8_t __MatriceLed[MATRICE_SIZE_X][MATRICE_SIZE_Y];
         uint8_t __SnakeHead[START_LENGTH]; 
 
@@ -65,7 +69,6 @@ class snake {
         TSnakeSens snakesens;
         TSnakeBody snakebody[START_LENGTH];
         TFood snakefood[FOOD_NUMBER];
-];
 
         void GenerateFood();
         void PrintBody();
