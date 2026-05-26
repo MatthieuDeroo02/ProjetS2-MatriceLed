@@ -21,7 +21,71 @@ void snake::InitSnake(){
 }
 
 void snake::MoveSnake(){
+    switch(snakesens){
+        case HAUT:
+            if(myClock.BP1_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP1 Appuyer = Gauche");
+                #endif
+                snakesens = GAUCHE;
+            }
+            if(myClock.BP2_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP2 Appuyer = Droite");
+                #endif
+                snakesens = DROITE;
+            }
+        
+        case GAUCHE:
+            if(myClock.BP1_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP1 Appuyer = Bas");
+                #endif
+                snakesens = BAS;
+            }
+            if(myClock.BP2_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP2 Appuyer = Haut");
+                #endif
+                snakesens = HAUT;
+            }
 
+        case DROITE:
+            if(myClock.BP1_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP1 Appuyer = Haut");
+                #endif
+                snakesens = HAUT;
+            }
+            if(myClock.BP2_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP2 Appuyer = Bas");
+                #endif
+                snakesens = BAS;
+            }
+
+        case BAS:
+            if(myClock.BP1_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP1 Appuyer = Droite");
+                #endif
+                snakesens = DROITE;
+            }
+            if(myClock.BP2_Appuyer()){
+                #if DEBUG_SNAKE
+                    Serial.print(snakesens);
+                    Serial.println("| BP2 Appuyer = Gauche");
+                #endif
+                snakesens = GAUCHE;
+            }
+    }
 }
 
 void snake::PrintSnake(){
