@@ -12,7 +12,7 @@
 
 #define START_X 16
 #define START_Y 4
-#define START_LENGTH 2
+#define START_LENGTH 3
 
 #define FOOD_NUMBER 1
 
@@ -31,7 +31,7 @@ class snake {
 
     private:
         uint8_t __MatriceLed[MATRICE_SIZE_X][MATRICE_SIZE_Y];
-        uint8_t __SnakeHead[MATRICE_SIZE_X][MATRICE_SIZE_Y];
+        uint8_t __SnakeHead[START_LENGTH]; 
 
         bool __SnakeBuffer;
 
@@ -39,6 +39,11 @@ class snake {
             uint8_t __RandomFoodX;
             uint8_t __RandomFoodY;
         }TFood;
+        
+        typedef struct{
+            uint8_t __BodyX;
+            uint8_t __BodyY;
+        } TSnakeBody;
         
         uint8_t __X;
         uint8_t __Y;
@@ -58,10 +63,12 @@ class snake {
 
         TSnakeEtat snakeetat;
         TSnakeSens snakesens;
-        TFood snakefood[START_LENGTH];
+        TSnakeBody snakebody[START_LENGTH];
+        TFood snakefood[FOOD_NUMBER];
+];
 
         void GenerateFood();
-        void SnakeBody();
+        void PrintBody();
         void GenerateBody();
         void EatFood();
         

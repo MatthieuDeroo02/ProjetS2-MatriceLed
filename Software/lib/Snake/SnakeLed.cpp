@@ -126,10 +126,15 @@ void snake::PrintSnake(){
             break;
 
     }
+
+    snakebody[0].__BodyX = 1;
+    snakebody[0].__BodyY = 1;
 }
 
-void snake::SnakeBody(){
-    
+void snake::PrintBody(){
+    for(int i = 0; i < __Body; i++){
+        __MatriceLed[snakebody[i].__BodyX][snakebody[i].__BodyY] = 1;
+    }
 }
 
 void snake::GenerateFood(){
@@ -142,6 +147,7 @@ void snake::GenerateFood(){
         __MatriceLed[snakefood[i].__RandomFoodX][snakefood[i].__RandomFoodY] = 1;
 
         #if DEBUG_SNAKE
+            Serial.print("-----------FOOD %i-----------------\n, i");
             Serial.print("Random FOOD X : ");
             Serial.println(snakefood[i].__RandomFoodX);
             Serial.print("Random FOOD Y : ");
@@ -152,7 +158,8 @@ void snake::GenerateFood(){
 
 void snake::GenerateBody(){
     for (int i = __Body - 1; i > 0; i--) {
-        snake[i] = snake[i - 1];
+        snakebody[i].__BodyX = snakebody[i - 1].__BodyX;
+        snakebody[i].__BodyY = snakebody[i - 1].__BodyY;
     }
 }
 
