@@ -2,10 +2,10 @@
 #include "MatriceLed.hpp"
 #include "Horloge.hpp"
 
-clock myClock;
+//clock myClock;
 
 void setup() {
-  myClock.Begin();
+  //myClock.Begin();
   myMatrice.begin();
   myMatrice.Clear();
   //myMatrice.AllOn();

@@ -7,6 +7,7 @@ volatile uint8_t ligneInProcesse = 0;
 volatile uint32_t nbr_debordement = 0;
 
 MatriceLed myMatrice;
+snake mySnake;
 
 #if DEBUG_LED
     volatile bool debug_data_buffer[32];
@@ -73,7 +74,12 @@ void MatriceLed::InitLigneCLK() {
 void GenerateBufferLed() {
     //uint8_t masque = (1 << ligneInProcesse);
     for (uint8_t i=0; i<32; i++) {
-        data_buffer[i] = ((myMatrice.__MatriceLed[i] >> ligneInProcesse) & 1) ^ 1; // Recupere le bit et l'inverse
+        if(mySnake.__SnakeBuffer){
+            data_buffer[i] = ((myMatrice.__MatriceLed[i] >> ligneInProcesse) & 1) ^ 1;
+        }
+        else{
+            data_buffer[i] = ((myMatrice.__MatriceLed[i] >> ligneInProcesse) & 1) ^ 1; // Recupere le bit et l'inverse
+        }
     }
 #if DEBUG_LED
     for (int i = 0; i<32; i++) {
