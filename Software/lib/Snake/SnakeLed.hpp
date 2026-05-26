@@ -30,21 +30,20 @@ class snake {
         void MoveSnake();
         void PrintSnake();
 
-
     private:
         friend void GenerateBufferLed();
-        
+
         uint8_t __MatriceLed[MATRICE_SIZE_X][MATRICE_SIZE_Y];
-        uint8_t __SnakeHead[START_LENGTH]; 
+        //uint8_t __SnakeHead[START_LENGTH]; 
 
         bool __SnakeBuffer;
 
-        typedef struct{
+        typedef struct{ // Position de la nourriture
             uint8_t __RandomFoodX;
             uint8_t __RandomFoodY;
         }TFood;
         
-        typedef struct{
+        typedef struct{ // Position du corps du serpent
             uint8_t __BodyX;
             uint8_t __BodyY;
         } TSnakeBody;
@@ -53,12 +52,12 @@ class snake {
         uint8_t __Y;
         uint8_t __Body;
 
-        typedef enum{
+        typedef enum{  // Etat du jeu
             PAUSE,
             START
         } TSnakeEtat;
 
-        typedef enum{
+        typedef enum{ // Etat du serpent
             HAUT,
             GAUCHE, 
             DROITE, 
@@ -71,9 +70,12 @@ class snake {
         TFood snakefood[FOOD_NUMBER];
 
         void GenerateFood();
+        void EatFood();
+        void ClearFood();
+
         void PrintBody();
         void GenerateBody();
-        void EatFood();
+        
         
 };
 
