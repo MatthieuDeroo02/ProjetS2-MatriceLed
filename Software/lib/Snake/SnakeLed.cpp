@@ -153,8 +153,10 @@ void snake::GenerateBody(){
 }
 
 void snake::EatFood(){
-    if((__X == __RandomFoodX) && (__Y == __RandomFoodY)){
-        __Body++;
-        GenerateFood();
+    for(int i = 0; i < FOOD_NUMBER; i++){
+        if((__X == snakefood[i].__RandomFoodX) && (__Y == snakefood[i].__RandomFoodY)){
+            __Body++;
+            GenerateFood();
+        }
     }
 }
