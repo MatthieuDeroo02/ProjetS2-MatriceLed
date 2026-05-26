@@ -36,6 +36,6 @@ private:
     RTC_DS1307 TinyRtc;
 };
 
-uint16_t ConvChiffreAscii(uint8_t num);
+char ConvChiffreAscii(uint8_t num);
 
 #endif
