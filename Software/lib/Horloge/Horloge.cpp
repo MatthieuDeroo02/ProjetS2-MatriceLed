@@ -36,16 +36,14 @@ void clock::Updates_Heures(){
     /*---Enregistrement Heures---*/
     SetHeures();
 
-    if(BP1_Appuyer()){
-        #if DEBUG_HORLOGE
-            Serial.print("Heure:"); 
-            Serial.println(times.hour);
-            Serial.print("Minutes:"); 
-            Serial.println(times.minute);
-            Serial.print("Secondes:"); 
-            Serial.println(times.second);
-        #endif
-    }
+#if DEBUG_HORLOGE
+    Serial.print("Heure:"); 
+    Serial.println(times.hour);
+    Serial.print("Minutes:"); 
+    Serial.println(times.minute);
+    Serial.print("Secondes:"); 
+    Serial.println(times.second);
+#endif
 
     times.hour = ConvNumAscii(times.hour);
     myMatrice.Print(times.hour, 2);
@@ -60,16 +58,15 @@ void clock::Updates_Dates(){
     /*---Enregistrement Dates---*/
     SetDates();
 
-    if(BP2_Appuyer()){
-        #if DEBUG_HORLOGE
-            Serial.print("Day:"); 
-            Serial.println(dates.day);
-            Serial.print("Month:"); 
-            Serial.println(dates.month);
-            Serial.print("Year:"); 
-            Serial.println(dates.year);
-        #endif
-    }
+#if DEBUG_HORLOGE
+    Serial.print("Day:"); 
+    Serial.println(dates.day);
+    Serial.print("Month:"); 
+    Serial.println(dates.month);
+    Serial.print("Year:"); 
+    Serial.println(dates.year);
+#endif
+
 }
 
 /*------Update Heure---------*/
@@ -88,34 +85,6 @@ void clock::SetDates(){
     dates.month = Times.month(); // Update les mois
     dates.year = Times.year(); // Update les années
 }
-
-/*------BP---------*/
-bool clock::BP1_Appuyer(){
-    if((PIND & Masque_PD2) != 0){
-        #if DEBUG_HORLOGE
-            Serial.println("BP1 Appuyer");
-        #endif
-        return true; // BP1 Appuyer
-    }
-    else{
-        return false; // BP1 Non Appuyer
-    }
-}
-
-bool clock::BP2_Appuyer(){
-    if((PIND & Masque_PD3) != 0){
-        #if DEBUG_HORLOGE
-            Serial.println("BP2 Appuyer");
-        #endif
-        return true; // BP2 Appuyer
-    }
-    else{
-        return false; // BP2 Non Appuyer
-    }
-}
-
-
-
 
 
 void clock::Init_Heures(){

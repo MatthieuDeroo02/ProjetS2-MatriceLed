@@ -44,3 +44,28 @@ void snake::GenerateFood(){
         #endif
     }
 }
+
+/*------BP---------*/
+bool BP1_Appuyer(){
+    if((PIND & Masque_PD2) != 0){
+        #if DEBUG_HORLOGE
+            Serial.println("BP1 Appuyer");
+        #endif
+        return true; // BP1 Appuyer
+    }
+    else{
+        return false; // BP1 Non Appuyer
+    }
+}
+
+bool BP2_Appuyer(){
+    if((PIND & Masque_PD3) != 0){
+        #if DEBUG_HORLOGE
+            Serial.println("BP2 Appuyer");
+        #endif
+        return true; // BP2 Appuyer
+    }
+    else{
+        return false; // BP2 Non Appuyer
+    }
+}
