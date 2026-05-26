@@ -20,8 +20,11 @@
 
 #define DEBUG_SNAKE 1
 
+<<<<<<< HEAD
 bool BP1_Appuyer();
 bool BP2_Appuyer();
+=======
+>>>>>>> 34d147b (update snake buffer)
 bool __SnakBuffer;
 
 
@@ -35,7 +38,11 @@ class snake {
 
     private:
         friend void GenerateBufferLed();
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 34d147b (update snake buffer)
         uint8_t __MatriceLed[MATRICE_SIZE_X][MATRICE_SIZE_Y];
 
         bool __SnakeBuffer;

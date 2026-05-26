@@ -101,6 +101,7 @@ void snake::MoveSnake(){
 
 void snake::PrintSnake(){
     switch(snakesens){
+<<<<<<< HEAD
         case HAUT:
             __Y++;
             if(__Y >= 32){__Y = 0;}
@@ -121,6 +122,10 @@ void snake::PrintSnake(){
             if(__Y <= 0){__Y = 7;}
             break;
 
+=======
+        case HAUT :
+            __MatriceLed[i][j];
+>>>>>>> 34d147b (update snake buffer)
     }
 }
 
