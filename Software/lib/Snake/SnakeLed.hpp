@@ -18,6 +18,9 @@
 
 #define DEBUG_SNAKE 1
 
+bool BP1_Appuyer();
+bool BP2_Appuyer();
+
 
 class snake {
     public:
