@@ -15,6 +15,8 @@ void snake::InitSnake(){
 
     srand(time(NULL)); //Initialise le générateur de nombre aléatoire
 
+    bool __SnakBuffer = true;
+
     #if DEBUG_SNAKE
         Serial.println("Snake Initialisee");
     #endif
