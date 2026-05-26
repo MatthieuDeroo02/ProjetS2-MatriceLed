@@ -2,7 +2,7 @@
 
 void clock::Begin() {
 #if DEBUG_HORLOGE
-    Serial.begin(9600);
+    Serial.begin(SERIAL_MONITOR_BAUD);
 #endif
 
     Wire.begin();
