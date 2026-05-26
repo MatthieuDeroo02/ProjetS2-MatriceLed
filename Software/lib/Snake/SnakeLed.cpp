@@ -17,8 +17,9 @@ void snake::InitSnake(){
         __MatriceLed[START_X][START_Y - i] = 1; //Initialise le serpent a la position de départ
     }
 
-    srand(time(NULL)); //Initialise le générateur de nombre aléatoire
+    randomSeed(analogRead(A0)); //Initialise le générateur de nombre aléatoire
     __SnakeBuffer = true;
+    __Body = START_LENGTH;
     __X = START_X;
     __Y = START_Y;
     #if DEBUG_SNAKE
@@ -128,20 +129,32 @@ void snake::SnakeBody(){
 }
 
 void snake::GenerateFood(){
-    srand(time(NULL));
+    randomSeed(analogRead(A0));
 
-    for(int i = 0; i < FOOD_NUMBER; i++){
+    for(int i = 0; i < FOOD_NUMBER; i++){ // Fonctionne pour le moment pour un fruit
+        snakefood[i].__RandomFoodX = rand() % MATRICE_SIZE_X;
+        snakefood[i].__RandomFoodY = rand() % MATRICE_SIZE_Y;
 
-        uint8_t __RandomFoodX = rand() % MATRICE_SIZE_X;
-        uint8_t __RandomFoodY = rand() % MATRICE_SIZE_Y;
+        __MatriceLed[snakefood[i].__RandomFoodX][snakefood[i].__RandomFoodY] = 1;
 
         #if DEBUG_SNAKE
             Serial.print("Random FOOD X : ");
-            Serial.println(__RandomFoodX);
+            Serial.println(snakefood[i].__RandomFoodX);
             Serial.print("Random FOOD Y : ");
-            Serial.println(__RandomFoodY);
+            Serial.println(snakefood[i].__RandomFoodY);
         #endif
+    }
+}
 
-         __MatriceLed[__RandomFoodX][__RandomFoodY] = 1;
+void snake::GenerateBody(){
+    for (int i = __Body - 1; i > 0; i--) {
+        snake[i] = snake[i - 1];
+    }
+}
+
+void snake::EatFood(){
+    if((__X == __RandomFoodX) && (__Y == __RandomFoodY)){
+        __Body++;
+        GenerateFood();
     }
 }
