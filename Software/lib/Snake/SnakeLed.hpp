@@ -2,6 +2,7 @@
 #define _SNAKE_
 
 #include "Horloge.hpp"
+#include "MatriceLed.hpp"
 #include <Arduino.h>
 #include <stdlib.h>
 #include <time.h>
