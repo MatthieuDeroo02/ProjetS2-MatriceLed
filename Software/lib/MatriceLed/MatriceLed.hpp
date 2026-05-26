@@ -99,12 +99,7 @@ public:
     void Clear();
     void ClearZone(uint8_t x_min, uint8_t x_max);
     void AllOn();
-    unsigned long millis();
-
-#ifdef _HORLOGE_
-    void PrintTime(clock& myClock);
-#endif
-    
+    unsigned long millis();    
     
 private:
     void InitCLK();
