@@ -1,7 +1,7 @@
 #ifndef _SNAKE_
 #define _SNAKE_
 
-//#include "Horloge.hpp"
+#include "MatriceLed.hpp"
 #include <Arduino.h>
 #include <stdlib.h>
 //#include <time.h>
@@ -13,7 +13,7 @@
 #define START_X 16
 #define START_Y 4
 #define START_LENGTH 3
-#define START_SENS 2 //0: HAUT, 1 : GAUCHE, 2 : DROITE, 3 : BAS
+#define START_SENS DROITE //0: HAUT, 1 : GAUCHE, 2 : DROITE, 3 : BAS
 
 #define FOOD_NUMBER 1
 
@@ -35,8 +35,8 @@ class snake {
     public:
         void InitSnake();
 
-        void PlaySnake();
-
+        void SnakeGame();
+        
     private:
         friend void GenerateBufferLed();
 
@@ -60,8 +60,9 @@ class snake {
         uint8_t __Body;
 
         typedef enum{  // Etat du jeu
-            PAUSE,
-            START
+            START,
+            PLAY,
+            GAMEOVER
         } TSnakeEtat;
 
         typedef enum{ // Etat du serpent
@@ -86,7 +87,18 @@ class snake {
         void MoveSnake();
         void PrintHead();
 
+        bool SnakeTouch();
+
         void ConvBuffer();
+
+        void SnakeGame();
+        void PrintSnake();
+
+        void PlaySnake();
+        void StartSnake();
+        void SnakeGameOver();
+
+
 };
 
 extern snake mySnake;
