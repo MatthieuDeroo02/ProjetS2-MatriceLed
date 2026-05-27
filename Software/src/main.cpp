@@ -10,13 +10,11 @@ void setup() {
   myMatrice.begin();
   myMatrice.Clear();
 
-  mySnake.InitSnake();
+  mySnakeGame.GameStart();
   
   //myMatrice.AllOn();
 }
 
 void loop() {
-        mySnake.SnakeGame();
-        mySnake.PrintSnake();
-  //myClock.PrintTimeOnMatrice();
+  mySnakeGame.UpdateGame();
 }
