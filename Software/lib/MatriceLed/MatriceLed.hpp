@@ -98,8 +98,7 @@ public:
 
     void Clear();
     void ClearZone(uint8_t x_min, uint8_t x_max);
-    void AllOn();
-    unsigned long millis();    
+    void AllOn();    
     
 private:
     void InitCLK();
@@ -115,6 +114,7 @@ private:
     uint32_t __CLKFrequency = 100000; // 100KHz horloge data
 };
 
+unsigned long newMillis();
 extern MatriceLed myMatrice;
 
 #endif

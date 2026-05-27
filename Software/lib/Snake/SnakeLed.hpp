@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <stdlib.h>
 #include "Horloge.hpp"
+#include "MatriceLed.hpp"
 
 #define START_X 16
 #define START_Y 4
@@ -34,7 +35,23 @@ typedef struct T_Pose {
 class SnakeGame {
 public:
     void GameStart();
+    void UpdateGame();
     void EndGame();
+
+private:
+    Snake mySnake;
+    Food food1;
+    Food food2;
+    Food food3;
+    Food food4;
+    Food food5;
+
+    void GenerateWindow();
+
+    friend void GenerateBufferLed();
+
+    static bool __Snake_running;
+    uint8_t __window[32];
 };
 
 class Snake {
@@ -42,6 +59,8 @@ public:
     void Begin();
 
     void AddSize();
+
+    void Avancer();
 
     typedef enum T_Turn {RIGHT, LEFT};
     void ChangeDirection(T_Turn turn);
@@ -51,71 +70,82 @@ private:
     T_Pose __Snake[256];
 
     typedef enum T_Direction {RIGHT, UP, LEFT, DOWN};
-    T_Direction __Snake_direction = RIGHT;
-};
-class Food {};
-
-class Bouton {};
-
-
-class snake {
-    public:
-        void InitSnake();
-
-        void PlaySnake();
-
-    private:
-        friend void GenerateBufferLed();
-
-        uint8_t __MatriceLed[MATRICE_SIZE_X][MATRICE_SIZE_Y];
-        uint8_t __BufferSnake[MATRICE_SIZE_X];
-
-        bool __SnakeBuffer;
-
-        typedef struct{ // Position de la nourriture
-            uint8_t __RandomFoodX;
-            uint8_t __RandomFoodY;
-        }TFood;
-        
-        typedef struct{ // Position du corps du serpent
-            uint8_t __BodyX;
-            uint8_t __BodyY;
-        } TSnakeBody;
-        
-        uint8_t __X;
-        uint8_t __Y;
-        uint8_t __Body;
-
-        typedef enum{  // Etat du jeu
-            PAUSE,
-            START
-        } TSnakeEtat;
-
-        typedef enum{ // Etat du serpent
-            HAUT,
-            GAUCHE, 
-            DROITE, 
-            BAS
-        } TSnakeSens;
-
-        TSnakeEtat snakeetat;
-        TSnakeSens snakesens;
-        TSnakeBody snakebody[START_LENGTH];
-        TFood snakefood[FOOD_NUMBER];
-
-        void GenerateFood();
-        void EatFood();
-        void ClearFood();
-
-        void PrintBody();
-        void GenerateBody();
-        
-        void MoveSnake();
-        void PrintHead();
-
-        void ConvBuffer();
+    T_Direction __Snake_direction;
 };
 
-extern snake mySnake;
+class Food {
+public:
+    void NewFood();
+    void DeleteFood();
+private:
+    T_Pose __position;
+    bool __state = 0;
+};
 
+extern SnakeGame mySnakeGame;
+
+
+
+
+
+
+
+//class snake {
+//    public:
+//        void InitSnake();
+//
+//        void PlaySnake();
+//
+//    private:
+//        friend void GenerateBufferLed();
+//
+//        uint8_t __MatriceLed[MATRICE_SIZE_X][MATRICE_SIZE_Y];
+//
+//        bool __SnakeBuffer;
+//
+//        typedef struct{ // Position de la nourriture
+//            uint8_t __RandomFoodX;
+//            uint8_t __RandomFoodY;
+//        }TFood;
+//        
+//        typedef struct{ // Position du corps du serpent
+//            uint8_t __BodyX;
+//            uint8_t __BodyY;
+//        } TSnakeBody;
+//        
+//        uint8_t __X;
+//        uint8_t __Y;
+//        uint8_t __Body;
+//
+//        typedef enum{  // Etat du jeu
+//            PAUSE,
+//            START
+//        } TSnakeEtat;
+//
+//        typedef enum{ // Etat du serpent
+//            HAUT,
+//            GAUCHE, 
+//            DROITE, 
+//            BAS
+//        } TSnakeSens;
+//
+//        TSnakeEtat snakeetat;
+//        TSnakeSens snakesens;
+//        TSnakeBody snakebody[START_LENGTH];
+//        TFood snakefood[FOOD_NUMBER];
+//
+//        void GenerateFood();
+//        void EatFood();
+//        void ClearFood();
+//
+//        void PrintBody();
+//        void GenerateBody();
+//        
+//        void MoveSnake();
+//        void PrintHead();
+//        
+//};
+//
+//extern snake mySnake;
+//
 #endif
