@@ -26,6 +26,8 @@ void snake::InitSnake(){
     __X = START_X;
     __Y = START_Y;
 
+    //GenerateFood();
+
     #if DEBUG_SNAKE
         Serial.println("Snake Init");
     #endif
@@ -36,13 +38,14 @@ void snake::InitSnake(){
 void snake::PlaySnake(){
     MoveSnake();
 
-    GenerateFood();
+    ConvBuffer();
+    //GenerateFood();
     GenerateBody();
 
     PrintHead();
     PrintBody();
 
-    EatFood();
+    //EatFood();
 }
 
 
@@ -123,30 +126,46 @@ void snake::PrintHead(){
     switch(snakesens){
         case HAUT:
             __Y++;
-            if(__Y >= 32){__Y = 0;}
+            #if DEBUG_SNAKE
+                Serial.println("--------------");
+                Serial.println("SENS : HAUT");
+            #endif
+            if(__Y >= 8){__Y = 0;}
             break;
 
         case GAUCHE:
             __X--;
-            if(__X <= 0){__X = 31;}
+            #if DEBUG_SNAKE
+                Serial.println("--------------");
+                Serial.println("SENS : GAUCHE");
+            #endif
+            if(__X <= 0){__X = 32;}
             break;
 
         case DROITE:
             __X++;
-            if(__X >= 32){__X = 0;}
+            #if DEBUG_SNAKE
+                Serial.println("--------------");
+                Serial.println("SENS : DROITE");
+            #endif
+            if(__X >= 33){__X = 0;}
             break;
 
         case BAS:
             __Y--;
+            #if DEBUG_SNAKE
+                Serial.println("--------------");
+                Serial.println("SENS : BAS");
+            #endif
             if(__Y <= 0){__Y = 7;}
             break;
 
     }
     #if DEBUG_SNAKE
-        Serial.println("----------------\n");
-        Serial.print("Snake Move to : ");
+        Serial.println("--------------");
+        Serial.print("Snake Move to X :");
         Serial.print(__X);
-        Serial.print("|");
+        Serial.print("| Y :");
         Serial.println(__Y);
     #endif
 
@@ -170,7 +189,9 @@ void snake::GenerateFood(){
         __MatriceLed[snakefood[i].__RandomFoodX][snakefood[i].__RandomFoodY] = 1;
 
         #if DEBUG_SNAKE
-            Serial.println("----------FOOD %i---------\n, i");
+            Serial.print("----------FOOD ");
+            Serial.print(i);
+            Serial.println("----------");
             Serial.print("Random FOOD X : ");
             Serial.println(snakefood[i].__RandomFoodX);
             Serial.print("Random FOOD Y : ");
@@ -213,27 +234,46 @@ void snake::ClearFood(){
         #endif
 }
 
-/*------BP---------*/
-bool BP1_Appuyer(){
-    if((PIND & Masque_PD2) != 0){
-        #if DEBUG_SNAKE
-            Serial.println("BP1 Appuyer");
-        #endif
-        return true; // BP1 Appuyer
+
+/*------ BP1 ---------*/
+bool BP1_Appuyer() {
+    static bool etat_precedent = false; 
+    
+    bool etat_actuel = ((PIND & Masque_PD2) != 0);
+    bool front_montant = false;
+
+    if (etat_actuel && !etat_precedent) {
+        front_montant = true;
     }
-    else{
-        return false; // BP1 Non Appuyer
-    }
+
+    etat_precedent = etat_actuel;
+
+    return front_montant;
 }
 
-bool BP2_Appuyer(){
-    if((PIND & Masque_PD3) != 0){
-        #if DEBUG_SNAKE
-            Serial.println("BP2 Appuyer");
-        #endif
-        return true; // BP2 Appuyer
+/*------ BP2 ---------*/
+bool BP2_Appuyer() {
+    static bool etat_precedent = false;
+    
+    bool etat_actuel = ((PIND & Masque_PD3) != 0);
+    bool front_montant = false;
+
+    if (etat_actuel && !etat_precedent) {
+        front_montant = true;
     }
-    else{
-        return false; // BP2 Non Appuyer
+
+    etat_precedent = etat_actuel;
+
+    return front_montant;
+}
+
+void snake::ConvBuffer() {
+    for (int i = 0; i < MATRICE_SIZE_X; i++) {
+        __BufferSnake[i] = 0; 
+        for (int j = 0; j < MATRICE_SIZE_Y; j++) {
+            if (__MatriceLed[i][j]) {
+                __BufferSnake[i] |= (1 << j);
+            }
+        }
     }
 }

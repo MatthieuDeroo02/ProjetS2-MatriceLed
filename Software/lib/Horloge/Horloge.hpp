@@ -6,18 +6,12 @@
 #include "RTClib.h"
 //#include "MatriceLed.hpp"
 
-
-#define BP1 PD2 
-#define BP2 PD3
 #define SDA PC4 // I2C
 #define SCL PC5 // I2C
 
 #define SERIAL_MONITOR_BAUD 9600
 
 #define DEBUG_HORLOGE 0
-
-#define Masque_PD2 1<<2
-#define Masque_PD3 1<<3
 
 class clock {
 public:

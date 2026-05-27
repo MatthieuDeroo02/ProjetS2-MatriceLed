@@ -13,6 +13,7 @@
 #define START_X 16
 #define START_Y 4
 #define START_LENGTH 3
+#define START_SENS 2 //0: HAUT, 1 : GAUCHE, 2 : DROITE, 3 : BAS
 
 #define FOOD_NUMBER 1
 
@@ -40,6 +41,7 @@ class snake {
         friend void GenerateBufferLed();
 
         uint8_t __MatriceLed[MATRICE_SIZE_X][MATRICE_SIZE_Y];
+        uint8_t __BufferSnake[MATRICE_SIZE_X];
 
         bool __SnakeBuffer;
 
@@ -83,7 +85,8 @@ class snake {
         
         void MoveSnake();
         void PrintHead();
-        
+
+        void ConvBuffer();
 };
 
 extern snake mySnake;
