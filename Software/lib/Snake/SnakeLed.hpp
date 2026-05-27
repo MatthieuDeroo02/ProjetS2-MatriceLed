@@ -13,6 +13,7 @@
 #define START_X 16
 #define START_Y 4
 #define START_LENGTH 3
+#define START_SENS 2 //0: HAUT, 1 : GAUCHE, 2 : DROITE, 3 : BAS
 
 #define FOOD_NUMBER 1
 
