@@ -1,14 +1,9 @@
-#ifndef _SNAKE_
-#define _SNAKE_
+#ifndef _SNAKE_HPP_
+#define _SNAKE_HPP_
 
-//#include "Horloge.hpp"
 #include <Arduino.h>
 #include <stdlib.h>
-//#include <time.h>
-//#include "Wire.h"
-
-#define MATRICE_SIZE_X 32
-#define MATRICE_SIZE_Y 8
+#include "Horloge.hpp"
 
 #define START_X 16
 #define START_Y 4
@@ -30,6 +25,38 @@
 
 bool BP1_Appuyer();
 bool BP2_Appuyer();
+
+typedef struct T_Pose {
+    uint8_t x;
+    uint8_t y;
+};
+
+class SnakeGame {
+public:
+    void GameStart();
+    void EndGame();
+};
+
+class Snake {
+public:
+    void Begin();
+
+    void AddSize();
+
+    typedef enum T_Turn {RIGHT, LEFT};
+    void ChangeDirection(T_Turn turn);
+
+private:
+    uint32_t __SnakeSize = START_LENGTH;
+    T_Pose __Snake[256];
+
+    typedef enum T_Direction {RIGHT, UP, LEFT, DOWN};
+    T_Direction __Snake_direction = RIGHT;
+};
+class Food {};
+
+class Bouton {};
+
 
 class snake {
     public:
