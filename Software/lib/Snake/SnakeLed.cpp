@@ -57,17 +57,6 @@ void snake::SnakeGame(){
             }
             break;
     }
-
-    MoveSnake();
-
-    ConvBuffer();
-    //GenerateFood();
-    GenerateBody();
-
-    PrintHead();
-    PrintBody();
-
-    //EatFood();
 }
 
 
@@ -307,6 +296,10 @@ void snake::ClearFood(){
 bool snake::SnakeTouch(){
     for(int i = 0; i < __Body; i++){
         if((__X == snakebody[i].__BodyX) && (__Y == snakebody[i].__BodyY)){
+            #if DEBUG_SNAKE
+                Serial.println("--------------");
+                Serial.println("Snake Touch Body");
+            #endif
             return true;
         }
     }
