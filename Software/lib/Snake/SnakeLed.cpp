@@ -26,7 +26,10 @@ void snake::InitSnake(){
     __X = START_X;
     __Y = START_Y;
 
-    //GenerateFood();
+    snakeetat = START;
+    snakesens = START_SENS;
+
+    GenerateFood();
 
     #if DEBUG_SNAKE
         Serial.println("Snake Init");
@@ -34,6 +37,60 @@ void snake::InitSnake(){
 }
 
 
+void snake::SnakeGame(){
+    switch(snakeetat){
+        case START:
+            if(BP1_Appuyer() || BP2_Appuyer()){
+                snakeetat = PLAY;
+            }
+            break;
+
+        case PLAY:
+            if(SnakeTouch()){
+                snakeetat = GAMEOVER;
+            }
+            break;
+
+        case GAMEOVER:
+            if(BP1_Appuyer() || BP2_Appuyer()){
+                snakeetat = START;
+            }
+            break;
+    }
+}
+
+
+void snake::PrintSnake(){  
+    switch(snakeetat){
+        case START:
+            StartSnake();
+            #if DEBUG_SNAKE
+                Serial.println("--------------");
+                Serial.println("ETAT : START");
+            #endif
+            break;
+
+            case PLAY:
+                PlaySnake();
+                #if DEBUG_SNAKE
+                    Serial.println("--------------");
+                    Serial.println("ETAT : PLAY");
+                #endif
+                break;
+
+            case GAMEOVER:
+                SnakeGameOver();
+                #if DEBUG_SNAKE
+                    Serial.println("--------------");
+                    Serial.println("ETAT : GAMEOVER");
+                #endif
+                break;
+    }
+}
+
+void snake::StartSnake(){
+        myMatrice.Print("SNAKE", 10, 0, MATRICE_SIZE_X-1);
+}
 
 void snake::PlaySnake(){
     MoveSnake();
@@ -48,7 +105,9 @@ void snake::PlaySnake(){
     //EatFood();
 }
 
-
+void snake::SnakeGameOver(){
+    myMatrice.Print("GAME OVER", 10, 0, MATRICE_SIZE_X-1);
+}
 
 void snake::MoveSnake(){
     switch(snakesens){
@@ -232,6 +291,19 @@ void snake::ClearFood(){
         #if DEBUG_SNAKE
             Serial.println("-----Food Clear-----\n");
         #endif
+}
+
+bool snake::SnakeTouch(){
+    for(int i = 0; i < __Body; i++){
+        if((__X == snakebody[i].__BodyX) && (__Y == snakebody[i].__BodyY)){
+            #if DEBUG_SNAKE
+                Serial.println("--------------");
+                Serial.println("Snake Touch Body");
+            #endif
+            return true;
+        }
+    }
+    return false;
 }
 
 

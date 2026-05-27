@@ -16,6 +16,7 @@ void setup() {
 }
 
 void loop() {
-  mySnake.PlaySnake();
+        mySnake.SnakeGame();
+        mySnake.PrintSnake();
   //myClock.PrintTimeOnMatrice();
 }
