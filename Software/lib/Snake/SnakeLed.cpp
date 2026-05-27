@@ -304,6 +304,15 @@ void snake::ClearFood(){
         #endif
 }
 
+bool snake::SnakeTouch(){
+    for(int i = 0; i < __Body; i++){
+        if((__X == snakebody[i].__BodyX) && (__Y == snakebody[i].__BodyY)){
+            return true;
+        }
+    }
+    return false;
+}
+
 
 /*------ BP1 ---------*/
 bool BP1_Appuyer() {

@@ -34,8 +34,8 @@ bool BP2_Appuyer();
 class snake {
     public:
         void InitSnake();
-
         void SnakeGame();
+        void PrintSnake();
         
     private:
         friend void GenerateBufferLed();
@@ -91,8 +91,8 @@ class snake {
 
         void ConvBuffer();
 
-        void SnakeGame();
-        void PrintSnake();
+        //void SnakeGame();
+        //void PrintSnake();
 
         void PlaySnake();
         void StartSnake();
