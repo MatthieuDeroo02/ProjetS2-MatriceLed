@@ -41,6 +41,7 @@ class snake {
         friend void GenerateBufferLed();
 
         uint8_t __MatriceLed[MATRICE_SIZE_X][MATRICE_SIZE_Y];
+        uint8_t __BufferSnake[MATRICE_SIZE_X];
 
         bool __SnakeBuffer;
 
@@ -84,7 +85,8 @@ class snake {
         
         void MoveSnake();
         void PrintHead();
-        
+
+        void ConvBuffer();
 };
 
 extern snake mySnake;

@@ -26,6 +26,8 @@ void snake::InitSnake(){
     __X = START_X;
     __Y = START_Y;
 
+    //GenerateFood();
+
     #if DEBUG_SNAKE
         Serial.println("Snake Init");
     #endif
@@ -36,13 +38,14 @@ void snake::InitSnake(){
 void snake::PlaySnake(){
     MoveSnake();
 
+    ConvBuffer();
     //GenerateFood();
     GenerateBody();
 
     PrintHead();
     PrintBody();
 
-    EatFood();
+    //EatFood();
 }
 
 
@@ -125,34 +128,34 @@ void snake::PrintHead(){
             __Y++;
             #if DEBUG_SNAKE
                 Serial.println("--------------");
-                Serial.print("SENS : HAUT");
+                Serial.println("SENS : HAUT");
             #endif
-            if(__Y >= 32){__Y = 0;}
+            if(__Y >= 8){__Y = 0;}
             break;
 
         case GAUCHE:
             __X--;
             #if DEBUG_SNAKE
                 Serial.println("--------------");
-                Serial.print("SENS : GAUCHE");
+                Serial.println("SENS : GAUCHE");
             #endif
-            if(__X <= 0){__X = 31;}
+            if(__X <= 0){__X = 32;}
             break;
 
         case DROITE:
             __X++;
             #if DEBUG_SNAKE
                 Serial.println("--------------");
-                Serial.print("SENS : DROITE");
+                Serial.println("SENS : DROITE");
             #endif
-            if(__X >= 32){__X = 0;}
+            if(__X >= 33){__X = 0;}
             break;
 
         case BAS:
             __Y--;
             #if DEBUG_SNAKE
                 Serial.println("--------------");
-                Serial.print("SENS : BAS");
+                Serial.println("SENS : BAS");
             #endif
             if(__Y <= 0){__Y = 7;}
             break;
@@ -241,9 +244,6 @@ bool BP1_Appuyer() {
 
     if (etat_actuel && !etat_precedent) {
         front_montant = true;
-        #if DEBUG_SNAKE
-            Serial.println("BP1 : Front Montant Détecté (Appui)");
-        #endif
     }
 
     etat_precedent = etat_actuel;
@@ -260,12 +260,20 @@ bool BP2_Appuyer() {
 
     if (etat_actuel && !etat_precedent) {
         front_montant = true;
-        #if DEBUG_SNAKE
-            Serial.println("BP2 : Front Montant Détecté (Appui)");
-        #endif
     }
 
     etat_precedent = etat_actuel;
 
     return front_montant;
+}
+
+void snake::ConvBuffer() {
+    for (int i = 0; i < MATRICE_SIZE_X; i++) {
+        __BufferSnake[i] = 0; 
+        for (int j = 0; j < MATRICE_SIZE_Y; j++) {
+            if (__MatriceLed[i][j]) {
+                __BufferSnake[i] |= (1 << j);
+            }
+        }
+    }
 }
