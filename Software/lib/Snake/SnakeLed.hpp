@@ -41,13 +41,17 @@ public:
 
     void Avancer();
 
-    //typedef enum T_Turn {RIGHT, LEFT};
     typedef enum T_Direction {RIGHT, UP, LEFT, DOWN};
     void ChangeDirection(T_Direction turn);
 
     T_Pose* GetSnake();
     uint32_t GetSnakeSize();
     bool GetAvailableToTurn();
+    bool GetTouchWall();
+    bool GetTouchHimself();
+    
+    bool __touch_wall;
+    bool __touch_himself;
 
 private:
     bool __available_to_turn;

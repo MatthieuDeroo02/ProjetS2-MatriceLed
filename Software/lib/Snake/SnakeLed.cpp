@@ -61,19 +61,19 @@ void Snake::Avancer() {
     switch(__Snake_direction) {
         case RIGHT:
             if (__Snake[0].x < MATRICE_SIZE_X-1) __Snake[0].x++;
-            else __Snake[0].x = 0;
+            else __touch_wall = true;
             break;
         case UP:
             if (__Snake[0].y > 0) __Snake[0].y--;
-            else __Snake[0].y = MATRICE_SIZE_Y-1;
+            else __touch_wall = true;
             break;
         case LEFT:
             if (__Snake[0].x > 0) __Snake[0].x--;
-            else __Snake[0].x = MATRICE_SIZE_X-1;
+            else __touch_wall = true;
             break;
         case DOWN:
             if (__Snake[0].y < MATRICE_SIZE_Y-1) __Snake[0].y++;
-            else __Snake[0].y = 0;
+            else __touch_wall = true;
             break;
     }
     __available_to_turn = true;
@@ -142,6 +142,13 @@ void Snake::ChangeDirection(T_Direction turn) {
 
 bool Snake::GetAvailableToTurn() {
     return __available_to_turn;
+}
+
+bool Snake::GetTouchWall() {
+    return __touch_wall;
+}
+bool Snake::GetTouchHimself() {
+    return __touch_himself;
 }
 
 
