@@ -25,6 +25,11 @@ void SnakeGame::UpdateGame() {
         __is_dirty = true;
     }
 
+    /* Si on doit rechager la fenetre */
+    if (__is_dirty) {
+        GenerateWindow();
+        __is_dirty = false;
+    }
 }
 
 void Snake::Avancer() {
