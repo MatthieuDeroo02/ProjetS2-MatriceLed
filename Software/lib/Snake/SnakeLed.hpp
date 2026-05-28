@@ -47,8 +47,11 @@ public:
 
     T_Pose* GetSnake();
     uint32_t GetSnakeSize();
+    bool GetAvailableToTurn();
 
 private:
+    bool __available_to_turn;
+
     uint32_t __SnakeSize = START_LENGTH;
     T_Pose __Snake[256];
 

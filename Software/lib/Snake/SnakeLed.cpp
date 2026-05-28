@@ -18,16 +18,27 @@ void SnakeGame::UpdateGame() {
     static unsigned long timer_snake_last_move = 0;
 
     /* Regarde si on change de direction */
-    static bool tmp_bp1 = 0;
-    static bool tmp_bp2 = 0;
-    bool bp1 = BP1_Appuyer();
-    bool bp2 = BP2_Appuyer();
+    if (mySnake.GetAvailableToTurn()) {
+        static bool tmp_bp1 = 0;
+        static bool tmp_bp2 = 0;
+        bool bp1 = BP1_Appuyer();
+        bool bp2 = BP2_Appuyer();
 
-    if (tmp_bp1 == 0 && bp1) mySnake.ChangeDirection(Snake::RIGHT);
-    if (tmp_bp2 == 0 && bp2) mySnake.ChangeDirection(Snake::LEFT);
 
-    tmp_bp1 = bp1;
-    tmp_bp2 = bp2;
+        if (tmp_bp1 == 0 && bp1) {
+            unsigned long timer_bp_debounce = newMillis();
+            while(newMillis()-timer_bp_debounce < 30){};
+                if (BP1_Appuyer()) mySnake.ChangeDirection(Snake::RIGHT);
+        }
+        if (tmp_bp2 == 0 && bp2) {
+            unsigned long timer_bp_debounce = newMillis();
+            while(newMillis()-timer_bp_debounce < 30){};
+                if (BP2_Appuyer()) mySnake.ChangeDirection(Snake::LEFT);
+        }
+
+        tmp_bp1 = bp1;
+        tmp_bp2 = bp2;
+    }
 
     /* Si ca fait plus de 200ms on fait avancer le snake */
     if (newMillis()-timer_snake_last_move > 200) {
@@ -65,6 +76,7 @@ void Snake::Avancer() {
             else __Snake[0].y = 0;
             break;
     }
+    __available_to_turn = true;
 }
 
 void Snake::Begin() {
@@ -74,6 +86,8 @@ void Snake::Begin() {
     __Snake[0] = {16, 4};
     __Snake[1] = {15, 4};
     __Snake[2] = {14, 4};
+
+    __available_to_turn = true;
 }
 
 void SnakeGame::GenerateWindow() {
@@ -86,17 +100,12 @@ void SnakeGame::GenerateWindow() {
     }
 
     /* Ajoute les fruits */
-
-    /* Enleve le flag de generation */
-    __is_dirty = false;
 }
 
 void SnakeGame::ClearWindow() {
     for (uint8_t index=0; index < MATRICE_SIZE_X; index++) {
         __window[index] = 0;
     }
-
-    __is_dirty = true;
 }
 
 T_Pose* Snake::GetSnake() {
@@ -116,6 +125,7 @@ void Snake::ChangeDirection(T_Direction turn) {
                 case LEFT: __Snake_direction = UP; break;
                 case DOWN: __Snake_direction = LEFT; break;
             }
+            __available_to_turn = false;
             break;
         case LEFT:
             switch (__Snake_direction) {
@@ -124,8 +134,14 @@ void Snake::ChangeDirection(T_Direction turn) {
                 case LEFT: __Snake_direction = DOWN; break;
                 case DOWN: __Snake_direction = RIGHT; break;
             }
+            __available_to_turn = false;
             break;
+        default: break;
     }
+}
+
+bool Snake::GetAvailableToTurn() {
+    return __available_to_turn;
 }
 
 
