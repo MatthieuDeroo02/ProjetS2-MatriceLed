@@ -6,17 +6,19 @@
 //clock myClock;
 
 void setup() {
+  //Serial.begin(9600);
   //myClock.Begin();
   myMatrice.begin();
   myMatrice.Clear();
 
-  mySnake.InitSnake();
+  mySnakeGame.GameStart();
+  int i =0;
+  while(mySnakeGame.UpdateGame()) {};
+  mySnakeGame.EndGame();
+  
   
   //myMatrice.AllOn();
 }
 
 void loop() {
-        mySnake.SnakeGame();
-        mySnake.PrintSnake();
-  //myClock.PrintTimeOnMatrice();
 }

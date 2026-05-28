@@ -71,14 +71,12 @@ void MatriceLed::InitLigneCLK() {
 }
 
 void GenerateBufferLed() {
-    //uint8_t masque = (1 << ligneInProcesse);
+    uint8_t *window;
+    if (mySnakeGame.__Snake_running) window = mySnakeGame.__window;
+    else window = myMatrice.__MatriceLed;
+
     for (uint8_t i=0; i<32; i++) {
-        if(mySnake.__SnakeBuffer){
-            data_buffer[i] = ((mySnake.__BufferSnake[i] >> ligneInProcesse) & 1) ^ 1;
-        }
-        else{
-            data_buffer[i] = ((myMatrice.__MatriceLed[i] >> ligneInProcesse) & 1) ^ 1; // Recupere le bit et l'inverse
-        }
+            data_buffer[i] = ((window[i] >> ligneInProcesse) & 1) ^ 1; // Recupere le bit et l'inverse
     }
 #if DEBUG_LED
     for (int i = 0; i<32; i++) {
@@ -167,7 +165,7 @@ void MatriceLed::AllOn() {
     }
 }
 
-unsigned long MatriceLed::millis() {
+unsigned long newMillis() {
     return (nbr_debordement * 124UL + TCNT0) * 4UL / 1000UL;
 }
 
