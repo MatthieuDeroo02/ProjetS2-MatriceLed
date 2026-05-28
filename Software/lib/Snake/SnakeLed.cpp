@@ -8,6 +8,9 @@ void SnakeGame::GameStart() {
     __Snake_running = true;
 
     /* Genere les 5 nouriture */
+
+    /* Genere la 1ere image */
+    GenerateWindow();
 }
 
 void SnakeGame::UpdateGame() {
@@ -56,6 +59,37 @@ void Snake::Begin() {
     __Snake[0] = {16, 4};
     __Snake[1] = {15, 4};
     __Snake[2] = {14, 4};
+}
+
+void SnakeGame::GenerateWindow() {
+    ClearWindow();
+
+    /* Ajoute le serpent */
+    T_Pose *snake = mySnake.GetSnake(); 
+    for (uint32_t index_snake = 0; index_snake < mySnake.GetSnakeSize(); index_snake++) {
+        __window[snake[index_snake].x] |= (1<<snake[index_snake].y);
+    }
+
+    /* Ajoute les fruits */
+
+    /* Enleve le flag de generation */
+    __is_dirty = false;
+}
+
+void SnakeGame::ClearWindow() {
+    for (uint8_t index=0; index < MATRICE_SIZE_X; index++) {
+        __window[index] = 0;
+    }
+
+    __is_dirty = true;
+}
+
+T_Pose* Snake::GetSnake() {
+    return __Snake;
+}
+
+uint32_t Snake::GetSnakeSize() {
+    return __SnakeSize;
 }
 
 

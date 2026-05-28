@@ -43,6 +43,9 @@ public:
     typedef enum T_Turn {RIGHT, LEFT};
     void ChangeDirection(T_Turn turn);
 
+    T_Pose* GetSnake();
+    uint32_t GetSnakeSize();
+
 private:
     uint32_t __SnakeSize = START_LENGTH;
     T_Pose __Snake[256];
@@ -75,6 +78,7 @@ private:
     Food food5;
 
     void GenerateWindow();
+    void ClearWindow();
 
     friend void GenerateBufferLed();
 
