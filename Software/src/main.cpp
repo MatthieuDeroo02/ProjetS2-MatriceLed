@@ -6,15 +6,20 @@
 //clock myClock;
 
 void setup() {
+  Serial.begin(9600);
   //myClock.Begin();
-  myMatrice.begin();
-  myMatrice.Clear();
+  //myMatrice.begin();
+  //myMatrice.Clear();
 
-  mySnakeGame.GameStart();
+  //mySnakeGame.GameStart();
   
   //myMatrice.AllOn();
 }
 
 void loop() {
-  mySnakeGame.UpdateGame();
+  //mySnakeGame.UpdateGame();
+
+  Serial.print(BP1_Appuyer());
+  Serial.print("  |  ");
+  Serial.println(BP2_Appuyer());
 }

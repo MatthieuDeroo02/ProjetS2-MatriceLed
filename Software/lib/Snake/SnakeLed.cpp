@@ -98,7 +98,19 @@ uint32_t Snake::GetSnakeSize() {
     return __SnakeSize;
 }
 
+/*------BP---------*/
+bool BP1_Appuyer(){
+    return ((PIND & (1<<BP1)) == (1<<BP1));
+}
 
+bool BP2_Appuyer(){
+    return ((PIND & (1<<BP2)) == (1<<BP2));
+}
+
+void BP_Init() {
+    DDRD &= ~((1<<BP1) | (1<<BP2));
+    //PORTD |= (1<<BP1) | (1<<BP2);
+}
 
 
 //snake mySnake;

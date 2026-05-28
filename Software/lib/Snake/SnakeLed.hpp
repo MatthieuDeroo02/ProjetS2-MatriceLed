@@ -21,9 +21,10 @@
 #define BP1 PD2
 #define BP2 PD3
 
-#define Masque_PD2 1<<2
-#define Masque_PD3 1<<3
+#define BP1 PD2
+#define BP2 PD3
 
+void BP_Init();
 bool BP1_Appuyer();
 bool BP2_Appuyer();
 
@@ -93,8 +94,6 @@ extern SnakeGame mySnakeGame;
 
 
 
-
-
 //class snake {
 //    public:
 //        void InitSnake();
@@ -153,4 +152,5 @@ extern SnakeGame mySnakeGame;
 //
 //extern snake mySnake;
 //
+
 #endif
