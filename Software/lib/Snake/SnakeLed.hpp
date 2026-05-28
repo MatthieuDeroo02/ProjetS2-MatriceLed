@@ -40,8 +40,9 @@ public:
 
     void Avancer();
 
-    typedef enum T_Turn {RIGHT, LEFT};
-    void ChangeDirection(T_Turn turn);
+    //typedef enum T_Turn {RIGHT, LEFT};
+    typedef enum T_Direction {RIGHT, UP, LEFT, DOWN};
+    void ChangeDirection(T_Direction turn);
 
     T_Pose* GetSnake();
     uint32_t GetSnakeSize();
@@ -50,7 +51,6 @@ private:
     uint32_t __SnakeSize = START_LENGTH;
     T_Pose __Snake[256];
 
-    typedef enum T_Direction {RIGHT, UP, LEFT, DOWN};
     T_Direction __Snake_direction;
 };
 

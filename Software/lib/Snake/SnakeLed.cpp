@@ -1,6 +1,7 @@
 #include "SnakeLed.hpp"
 
 SnakeGame mySnakeGame;
+bool SnakeGame::__Snake_running = false;
 
 void SnakeGame::GameStart() {
     /* Initilalise le serpent */
