@@ -32,28 +32,6 @@ typedef struct T_Pose {
     uint8_t y;
 };
 
-class SnakeGame {
-public:
-    void GameStart();
-    void UpdateGame();
-    void EndGame();
-
-private:
-    Snake mySnake;
-    Food food1;
-    Food food2;
-    Food food3;
-    Food food4;
-    Food food5;
-
-    void GenerateWindow();
-
-    friend void GenerateBufferLed();
-
-    static bool __Snake_running;
-    uint8_t __window[32];
-};
-
 class Snake {
 public:
     void Begin();
@@ -80,6 +58,29 @@ public:
 private:
     T_Pose __position;
     bool __state = 0;
+};
+
+class SnakeGame {
+public:
+    void GameStart();
+    void UpdateGame();
+    void EndGame();
+
+private:
+    Snake mySnake;
+    Food food1;
+    Food food2;
+    Food food3;
+    Food food4;
+    Food food5;
+
+    void GenerateWindow();
+
+    friend void GenerateBufferLed();
+
+    static bool __Snake_running;
+    uint8_t __window[32];
+    bool __is_dirty; //window need to be recalculated
 };
 
 extern SnakeGame mySnakeGame;

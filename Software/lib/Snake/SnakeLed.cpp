@@ -18,8 +18,8 @@ void SnakeGame::UpdateGame() {
     /* Si ca fait plus de 200ms on fait avancer le snake */
     if (newMillis()-timer_snake_last_move > 200) {
         mySnake.Avancer();
-
         timer_snake_last_move = newMillis();
+        __is_dirty = true;
     }
 
 }
@@ -30,18 +30,32 @@ void Snake::Avancer() {
     }
     switch(__Snake_direction) {
         case RIGHT:
-            __Snake[0].x++;
+            if (__Snake[0].x < MATRICE_SIZE_X-1) __Snake[0].x++;
+            else __Snake[0].x = 0;
             break;
         case UP:
-            __Snake[0].y--;
+            if (__Snake[0].y >= 0) __Snake[0].y--;
+            else __Snake[0].y = MATRICE_SIZE_Y-1;
             break;
         case LEFT:
+            if (__Snake[0].x >= 0) __Snake[0].x--;
+            else __Snake[0].x = MATRICE_SIZE_X-1;
             __Snake[0].x--;
             break;
         case DOWN:
-            __Snake[0].y++;
-            break;            
+            if (__Snake[0].y < MATRICE_SIZE_Y-1) __Snake[0].y++;
+            else __Snake[0].y = 0;
+            break;
     }
+}
+
+void Snake::Begin() {
+    /* Genere un snake de depart de 3 de long */
+    __SnakeSize = 3;
+    __Snake_direction = RIGHT;
+    __Snake[0] = {16, 4};
+    __Snake[1] = {15, 4};
+    __Snake[2] = {14, 4};
 }
 
 
