@@ -27,7 +27,6 @@
 bool BP1_Appuyer();
 bool BP2_Appuyer();
 
-
 typedef struct T_Pose {
     uint8_t x;
     uint8_t y;
