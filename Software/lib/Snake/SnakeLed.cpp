@@ -53,13 +53,12 @@ void Snake::Avancer() {
             else __Snake[0].x = 0;
             break;
         case UP:
-            if (__Snake[0].y >= 0) __Snake[0].y--;
+            if (__Snake[0].y > 0) __Snake[0].y--;
             else __Snake[0].y = MATRICE_SIZE_Y-1;
             break;
         case LEFT:
-            if (__Snake[0].x >= 0) __Snake[0].x--;
+            if (__Snake[0].x > 0) __Snake[0].x--;
             else __Snake[0].x = MATRICE_SIZE_X-1;
-            __Snake[0].x--;
             break;
         case DOWN:
             if (__Snake[0].y < MATRICE_SIZE_Y-1) __Snake[0].y++;
