@@ -74,7 +74,7 @@ private:
 class SnakeGame {
 public:
     void GameStart();
-    void UpdateGame();
+    bool UpdateGame();
     void EndGame();
 
 private:

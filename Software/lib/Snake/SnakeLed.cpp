@@ -4,6 +4,7 @@ SnakeGame mySnakeGame;
 bool SnakeGame::__Snake_running = false;
 
 void SnakeGame::GameStart() {
+
     /* Initilalise le serpent */
     mySnake.Begin();
     __Snake_running = true;
@@ -14,7 +15,7 @@ void SnakeGame::GameStart() {
     GenerateWindow();
 }
 
-void SnakeGame::UpdateGame() {
+bool SnakeGame::UpdateGame() {
     static unsigned long timer_snake_last_move = 0;
 
     /* Regarde si on change de direction */
@@ -44,6 +45,9 @@ void SnakeGame::UpdateGame() {
     if (newMillis()-timer_snake_last_move > 200) {
         mySnake.Avancer();
         timer_snake_last_move = newMillis();
+        if (mySnake.GetTouchHimself() || mySnake.GetTouchHimself()) {
+            return false;
+        }
         __is_dirty = true;
     }
 
@@ -52,6 +56,7 @@ void SnakeGame::UpdateGame() {
         GenerateWindow();
         __is_dirty = false;
     }
+    return true;
 }
 
 void Snake::Avancer() {
@@ -149,6 +154,13 @@ bool Snake::GetTouchWall() {
 }
 bool Snake::GetTouchHimself() {
     return __touch_himself;
+}
+
+void SnakeGame::EndGame() {
+    unsigned long tempo = newMillis();
+    while (newMillis() - tempo < 1000) {}
+    __Snake_running = false;
+    myMatrice.Print('LOSE\0', 6);
 }
 
 

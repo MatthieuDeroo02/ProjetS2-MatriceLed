@@ -12,10 +12,11 @@ void setup() {
   myMatrice.Clear();
 
   mySnakeGame.GameStart();
+  while(mySnakeGame.UpdateGame()) {};
+  mySnakeGame.EndGame();
   
   //myMatrice.AllOn();
 }
 
 void loop() {
-  mySnakeGame.UpdateGame();
 }
