@@ -16,14 +16,31 @@ void SnakeGame::UpdateGame() {
     /* Regarde si on change de direction */
 
     /* Si ca fait plus de 200ms on fait avancer le snake */
-    mySnake.Avancer();
+    if (newMillis()-timer_snake_last_move > 200) {
+        mySnake.Avancer();
+
+        timer_snake_last_move = newMillis();
+    }
 
 }
 
 void Snake::Avancer() {
+    for (uint32_t index_pos_in_snake = __SnakeSize - 1; index_pos_in_snake > 0; index_pos_in_snake--) {
+        __Snake[index_pos_in_snake] = __Snake[index_pos_in_snake-1];
+    }
     switch(__Snake_direction) {
         case RIGHT:
-            
+            __Snake[0].x++;
+            break;
+        case UP:
+            __Snake[0].y--;
+            break;
+        case LEFT:
+            __Snake[0].x--;
+            break;
+        case DOWN:
+            __Snake[0].y++;
+            break;            
     }
 }
 
