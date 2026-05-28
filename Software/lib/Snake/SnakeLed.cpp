@@ -45,7 +45,7 @@ bool SnakeGame::UpdateGame() {
     if (newMillis()-timer_snake_last_move > 200) {
         mySnake.Avancer();
         timer_snake_last_move = newMillis();
-        if (mySnake.GetTouchHimself() || mySnake.GetTouchHimself()) {
+        if (mySnake.GetTouchWall() || mySnake.GetTouchHimself()) {
             return false;
         }
         __is_dirty = true;
@@ -160,7 +160,18 @@ void SnakeGame::EndGame() {
     unsigned long tempo = newMillis();
     while (newMillis() - tempo < 1000) {}
     __Snake_running = false;
-    myMatrice.Print('LOSE\0', 6);
+    while (!BP1_Appuyer() && !BP2_Appuyer()) {
+        static unsigned long timer_cligno = 0;
+        static bool etat = false;
+
+        if (newMillis() - timer_cligno > 500) {
+            etat = !etat;
+            if (etat) myMatrice.Print("LOSE\0", 5, 0, 31);
+            else myMatrice.Clear();
+            timer_cligno = newMillis();
+        }
+    }
+    myMatrice.Clear();
 }
 
 
