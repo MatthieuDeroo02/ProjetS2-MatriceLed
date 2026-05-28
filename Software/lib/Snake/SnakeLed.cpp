@@ -18,6 +18,16 @@ void SnakeGame::UpdateGame() {
     static unsigned long timer_snake_last_move = 0;
 
     /* Regarde si on change de direction */
+    static bool tmp_bp1 = 0;
+    static bool tmp_bp2 = 0;
+    bool bp1 = BP1_Appuyer();
+    bool bp2 = BP2_Appuyer();
+
+    if (tmp_bp1 == 0 && bp1) mySnake.ChangeDirection(Snake::RIGHT);
+    if (tmp_bp2 == 0 && bp2) mySnake.ChangeDirection(Snake::LEFT);
+
+    tmp_bp1 = bp1;
+    tmp_bp2 = bp2;
 
     /* Si ca fait plus de 200ms on fait avancer le snake */
     if (newMillis()-timer_snake_last_move > 200) {
@@ -98,6 +108,30 @@ uint32_t Snake::GetSnakeSize() {
     return __SnakeSize;
 }
 
+void Snake::ChangeDirection(T_Direction turn) {
+    switch (turn) {
+        case RIGHT:
+            switch (__Snake_direction) {
+                case RIGHT: __Snake_direction = DOWN; break;
+                case UP: __Snake_direction = RIGHT; break;
+                case LEFT: __Snake_direction = UP; break;
+                case DOWN: __Snake_direction = LEFT; break;
+            }
+            break;
+        case LEFT:
+            switch (__Snake_direction) {
+                case RIGHT: __Snake_direction = UP; break;
+                case UP: __Snake_direction = LEFT; break;
+                case LEFT: __Snake_direction = DOWN; break;
+                case DOWN: __Snake_direction = RIGHT; break;
+            }
+            break;
+    }
+}
+
+
+
+
 /*------BP---------*/
 bool BP1_Appuyer(){
     return ((PIND & (1<<BP1)) == (1<<BP1));
@@ -111,7 +145,6 @@ void BP_Init() {
     DDRD &= ~((1<<BP1) | (1<<BP2));
     //PORTD |= (1<<BP1) | (1<<BP2);
 }
-
 
 //snake mySnake;
 //
