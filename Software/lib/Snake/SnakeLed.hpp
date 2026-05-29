@@ -64,8 +64,11 @@ private:
 
 class Food {
 public:
-    void NewFood();
+    void NewFood(T_Pose position);
     void DeleteFood();
+
+    bool GetState();
+    T_Pose GetPose();
 private:
     T_Pose __position;
     bool __state = 0;
@@ -88,11 +91,16 @@ private:
     void GenerateWindow();
     void ClearWindow();
 
+    T_Pose GenerateRandomPose();
+    bool PositionIsFull(T_Pose position);
+
     friend void GenerateBufferLed();
 
     static bool __Snake_running;
     uint8_t __window[32];
     bool __is_dirty; //window need to be recalculated
+
+    uint8_t __food_free;
 };
 
 extern SnakeGame mySnakeGame;

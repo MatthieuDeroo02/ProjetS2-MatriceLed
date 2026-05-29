@@ -10,6 +10,12 @@ void SnakeGame::GameStart() {
     __Snake_running = true;
 
     /* Genere les 5 nouriture */
+    food1.NewFood(GenerateRandomPose());
+    food2.NewFood(GenerateRandomPose());
+    food3.NewFood(GenerateRandomPose());
+    food4.NewFood(GenerateRandomPose());
+    food5.NewFood(GenerateRandomPose());
+
 
     /* Genere la 1ere image */
     GenerateWindow();
@@ -49,6 +55,15 @@ bool SnakeGame::UpdateGame() {
             return false;
         }
         __is_dirty = true;
+    }
+
+    /* Si il y a encore de l'espace libre sur la matrice */
+    if (mySnake.GetSnakeSize()>256-5) {
+        if (food1.GetState() == false)  food1.NewFood(GenerateRandomPose());
+        if (food1.GetState() == false)  food2.NewFood(GenerateRandomPose());
+        if (food1.GetState() == false)  food3.NewFood(GenerateRandomPose());
+        if (food1.GetState() == false)  food4.NewFood(GenerateRandomPose());
+        if (food1.GetState() == false)  food5.NewFood(GenerateRandomPose());
     }
 
     /* Si on doit rechager la fenetre */
@@ -189,4 +204,59 @@ bool BP2_Appuyer(){
 void BP_Init() {
     DDRD &= ~((1<<BP1) | (1<<BP2));
     //PORTD |= (1<<BP1) | (1<<BP2);
+}
+
+void Food::NewFood(T_Pose position) {
+    __position = position;
+    __state = true;
+}
+
+bool Food::GetState() {
+    return __state;
+}
+
+T_Pose SnakeGame::GenerateRandomPose() {
+    T_Pose position;
+    do {
+        position.x = random(MATRICE_SIZE_X-1);
+        position.y = random(MATRICE_SIZE_Y-1);
+    } while (PositionIsFull(position));
+
+    return position;
+}
+
+bool SnakeGame::PositionIsFull(T_Pose position) {
+    /* Regarde si le snake est dessue */
+    T_Pose* snake = mySnake.GetSnake();
+    for (uint8_t index = 0; index < mySnake.GetSnakeSize(); index++) {
+        if (snake[index].x == position.x || snake[index].y == position.y) return true;
+    }
+
+    /* Regarde si il y a deja une nouriture dessue */
+    if (food1.GetState()) {
+        if(food1.GetPose().x == position.x) return true;
+        if(food1.GetPose().y == position.y) return true;
+    }
+    if (food2.GetState()) {
+        if(food2.GetPose().x == position.x) return true;
+        if(food2.GetPose().y == position.y) return true;
+    }
+    if (food3.GetState()) {
+        if(food3.GetPose().x == position.x) return true;
+        if(food3.GetPose().y == position.y) return true;
+    }
+    if (food4.GetState()) {
+        if(food4.GetPose().x == position.x) return true;
+        if(food4.GetPose().y == position.y) return true;
+    }
+    if (food5.GetState()) {
+        if(food5.GetPose().x == position.x) return true;
+        if(food5.GetPose().y == position.y) return true;
+    }
+
+    return false;
+}
+
+T_Pose Food::GetPose() {
+    return __position;
 }
