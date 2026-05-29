@@ -3,16 +3,15 @@
 #include "Horloge.hpp"
 #include "SnakeLed.hpp"
 
-//clock myClock;
+clock myClock;
 
 void setup() {
   //Serial.begin(9600);
-  //myClock.Begin();
+  myClock.Begin();
   myMatrice.begin();
   myMatrice.Clear();
 
   mySnakeGame.GameStart();
-  int i =0;
   while(mySnakeGame.UpdateGame()) {};
   mySnakeGame.EndGame();
   

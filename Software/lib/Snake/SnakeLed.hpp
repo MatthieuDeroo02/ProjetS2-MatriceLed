@@ -6,6 +6,8 @@
 #include "Horloge.hpp"
 #include "MatriceLed.hpp"
 
+extern clock myClock;
+
 #define START_X 16
 #define START_Y 4
 #define START_LENGTH 3
@@ -28,20 +30,30 @@ void BP_Init();
 bool BP1_Appuyer();
 bool BP2_Appuyer();
 
-typedef struct T_Pose {
+struct T_Pose {
     uint8_t x;
     uint8_t y;
+};
+
+class Food {
+public:
+    void NewFood(T_Pose position);
+
+    bool GetState();
+    void SetState(bool state);
+    T_Pose GetPose();
+private:
+    T_Pose __position;
+    bool __state = 0;
 };
 
 class Snake {
 public:
     void Begin();
 
-    void AddSize();
-
     void Avancer();
 
-    typedef enum T_Direction {RIGHT, UP, LEFT, DOWN};
+    enum T_Direction {RIGHT, UP, LEFT, DOWN};
     void ChangeDirection(T_Direction turn);
 
     T_Pose* GetSnake();
@@ -49,6 +61,7 @@ public:
     bool GetAvailableToTurn();
     bool GetTouchWall();
     bool GetTouchHimself();
+    bool EatFood(Food *food);
     
     bool __touch_wall;
     bool __touch_himself;
@@ -60,15 +73,6 @@ private:
     T_Pose __Snake[256];
 
     T_Direction __Snake_direction;
-};
-
-class Food {
-public:
-    void NewFood();
-    void DeleteFood();
-private:
-    T_Pose __position;
-    bool __state = 0;
 };
 
 class SnakeGame {
@@ -87,12 +91,18 @@ private:
 
     void GenerateWindow();
     void ClearWindow();
+    void SetLedWindow(uint8_t x, uint8_t y, bool state);
+
+    T_Pose GenerateRandomPose();
+    bool PositionIsFull(T_Pose position);
 
     friend void GenerateBufferLed();
 
     static bool __Snake_running;
     uint8_t __window[32];
     bool __is_dirty; //window need to be recalculated
+
+    uint8_t __food_free;
 };
 
 extern SnakeGame mySnakeGame;

@@ -4,12 +4,21 @@ SnakeGame mySnakeGame;
 bool SnakeGame::__Snake_running = false;
 
 void SnakeGame::GameStart() {
+    /* Genere la seed */
+    myClock.UpdateRTC();
+    randomSeed(myClock.GetSecond());
 
     /* Initilalise le serpent */
     mySnake.Begin();
     __Snake_running = true;
 
     /* Genere les 5 nouriture */
+    food1.NewFood(GenerateRandomPose());
+    food2.NewFood(GenerateRandomPose());
+    food3.NewFood(GenerateRandomPose());
+    food4.NewFood(GenerateRandomPose());
+    food5.NewFood(GenerateRandomPose());
+
 
     /* Genere la 1ere image */
     GenerateWindow();
@@ -45,10 +54,27 @@ bool SnakeGame::UpdateGame() {
     if (newMillis()-timer_snake_last_move > 200) {
         mySnake.Avancer();
         timer_snake_last_move = newMillis();
+        /* On regarde si il touche une pomme */
+        mySnake.EatFood(&food1);
+        mySnake.EatFood(&food2);
+        mySnake.EatFood(&food3);
+        mySnake.EatFood(&food4);
+        mySnake.EatFood(&food5);
+
+
         if (mySnake.GetTouchWall() || mySnake.GetTouchHimself()) {
             return false;
         }
         __is_dirty = true;
+    }
+
+    /* Si il y a encore de l'espace libre sur la matrice */
+    if (mySnake.GetSnakeSize() < 256-5) {
+        if (food1.GetState() == false)  food1.NewFood(GenerateRandomPose());
+        if (food2.GetState() == false)  food2.NewFood(GenerateRandomPose());
+        if (food3.GetState() == false)  food3.NewFood(GenerateRandomPose());
+        if (food4.GetState() == false)  food4.NewFood(GenerateRandomPose());
+        if (food5.GetState() == false)  food5.NewFood(GenerateRandomPose());
     }
 
     /* Si on doit rechager la fenetre */
@@ -105,6 +131,15 @@ void SnakeGame::GenerateWindow() {
     }
 
     /* Ajoute les fruits */
+    if(food1.GetState()) SetLedWindow(food1.GetPose().x, food1.GetPose().y, true);
+    if(food2.GetState()) SetLedWindow(food2.GetPose().x, food2.GetPose().y, true);
+    if(food3.GetState()) SetLedWindow(food3.GetPose().x, food3.GetPose().y, true);
+    if(food4.GetState()) SetLedWindow(food4.GetPose().x, food4.GetPose().y, true);
+    if(food5.GetState()) SetLedWindow(food5.GetPose().x, food5.GetPose().y, true);
+}
+
+void SnakeGame::SetLedWindow(uint8_t x, uint8_t y, bool state) {
+    __window[x] = (__window[x] & ~(1<<y)) | (state << y);
 }
 
 void SnakeGame::ClearWindow() {
@@ -189,4 +224,57 @@ bool BP2_Appuyer(){
 void BP_Init() {
     DDRD &= ~((1<<BP1) | (1<<BP2));
     //PORTD |= (1<<BP1) | (1<<BP2);
+}
+
+void Food::NewFood(T_Pose position) {
+    __position = position;
+    __state = true;
+}
+
+bool Food::GetState() {
+    return __state;
+}
+
+T_Pose SnakeGame::GenerateRandomPose() {
+    T_Pose position;
+    do {
+        position.x = random(MATRICE_SIZE_X-1);
+        position.y = random(MATRICE_SIZE_Y-1);
+    } while (PositionIsFull(position));
+
+    return position;
+}
+
+bool SnakeGame::PositionIsFull(T_Pose position) {
+    /* Regarde si le snake est dessue */
+    T_Pose* snake = mySnake.GetSnake();
+    for (uint8_t index = 0; index < mySnake.GetSnakeSize(); index++) {
+        if (snake[index].x == position.x && snake[index].y == position.y) return true;
+    }
+
+    /* Regarde si il y a deja une nouriture dessue */
+    if(food1.GetState() && (food1.GetPose().x == position.x) && (food1.GetPose().y == position.y)) return true;
+    if(food2.GetState() && (food2.GetPose().x == position.x) && (food2.GetPose().y == position.y)) return true;
+    if(food3.GetState() && (food3.GetPose().x == position.x) && (food3.GetPose().y == position.y)) return true;
+    if(food4.GetState() && (food4.GetPose().x == position.x) && (food4.GetPose().y == position.y)) return true;
+    if(food5.GetState() && (food5.GetPose().x == position.x) && (food5.GetPose().y == position.y)) return true;
+
+    return false;
+}
+
+T_Pose Food::GetPose() {
+    return __position;
+}
+
+bool Snake::EatFood(Food *myFood) {
+    if ((__Snake[0].x == myFood->GetPose().x) && (__Snake[0].y == myFood->GetPose().y)) {
+        myFood->SetState(false);
+        __SnakeSize++;
+        return true;
+    }
+    return false;
+}
+
+void Food::SetState(bool state) {
+    __state = state;
 }
