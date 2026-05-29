@@ -33,6 +33,19 @@ typedef struct T_Pose {
     uint8_t y;
 };
 
+class Food {
+public:
+    void NewFood(T_Pose position);
+    void DeleteFood();
+
+    bool GetState();
+    void SetState(bool state);
+    T_Pose GetPose();
+private:
+    T_Pose __position;
+    bool __state = 0;
+};
+
 class Snake {
 public:
     void Begin();
@@ -61,19 +74,6 @@ private:
     T_Pose __Snake[256];
 
     T_Direction __Snake_direction;
-};
-
-class Food {
-public:
-    void NewFood(T_Pose position);
-    void DeleteFood();
-
-    bool GetState();
-    void SetState(bool state);
-    T_Pose GetPose();
-private:
-    T_Pose __position;
-    bool __state = 0;
 };
 
 class SnakeGame {
