@@ -28,7 +28,7 @@ void BP_Init();
 bool BP1_Appuyer();
 bool BP2_Appuyer();
 
-typedef struct T_Pose {
+struct T_Pose {
     uint8_t x;
     uint8_t y;
 };
@@ -51,7 +51,7 @@ public:
 
     void Avancer();
 
-    typedef enum T_Direction {RIGHT, UP, LEFT, DOWN};
+    enum T_Direction {RIGHT, UP, LEFT, DOWN};
     void ChangeDirection(T_Direction turn);
 
     T_Pose* GetSnake();
