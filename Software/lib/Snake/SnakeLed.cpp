@@ -107,6 +107,12 @@ void Snake::Avancer() {
             else __touch_wall = true;
             break;
     }
+
+    /* Regarde si il se touche */
+    for (uint8_t index = 5; index < __SnakeSize; index++) {
+        if ((__Snake[0].x == __Snake[index].x) && (__Snake[0].y == __Snake[index].y)) __touch_himself = true;
+    }
+
     __available_to_turn = true;
 }
 
