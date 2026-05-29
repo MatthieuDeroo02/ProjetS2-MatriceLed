@@ -53,6 +53,11 @@ bool SnakeGame::UpdateGame() {
         mySnake.Avancer();
         timer_snake_last_move = newMillis();
         /* On regarde si il touche une pomme */
+        mySnake.EatFood(food1);
+        mySnake.EatFood(food2);
+        mySnake.EatFood(food3);
+        mySnake.EatFood(food4);
+        mySnake.EatFood(food5);
 
 
         if (mySnake.GetTouchWall() || mySnake.GetTouchHimself()) {
@@ -278,7 +283,9 @@ bool Snake::EatFood(Food myFood) {
     if ((__Snake[0].x == myFood.GetPose().x) && (__Snake[0].y == myFood.GetPose().y)) {
         myFood.SetState(false);
         __SnakeSize++;
+        return true;
     }
+    return false;
 }
 
 void Food::SetState(bool state) {

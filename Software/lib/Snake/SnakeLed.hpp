@@ -36,7 +36,6 @@ typedef struct T_Pose {
 class Food {
 public:
     void NewFood(T_Pose position);
-    void DeleteFood();
 
     bool GetState();
     void SetState(bool state);
@@ -49,8 +48,6 @@ private:
 class Snake {
 public:
     void Begin();
-
-    void AddSize();
 
     void Avancer();
 
