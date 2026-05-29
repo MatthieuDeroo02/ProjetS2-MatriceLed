@@ -12,7 +12,6 @@ void setup() {
   myMatrice.Clear();
 
   mySnakeGame.GameStart();
-  int i =0;
   while(mySnakeGame.UpdateGame()) {};
   mySnakeGame.EndGame();
   
