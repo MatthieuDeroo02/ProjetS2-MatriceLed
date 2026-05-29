@@ -4,13 +4,15 @@ SnakeGame mySnakeGame;
 bool SnakeGame::__Snake_running = false;
 
 void SnakeGame::GameStart() {
+    /* Genere la seed */
+    myClock.UpdateRTC();
+    randomSeed(myClock.GetSecond());
 
     /* Initilalise le serpent */
     mySnake.Begin();
     __Snake_running = true;
 
     /* Genere les 5 nouriture */
-    randomSeed(analogRead(A0));
     food1.NewFood(GenerateRandomPose());
     food2.NewFood(GenerateRandomPose());
     food3.NewFood(GenerateRandomPose());
@@ -53,11 +55,11 @@ bool SnakeGame::UpdateGame() {
         mySnake.Avancer();
         timer_snake_last_move = newMillis();
         /* On regarde si il touche une pomme */
-        mySnake.EatFood(food1);
-        mySnake.EatFood(food2);
-        mySnake.EatFood(food3);
-        mySnake.EatFood(food4);
-        mySnake.EatFood(food5);
+        mySnake.EatFood(&food1);
+        mySnake.EatFood(&food2);
+        mySnake.EatFood(&food3);
+        mySnake.EatFood(&food4);
+        mySnake.EatFood(&food5);
 
 
         if (mySnake.GetTouchWall() || mySnake.GetTouchHimself()) {
@@ -67,12 +69,12 @@ bool SnakeGame::UpdateGame() {
     }
 
     /* Si il y a encore de l'espace libre sur la matrice */
-    if (mySnake.GetSnakeSize()>256-5) {
+    if (mySnake.GetSnakeSize() < 256-5) {
         if (food1.GetState() == false)  food1.NewFood(GenerateRandomPose());
-        if (food1.GetState() == false)  food2.NewFood(GenerateRandomPose());
-        if (food1.GetState() == false)  food3.NewFood(GenerateRandomPose());
-        if (food1.GetState() == false)  food4.NewFood(GenerateRandomPose());
-        if (food1.GetState() == false)  food5.NewFood(GenerateRandomPose());
+        if (food2.GetState() == false)  food2.NewFood(GenerateRandomPose());
+        if (food3.GetState() == false)  food3.NewFood(GenerateRandomPose());
+        if (food4.GetState() == false)  food4.NewFood(GenerateRandomPose());
+        if (food5.GetState() == false)  food5.NewFood(GenerateRandomPose());
     }
 
     /* Si on doit rechager la fenetre */
@@ -247,30 +249,15 @@ bool SnakeGame::PositionIsFull(T_Pose position) {
     /* Regarde si le snake est dessue */
     T_Pose* snake = mySnake.GetSnake();
     for (uint8_t index = 0; index < mySnake.GetSnakeSize(); index++) {
-        if (snake[index].x == position.x || snake[index].y == position.y) return true;
+        if (snake[index].x == position.x && snake[index].y == position.y) return true;
     }
 
     /* Regarde si il y a deja une nouriture dessue */
-    if (food1.GetState()) {
-        if(food1.GetPose().x == position.x) return true;
-        if(food1.GetPose().y == position.y) return true;
-    }
-    if (food2.GetState()) {
-        if(food2.GetPose().x == position.x) return true;
-        if(food2.GetPose().y == position.y) return true;
-    }
-    if (food3.GetState()) {
-        if(food3.GetPose().x == position.x) return true;
-        if(food3.GetPose().y == position.y) return true;
-    }
-    if (food4.GetState()) {
-        if(food4.GetPose().x == position.x) return true;
-        if(food4.GetPose().y == position.y) return true;
-    }
-    if (food5.GetState()) {
-        if(food5.GetPose().x == position.x) return true;
-        if(food5.GetPose().y == position.y) return true;
-    }
+    if(food1.GetState() && (food1.GetPose().x == position.x) && (food1.GetPose().y == position.y)) return true;
+    if(food2.GetState() && (food2.GetPose().x == position.x) && (food2.GetPose().y == position.y)) return true;
+    if(food3.GetState() && (food3.GetPose().x == position.x) && (food3.GetPose().y == position.y)) return true;
+    if(food4.GetState() && (food4.GetPose().x == position.x) && (food4.GetPose().y == position.y)) return true;
+    if(food5.GetState() && (food5.GetPose().x == position.x) && (food5.GetPose().y == position.y)) return true;
 
     return false;
 }
@@ -279,9 +266,9 @@ T_Pose Food::GetPose() {
     return __position;
 }
 
-bool Snake::EatFood(Food myFood) {
-    if ((__Snake[0].x == myFood.GetPose().x) && (__Snake[0].y == myFood.GetPose().y)) {
-        myFood.SetState(false);
+bool Snake::EatFood(Food *myFood) {
+    if ((__Snake[0].x == myFood->GetPose().x) && (__Snake[0].y == myFood->GetPose().y)) {
+        myFood->SetState(false);
         __SnakeSize++;
         return true;
     }

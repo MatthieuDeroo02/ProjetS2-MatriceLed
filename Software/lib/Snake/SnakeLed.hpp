@@ -6,6 +6,8 @@
 #include "Horloge.hpp"
 #include "MatriceLed.hpp"
 
+extern clock myClock;
+
 #define START_X 16
 #define START_Y 4
 #define START_LENGTH 3
@@ -59,7 +61,7 @@ public:
     bool GetAvailableToTurn();
     bool GetTouchWall();
     bool GetTouchHimself();
-    bool EatFood(Food food);
+    bool EatFood(Food *food);
     
     bool __touch_wall;
     bool __touch_himself;
