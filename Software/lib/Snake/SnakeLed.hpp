@@ -49,6 +49,7 @@ public:
     bool GetAvailableToTurn();
     bool GetTouchWall();
     bool GetTouchHimself();
+    bool EatFood(Food food);
     
     bool __touch_wall;
     bool __touch_himself;
@@ -68,6 +69,7 @@ public:
     void DeleteFood();
 
     bool GetState();
+    void SetState(bool state);
     T_Pose GetPose();
 private:
     T_Pose __position;

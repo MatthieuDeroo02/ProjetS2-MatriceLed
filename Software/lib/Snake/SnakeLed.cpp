@@ -10,6 +10,7 @@ void SnakeGame::GameStart() {
     __Snake_running = true;
 
     /* Genere les 5 nouriture */
+    randomSeed(analogRead(A0));
     food1.NewFood(GenerateRandomPose());
     food2.NewFood(GenerateRandomPose());
     food3.NewFood(GenerateRandomPose());
@@ -51,6 +52,9 @@ bool SnakeGame::UpdateGame() {
     if (newMillis()-timer_snake_last_move > 200) {
         mySnake.Avancer();
         timer_snake_last_move = newMillis();
+        /* On regarde si il touche une pomme */
+
+
         if (mySnake.GetTouchWall() || mySnake.GetTouchHimself()) {
             return false;
         }
@@ -268,4 +272,15 @@ bool SnakeGame::PositionIsFull(T_Pose position) {
 
 T_Pose Food::GetPose() {
     return __position;
+}
+
+bool Snake::EatFood(Food myFood) {
+    if ((__Snake[0].x == myFood.GetPose().x) && (__Snake[0].y == myFood.GetPose().y)) {
+        myFood.SetState(false);
+        __SnakeSize++;
+    }
+}
+
+void Food::SetState(bool state) {
+    __state = state;
 }
