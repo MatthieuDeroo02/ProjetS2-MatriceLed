@@ -124,6 +124,8 @@ void Snake::Begin() {
     __Snake[1] = {15, 4};
     __Snake[2] = {14, 4};
 
+    __touch_wall = false;
+    __touch_himself = false;
     __available_to_turn = true;
 }
 
