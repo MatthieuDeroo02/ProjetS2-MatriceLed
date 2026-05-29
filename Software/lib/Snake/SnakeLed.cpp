@@ -120,6 +120,15 @@ void SnakeGame::GenerateWindow() {
     }
 
     /* Ajoute les fruits */
+    if(food1.GetState()) SetLedWindow(food1.GetPose().x, food1.GetPose().y, true);
+    if(food2.GetState()) SetLedWindow(food2.GetPose().x, food2.GetPose().y, true);
+    if(food3.GetState()) SetLedWindow(food3.GetPose().x, food3.GetPose().y, true);
+    if(food4.GetState()) SetLedWindow(food4.GetPose().x, food4.GetPose().y, true);
+    if(food5.GetState()) SetLedWindow(food5.GetPose().x, food5.GetPose().y, true);
+}
+
+void SnakeGame::SetLedWindow(uint8_t x, uint8_t y, bool state) {
+    __window[x] = (__window[x] & ~(1<<y)) | (state << y);
 }
 
 void SnakeGame::ClearWindow() {

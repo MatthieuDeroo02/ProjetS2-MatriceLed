@@ -90,6 +90,7 @@ private:
 
     void GenerateWindow();
     void ClearWindow();
+    void SetLedWindow(uint8_t x, uint8_t y, bool state);
 
     T_Pose GenerateRandomPose();
     bool PositionIsFull(T_Pose position);
