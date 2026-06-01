@@ -2,11 +2,12 @@
 
 void RTC_memoire::Begin(byte addr) {
     __Eeprom_addr = addr;
+    Wire.begin();
+    __write_delay = 0;
 }
 
 void RTC_memoire::WriteByte(uint16_t memAddr, byte data) {
-    static unsigned long write_delay = 0;
-    while (newMillis()-write_delay <= 5) {} //Delai d'ecriture pour le module
+    while (newMillis()-__write_delay <= 5) {} //Delai d'ecriture pour le module
 
     Wire.beginTransmission(__Eeprom_addr);
     Wire.write((memAddr >> 8) & 0xFF);
@@ -15,7 +16,7 @@ void RTC_memoire::WriteByte(uint16_t memAddr, byte data) {
     Wire.write(data);
 
     Wire.endTransmission();
-    write_delay = newMillis();
+    __write_delay = newMillis();
 }
 
 void RTC_memoire::Write(byte* data, uint8_t size, uint16_t memAddr) {
@@ -25,6 +26,7 @@ void RTC_memoire::Write(byte* data, uint8_t size, uint16_t memAddr) {
 }
 
 byte RTC_memoire::ReadByte(uint16_t memAddr, bool* error) {
+    while (newMillis()-__write_delay <= 5) {} //Delai d'ecriture pour le module
     Wire.beginTransmission(__Eeprom_addr);
     Wire.write((memAddr >> 8) & 0xFF);
     Wire.write(memAddr & 0xFF);
@@ -39,11 +41,11 @@ byte RTC_memoire::ReadByte(uint16_t memAddr, bool* error) {
     return 0; //ERROR
 }
 
-byte* RTC_memoire::Read(uint16_t memAddr, uint8_t size, bool* error) {
-    byte* data;
+bool RTC_memoire::Read(uint16_t memAddr, uint8_t size, byte* data) {
+    bool error;
     for (uint8_t i=0; i<size; i++) {
-        data[i] = ReadByte(memAddr, error);
-        if (*error = true) return nullptr;
+        data[i] = ReadByte(memAddr, &error);
+        if (error == true) break;
     }
-    return data;
+    return error;
 }
