@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "Horloge.hpp"
 #include "MatriceLed.hpp"
+#include "RTC_Eeprom.hpp"
 
 extern clock myClock;
 
@@ -19,6 +20,9 @@ extern clock myClock;
 #define SERIAL_MONITOR_BAUD 9600
 
 #define SNAKE_SPEED
+
+#define MASTER_SCORE_ADDR 0x67
+#define MASTER_ACS_ADDR 0x71
 
 #define BP1 PD2
 #define BP2 PD3
@@ -103,6 +107,13 @@ private:
     bool __is_dirty; //window need to be recalculated
 
     uint8_t __food_free;
+
+
+    RTC_memoire myMemoire;
+    uint32_t __master_score;
+    uint8_t __master_acs;
+    bool __rtc_memory_error;
+    unsigned long __SnakeStart;
 };
 
 extern SnakeGame mySnakeGame;

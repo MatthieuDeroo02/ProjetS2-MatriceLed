@@ -5,7 +5,7 @@
 #include "RTC_Eeprom.hpp"
 
 clock myClock;
-RTC_memoire myMemoire;
+
 
 void setup() {
   /*Serial.begin(9600);
@@ -21,27 +21,15 @@ void setup() {
     }
   }*/
 
-  
+  byte data[4] = {0};
   Serial.begin(9600);
   myClock.Begin();
   myMatrice.begin();
-  myMemoire.Begin(RTC_EEPROM_I2C_ADDR);
-  myMemoire.WriteByte(0X0, 26);
 
-  bool error;
-  Serial.println(myMemoire.ReadByte(0x0, &error));
-  Serial.print("ERROR: ");
-  Serial.print(error);
-
-  /*
-  myMatrice.Clear();
 
   mySnakeGame.GameStart();
   while(mySnakeGame.UpdateGame()) {};
   mySnakeGame.EndGame();
-  
-  
-  //myMatrice.AllOn();*/
 }
 
 void loop() {

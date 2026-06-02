@@ -8,6 +8,11 @@ void SnakeGame::GameStart() {
     myClock.UpdateRTC();
     randomSeed(myClock.GetSecond());
 
+    /* Recupere les score max */
+    __rtc_memory_error = false;
+    myMemoire.Begin(RTC_EEPROM_I2C_ADDR);
+    __master_score = (myMemoire.ReadByte(MASTER_ACS_ADDR, &__rtc_memory_error) << 24) | (myMemoire.ReadByte(MASTER_ACS_ADDR+1, &__rtc_memory_error) << 16) | (myMemoire.ReadByte(MASTER_ACS_ADDR+2, &__rtc_memory_error) << 8) | myMemoire.ReadByte(MASTER_ACS_ADDR+3, &__rtc_memory_error);
+
     /* Initilalise le serpent */
     mySnake.Begin();
     __Snake_running = true;
@@ -22,6 +27,9 @@ void SnakeGame::GameStart() {
 
     /* Genere la 1ere image */
     GenerateWindow();
+
+    /* Debut le compteur */
+    __SnakeStart = newMillis();
 }
 
 bool SnakeGame::UpdateGame() {
@@ -200,6 +208,9 @@ bool Snake::GetTouchHimself() {
 }
 
 void SnakeGame::EndGame() {
+    uint32_t score = mySnake.GetSnakeSize();
+    uint8_t acs = score * (newMillis()-__SnakeStart)/1000;
+
     unsigned long tempo = newMillis();
     while (newMillis() - tempo < 1000) {}
     __Snake_running = false;
