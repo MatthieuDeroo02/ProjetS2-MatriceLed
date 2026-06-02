@@ -3,7 +3,8 @@
 
 #include <Arduino.h>
 #include <Wire.h>
-#include "MatriceLed.hpp"
+//#include "MatriceLed.hpp"
+extern unsigned long newMillis();
 
 #define RTC_EEPROM_I2C_ADDR 0x50
 

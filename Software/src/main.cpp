@@ -1,8 +1,5 @@
 #include <Arduino.h>
-#include "MatriceLed.hpp"
-#include "Horloge.hpp"
 #include "SnakeLed.hpp"
-#include "RTC_Eeprom.hpp"
 
 clock myClock;
 
@@ -21,7 +18,6 @@ void setup() {
     }
   }*/
 
-  byte data[4] = {0};
   Serial.begin(9600);
   myClock.Begin();
   myMatrice.begin();

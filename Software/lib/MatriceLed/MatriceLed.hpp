@@ -3,7 +3,10 @@
 
 #include <Arduino.h>
 #include "asciiLed.hpp"
-#include "SnakeLed.hpp"
+//#include "SnakeLed.hpp"
+
+class SnakeGame;
+extern SnakeGame mySnakeGame;
 
 /* Matrice LED dimension ( *=LED )
 

@@ -97,6 +97,8 @@ private:
     void ClearWindow();
     void SetLedWindow(uint8_t x, uint8_t y, bool state);
 
+    uint8_t _uint32ToStr(uint32_t val, char* buf);
+
     T_Pose GenerateRandomPose();
     bool PositionIsFull(T_Pose position);
 

@@ -1,4 +1,5 @@
 #include "MatriceLed.hpp"
+#include "SnakeLed.hpp"
 
 volatile int8_t data_index = 0;
 volatile bool data_buffer[32] = {1};
