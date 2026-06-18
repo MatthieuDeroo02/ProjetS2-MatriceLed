@@ -84,6 +84,7 @@ public:
     void GameStart();
     bool UpdateGame();
     void EndGame();
+    void CloseGame();
 
 private:
     Snake mySnake;

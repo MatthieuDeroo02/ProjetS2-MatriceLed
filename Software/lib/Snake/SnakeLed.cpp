@@ -300,7 +300,6 @@ void SnakeGame::EndGame() {
             }
         }
 
-        // Quitter sur appui bouton (seulement après un premier cycle complet)
         if (BP1_Appuyer() || BP2_Appuyer()) {
             done = true;
         }
@@ -392,4 +391,8 @@ bool Snake::EatFood(Food *myFood) {
 
 void Food::SetState(bool state) {
     __state = state;
+}
+
+void SnakeGame::CloseGame() {
+
 }
