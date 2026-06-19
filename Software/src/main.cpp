@@ -79,6 +79,7 @@ void UpdateOutput() {
 
     case BUS:
       if (input.laste_state != BUS) {
+        mySnakeGame.CloseGame();
         myMatrice.Clear();
         myMatrice.Print('4', 1);
         for (int i=0; i<8; i++) {
