@@ -3,7 +3,7 @@
 
 clock myClock;
 
-typedef enum T_State {TIME, SNAKE_START, SNAKE_IN_GAME, SNAKE_END, BUS};
+typedef enum T_State {TIME, SNAKE_START, SNAKE_IN_GAME, BUS};
 
 typedef struct T_Input {
   bool bp1;
@@ -31,12 +31,6 @@ void setup() {
 
   input.laste_state = TIME;
   state = TIME;
-
-
-
-  mySnakeGame.GameStart();
-  while(mySnakeGame.UpdateGame()) {};
-  mySnakeGame.EndGame();
 }
 
 void loop() {
@@ -60,9 +54,6 @@ void UpdateState() {
       if ((input.tmp_bp1 == true) && (input.bp1 == false)) state = BUS;
       if ((input.tmp_bp2 == true) && (input.bp2 == false)) state = SNAKE_IN_GAME;
       break;
-    case SNAKE_END:
-      if ((input.tmp_bp1 == true) && (input.bp1 == false)) state = SNAKE_START;
-      break;
     case BUS:
       if ((input.tmp_bp1 == true) && (input.bp1 == false)) state = TIME;
       break;
@@ -72,11 +63,39 @@ void UpdateState() {
 void UpdateOutput() {
   switch (state) {
     case TIME:
-      
+      myClock.PrintTimeOnMatrice();
+      break;
+
     case SNAKE_START:
+      if (input.laste_state != SNAKE_START) mySnakeGame.GameStart();
+      break;
+
     case SNAKE_IN_GAME:
-    case SNAKE_END:
+      if (!mySnakeGame.UpdateGame()) {
+        mySnakeGame.EndGame();
+        state = SNAKE_START;
+      }
+      break;
+
     case BUS:
+      if (input.laste_state != BUS) {
+        myMatrice.Clear();
+        myMatrice.Print('4', 1);
+        for (int i=0; i<8; i++) {
+          myMatrice.SetLed(7, i, ON);
+        }
+      }
+      
+      static int8_t index = 32;
+      static unsigned long timer = 0;
+
+      if ((newMillis() - timer) >= 100) { // >= au lieu de 
+        myMatrice.ClearZone(8, MATRICE_SIZE_X-1);
+        myMatrice.Print("Seynod Neigeos\0", index, 8, MATRICE_SIZE_X-1);
+        index--;
+        timer = newMillis();
+        if (index < -79) index = 32;
+      }
+      break;
   }
-  
 }
