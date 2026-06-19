@@ -26,9 +26,9 @@ public:
     uint8_t GetMinute() { return time.minute(); };
     uint8_t GetSecond() { return time.second(); };
 
-#ifdef _MATRICE_LED_
+//#ifdef _MATRICE_LED_
     void PrintTimeOnMatrice();
-#endif
+//#endif
     
 private:
 

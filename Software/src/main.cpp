@@ -70,5 +70,13 @@ void UpdateState() {
 }
 
 void UpdateOutput() {
+  switch (state) {
+    case TIME:
+      
+    case SNAKE_START:
+    case SNAKE_IN_GAME:
+    case SNAKE_END:
+    case BUS:
+  }
   
 }

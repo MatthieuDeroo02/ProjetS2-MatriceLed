@@ -4,7 +4,6 @@
 #include <Arduino.h>
 #include "asciiLed.hpp"
 //#include "SnakeLed.hpp"
-
 class SnakeGame;
 extern SnakeGame mySnakeGame;
 
@@ -34,7 +33,7 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 #define CLK_DEFAULT_FREQUENCY 200000
 #define CLK_MAX_FREQUENCY 1000000
 #define TIMER1_RESOLUTION 0xFFFF // Timer1 -> 16Bits
-#define CPU_CLK 16000000000 // Clock interne a 16 MHz
+#define CPU_CLK 16000000 // Clock interne a 16 MHz
 
 #define TIMER1_CTC_OCR1A_COMPARE 4
 #define TIMER0_CTC_OCRA_COMPARE 2
@@ -54,14 +53,6 @@ Frequence rafrechissement matrice | frequence rafrechissement ligne | frequence 
 
 #define OFF 0
 #define ON 1
-
-#define DATA_PIN PD5
-#define CLK_PIN PD6
-#define STR_PIN PD4
-#define ALO_PIN PC0
-#define AL1_PIN PC1
-#define AL2_PIN PC2
-#define CS1_PIN PC3
 
 #define DATA_PIN PD5
 #define CLK_PIN PD6
